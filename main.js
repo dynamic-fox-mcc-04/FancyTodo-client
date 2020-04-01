@@ -2,12 +2,17 @@ let BASEURL = 'http://localhost:3000'
 
 $( document ).ready(function() {
     auth()
-    $('.logout').click(function () {
-        localStorage.clear()
-        auth()
-    })
+    // $('.logout').click(function () {
+    //     localStorage.clear()
+    //     auth()
+    // })
 
 })
+
+function logout() {
+    localStorage.clear()
+    auth()
+}
 
 function toggleForm() {
     $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
@@ -18,8 +23,8 @@ function auth() {
         $('.login-page').hide()
         $('.main-page').show()
         $('.update-page').hide()
-       
-        // fetchBooks()
+        fetchProjects()
+
     } else {
         $('.login-page').show()
         $('.main-page').hide()
@@ -50,7 +55,23 @@ function loginUser (event) {
         })
         .fail(err => {
             console.log("LOGIN ERROR");
-            console.log(err)
+            // console.log(err)
+
+
+            let arr = err.responseJSON.errors
+            let code = err.status
+            let type = err.statusText
+
+            let codetype = code + " " + type
+            arr.forEach(el => {
+                swal({
+                    title: codetype,
+                    text: el,
+                    icon: "error",
+                    button: "CLOSE"
+                });
+            })
+
         })
 }
 
@@ -72,11 +93,33 @@ function registerUser (event) {
     })
         .done(data => {
             console.log("REGISTER SUCCESS");
+            swal({
+                title: "REGISTER SUCCESS",
+                text: "Please Login Now",
+                icon: "success",
+                button: "CLOSE"
+            });
             auth()
         })
         .fail(err => {
-            console.log("REGISTER ERROR");
-            console.log(err,'errror')
+            console.log("LOGIN ERROR");
+            // console.log(err)
+
+
+            let arr = err.responseJSON.errors
+            let code = err.status
+            let type = err.statusText
+
+            let codetype = code + " " + type
+            arr.forEach(el => {
+                swal({
+                    title: codetype,
+                    text: el,
+                    icon: "error",
+                    button: "CLOSE"
+                });
+            })
+
         })
 }
 
@@ -86,7 +129,7 @@ function onSignIn(googleUser) {
     $(".error-msg").empty()
     $(".success-msg").empty()
 
-    let profile = googleUser.getBasicProfile();
+    // let profile = googleUser.getBasicProfile();
     // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
     // console.log('Name: ' + profile.getName());
     // console.log('Image URL: ' + profile.getImageUrl());
@@ -117,28 +160,28 @@ function onSignIn(googleUser) {
 
     })
     .fail(err => {
-        // let arr
-        console.log("GOOGLE LOGIN ERROR");
-        console.log(err);
-        // console.log(`the response text is`);
-        // console.log(err.responseText);
-        // console.log("RESPONSE BODY");
-        // arr = JSON.parse(err.responseText).errors
-        // console.log(arr);
+        console.log("LOGIN ERROR");
+        // console.log(err)
 
-        // $(".error-msg").empty()
-        // if(typeof arr === "string") {
-        //     $(".error-msg").append(`<h3>${arr}</h3>`)
-        // } else {
-        //     arr.forEach(el => {
-        //         $(".error-msg").append(`<h3>${el}</h3>`)
-        //     })
-        // }
-        
-        // setTimeout(function () {
-        //     $(".error-msg").empty()
-        // }, 5000)
 
+        let arr = err.responseJSON.errors
+        let code = err.status
+        let type = err.statusText
+
+        let codetype = code + " " + type
+        arr.forEach(el => {
+            swal({
+                title: codetype,
+                text: el,
+                icon: "error",
+                button: "CLOSE"
+            });
+        })
 
     })
+
+}
+
+function fetchProjects() {
+
 }
