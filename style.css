@@ -1,0 +1,88 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+.loginPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    /* background-color: red; */
+}
+
+.loginPage input {
+    margin: 20px;
+}
+
+.g-signin2 {
+    display: flex;
+    justify-content: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+.todoList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* flex-direction: column; */
+    /* margin: 10%; */
+    width: 100%;
+    height: 100%;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 20rem;
+    margin:20px;
+    text-align: center;
+}
+
+.card img {
+    max-height: 450px !important;
+    /* object-fit: cover; */
+}
+
+.fav-btn {
+    float: right;
+    margin-right: 50px;
+}
+
+.logout {
+    float: right;
+    margin-right: 50px;
+}
+
+.submit {
+    cursor: pointer;
+}
+
+.updatePage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    /* background-color: red; */
+}
+
+.updatePage form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.updatePage form input {
+    margin: 20px;
+}
+
