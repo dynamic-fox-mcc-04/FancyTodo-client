@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="login-wrap">
+        <div class="login-html">
+            <h1> Fancy Todo</h1>
+            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
+            <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+            <div class="login-form">
+                <div class="sign-in-htm">
+                    <form onsubmit="signin(event)">
+                        <div class="group">
+                            <label for="user" class="label">Username</label>
+                            <input id="user" type="text" class="input">
+                        </div>
+                        <div class="group">
+                            <label for="pass" class="label">Password</label>
+                            <input id="pass" type="password" class="input" data-type="password">
+                        </div>
+                        <div class="group">
+                            <input type="submit" class="button" value="Sign In">
+                        </div>
+                        <div class="hr"></div>
+                        <div class="foot-lnk">
+                            <a href="#forgot">Forgot Password?</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="sign-up-htm">
+                    <form onsubmit="signup(event)">
+                        <div class="group">
+                            <label for="username" class="label">Username</label>
+                            <input id="username" type="text" class="input">
+                        </div>
+                        <div class="group">
+                            <label for="password" class="label">Password</label>
+                            <input id="password" type="password" class="input" data-type="password">
+                        </div>
+                        <div class="group">
+                            <label for="email" class="label">Email Address</label>
+                            <input id="email" type="text" class="input">
+                        </div>
+                        <div class="group">
+                            <input type="submit" class="button" value="Sign Up">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <div class = "main-page-warp">
+            <!-- Modal -->
+            <div class= "add-task">
+                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#addTask">Add Task</button>
+
+               <div class="modal fade" id="addTask" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                              <label for="title">Title:</label>
+                              <input type="text" class="form-control" id="title" placeholder="Task 1" name="title">
+                            </div>
+                            <div class="form-group">
+                              <label for="description">Description:</label>
+                              <textarea class="form-control" rows="5" id="description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="status">Status:</label>
+                                <input class="form-control" rows="5" id="status" value="on progress" disabled></textarea>
+                              </div>
+                            <div class="form-group">
+                                <label class="control-label" for="due_date">Due Date</label>
+                                <input class="form-control" id="due_date" name="due_date" type="date"/>
+                              </div> 
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
+                                <button type="submit" class="btn btn-primary" onclick="create(event)" data-dismiss = "modal">Save </button>
+                            </div>
+                     </form>
+                    </div>
+                </div>
+                </div>
+            </div>
+           
+            <div class= "update-task">
+                
+               <div class="modal fade" id="update-task" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Task</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>  
+                            <div class="form-group">
+                              <label for="newtitle">Title:</label>
+                              <input type="text" class="form-control" id="newtitle" placeholder="Task 1" name="title">
+                            </div>
+                            <div class="form-group">
+                              <label for="newdescription">Description:</label>
+                              <textarea class="form-control" rows="5" id="newdescription"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="newstatus">Status:</label>
+                                <select name="newstatus" id="newstatus" class="form-control">
+                                    <option value="on progress">on progress</option>
+                                    <option value="done">done</option>
+                                </select>
+                              </div>
+                            <div class="form-group">
+                                <label class="control-label" for="new_due_date">Due Date</label>
+                                <input class="form-control" id="new_due_date" name="new_due_date" type="date"/>
+                              </div> 
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
+                                <div class="button-update">
+                                    
+                                </div>
+                            </div>
+                     </form>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="todoList">
+        </div>
+    </div>
+</body>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script> 
+<script src="main.js"></script>
+</html>
