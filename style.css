@@ -7,6 +7,12 @@ body{
   background: #eee;
   color:#666;
 }
+
+.main-page{
+  height: 100vh;
+  width: 100%;
+}
+
 .login-container{
   height: 100vh;
   width: 100%;
@@ -55,4 +61,98 @@ body{
 }
 .btn-custom:focus{
   box-shadow: 0 0 0 0.2rem rgba(114,61,190,.25);
+}
+
+body {
+  overflow-x: hidden;
+}
+
+#nav-dspl {
+  min-height: 90vh;
+
+}
+
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+}
+
+.btn-sdb {
+  width: 80%;
+}
+
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+  width: 15rem;
+}
+
+#page-content-wrapper-detail{ 
+  min-width: 40vw;
+  max-height: 100vh;
+}
+
+#page-content-wrapper-detail{
+  max-height: 100vh;
+}
+
+#page-content-wrapper {
+  min-width: 40vw;
+  /* position: absolute; */
+  overflow: scroll;
+  max-height: 100vh;
+}::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-height: 100vh;
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}
+
+#date{
+  border-radius: 5px;
+  border-style: solid;
+  border-color: rgb(179, 179, 179);
+}
+
+#description{
+  min-width: auto;
+  min-height: 150px;
+  border-style: solid;
+  resize: none;
+}
+
+#add-task{
+  width: 35px; 
+  height: 35px; 
+  border-style: none;
+  border-radius: 25px;
+}
+
+#detail-edit{
+  height: 100vh;
 }
