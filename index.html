@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="google-signin-client_id" content="40793720343-7bi7t406jrpt0cllabsfj68bk28o6s0g.apps.googleusercontent.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/pg-login.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
+    <title>FANCY-TODO R</title>
+</head>
+
+<body>
+  
+    <div class="login-page">
+        <h1>FANCY TODO R</h1>
+        <div class="form">
+          <form class="register-form" onsubmit="registerUser(event)">
+            <input type="text" placeholder="email address" id="reg-email"/>
+            <input type="password" placeholder="password" id="reg-password"/>
+            <button>create</button>
+            <p class="message">Already registered? <a onclick="toggleForm()">LOGIN</a></p>
+          </form>
+          <form class="login-form" onsubmit="loginUser(event)">
+            <input type="text" placeholder="username" id="login-email"/>
+            <input type="password" placeholder="password" id="login-password"/>
+            <button>login</button><br><br>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div><br>
+            <p class="message">Not registered? <a onclick="toggleForm()">REGISTER</a></p>
+          </form>
+        </div>
+    </div>
+
+
+    <div class="main-page">
+        <h1>BUON GIORNO!</h1>
+        <button class="logout">Logout</button>
+    </div>
+
+
+    <div class="update-page">
+        <h1>AAA, MI SCUSI, MI SCUSI!</h1>
+        <button class="logout">Logout</button>
+    </div>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"
+        integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous">
+    </script>
+    <script src="main.js"></script>
+</body>
+
+</html>
