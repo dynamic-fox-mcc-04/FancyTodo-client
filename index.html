@@ -42,10 +42,10 @@
             <button type="button" onclick="auth()" class="btn btn-primary">Home</button>
             <button type="button"
                 class="btn btn-secondary" data-toggle="modal" 
-                data-target="#createModal">Create Project</button>
+                data-target="#createProjectModal">Create Project</button>
             <!-- MODAL -->
           
-            <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel"
+            <div class="modal fade" id="createProjectModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -82,9 +82,25 @@
     </div>
 
 
-    <!-- <div class="project-page">
+    <div class="todos-page">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" onclick="auth()" class="btn btn-primary">Home</button>
+            <button type="button" onclick="logout()" class="btn btn-danger">Logout</button>
+        </div>
 
-    </div> -->
+        <h1>PROJECT'S TODOS</h1>
+        Project ID: <input type="text" id="projectid-addform"  readonly><br>
+        
+        <!-- Project Name: <input type="text" id="projectname-addform"  readonly><br> -->
+        
+        <!-- <h3 onclick="showAddTodoForm()">ADD TODO</h3> -->
+
+        <div class="todos-list">
+            
+        </div>
+
+
+    </div>
 
 
     <div class="invitation-page">
@@ -93,12 +109,11 @@
             <button type="button" onclick="logout()" class="btn btn-danger">Logout</button>
         </div>
         <form id="invitation-page" onsubmit="inviteMember(event)">
-            ID:<br>
+            Project ID:<br>
             <input type="text" id="projectid-invite"  readonly><br>
             Email:<br>
             <input type="email" id="invitiation-email" required><br>
             <input type="submit" value="INVITE TO PROJECT">
-
         </form>
     </div>
 

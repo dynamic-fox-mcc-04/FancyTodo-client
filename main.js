@@ -34,6 +34,7 @@ function auth() {
         $('.login-page').hide()
         $('.main-page').show()
         $('.invitation-page').hide()
+        $('.todos-page').hide()
         // $('.update-page').hide()
         fetchProjects()
 
@@ -41,6 +42,7 @@ function auth() {
         $('.login-page').show()
         $('.main-page').hide()
         $('.invitation-page').hide()
+        $('.todos-page').hide()
         // $('.update-page').hide()
     }
 }
@@ -229,11 +231,11 @@ function fetchProjects() {
                         <div class="card-body">
                         <h4 class="card-title">${title}</h4>
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                <button type="button" onclick="showTodoTbl(${projectid})" class="btn btn-info">Todos</button>
+                                <button type="button" onclick="showTodoTbl( ${projectid})" class="btn btn-info">Todos</button>
                                 <button type="button" onclick="showMembers(${members})" class="btn btn-warning">Members</button>
                                 <button type="button" onclick="inviteForm(${projectid})" class="btn btn-success">Invite</button>
                                 <button type="button" onclick="updProjectForm(${projectid})" class="btn btn-secondary">Update</button>
-                                <button type="button" onclick="removeProject(${projectid})" class="btn btn-danger">Delete</button>
+                                <button type="button" onclick="dropProject(${projectid}, event)" class="btn btn-danger">Delete</button>
                             </div>
                         </div>
                     </div>
@@ -272,53 +274,138 @@ function createProject(event) {
     let projectname = $('#project-title').val()
 
     $.ajax({
-        method: 'POST',
-        url: BASEURL + '/projects',
-        headers: {
-            access_token: localStorage.getItem("access_token")
-        },
-        data: {
-            title: projectname
-        }
-    })
-    .done(response => {
-
-        console.log("SUCCESS CREATE PROJECT");
-        swal({
-            title: "SUCCESS",
-            text: "New Project Has Been Created",
-            icon: "success",
-            button: "CLOSE"
+            method: 'POST',
+            url: BASEURL + '/projects',
+            headers: {
+                access_token: localStorage.getItem("access_token")
+            },
+            data: {
+                title: projectname
+            }
         })
-        fetchProjects()
+        .done(response => {
 
-    })
-    .fail(err => {
-        console.log("CREATE PROJECT ERROR");
-        // console.log(err)
-
-        let arr = err.responseJSON.errors
-        let code = err.status
-        let type = err.statusText
-
-        let codetype = code + " " + type
-        arr.forEach(el => {
+            console.log("SUCCESS CREATE PROJECT");
             swal({
-                title: codetype,
-                text: el,
-                icon: "error",
+                title: "SUCCESS",
+                text: "New Project Has Been Created",
+                icon: "success",
                 button: "CLOSE"
-            });
-        })
+            })
+            fetchProjects()
 
-    })
+        })
+        .fail(err => {
+            console.log("CREATE PROJECT ERROR");
+            // console.log(err)
+
+            let arr = err.responseJSON.errors
+            let code = err.status
+            let type = err.statusText
+
+            let codetype = code + " " + type
+            arr.forEach(el => {
+                swal({
+                    title: codetype,
+                    text: el,
+                    icon: "error",
+                    button: "CLOSE"
+                });
+            })
+
+        })
 
 }
 
 
+function convertDate(input) {
+
+
+    let dd = new Date(input).getDate()
+    let mm = new Date(input).getMonth() + 1
+    let yyyy = new Date(input).getFullYear()
+
+    if(dd < 10) {
+        dd = '0'+dd
+    }
+
+    if(mm < 10) {
+         mm = '0'+mm
+    }
+
+    let parsdDate = yyyy+"-"+mm+"-"+dd
+
+    return parsdDate
+
+}
+
 function showTodoTbl(projectid) {
 
     console.log("SHOWING TODOS OF CORRESPONDING PROJECTS");
+    $('.invitation-page').hide()
+    $('.main-page').hide()
+    $('.todos-page').show()
+
+    $('.todos-list').empty()
+    $('#projectid-addform').val(projectid)
+    // $('#projectname-addform').val(projectname)
+
+    $.ajax({
+            method: 'GET',
+            url: BASEURL + '/projects/' + projectid + '/todos',
+            headers: {
+                access_token: localStorage.access_token
+            }
+        })
+        .done(response => {
+
+            console.log("DONE FETCHING TODOS");
+            let todolist = response.data
+            console.log(todolist);
+            $('#projectname-addform').val(todolist[0]['Project']['title'])
+            for (let i = 0; i < todolist.length; i++) {
+                let todo = todolist[i]
+                let todoDue = todo['due_date']
+                let todoDueConverted = convertDate(todoDue)
+
+                $('.todos-list').append(`
+                    <br>
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-header">
+                            ${todo.title}
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">${todo.description}</li>
+                            <li class="list-group-item">${todo.status}</li>
+                            <li class="list-group-item">${todoDueConverted}</li>
+                        </ul>
+                    </div>
+                    <br>
+                `)
+            }
+
+        })
+        .fail(err => {
+            console.log("LOGIN ERROR");
+            // console.log(err)
+
+
+            let arr = err.responseJSON.errors
+            let code = err.status
+            let type = err.statusText
+
+            let codetype = code + " " + type
+            arr.forEach(el => {
+                swal({
+                    title: codetype,
+                    text: el,
+                    icon: "error",
+                    button: "CLOSE"
+                });
+            })
+
+        })
+
 
 
 }
@@ -328,8 +415,10 @@ function inviteForm(projectid) {
 
     console.log("ENTERING INVITATION FORM PAGE");
     $('.invitation-page').show()
-    $('#projectid-invite').val(projectid)
     $('.main-page').hide()
+    $('.todos-page').hide()
+
+    $('#projectid-invite').val(projectid)
 
 }
 
@@ -341,44 +430,95 @@ function inviteMember(event) {
     console.log("WE'RE NOW INVITING MEMBER FOR PROJECT");
 
     $.ajax({
-        method: 'POST',
-        url: BASEURL + '/projects/invite',
-        headers: {
-            access_token: localStorage.getItem("access_token")
-        },
-        data: {
-            email: $('#invitiation-email').val(),
-            projectId: + $('#projectid-invite').val()
-        }
-    })
-    .done(response => {
-        console.log("MEMBER INVITED!");
-        swal({
-            title: "MEMBER INVITED",
-            text: "Please go back to Home",
-            icon: "success",
-            button: "CLOSE"
+            method: 'POST',
+            url: BASEURL + '/projects/invite',
+            headers: {
+                access_token: localStorage.getItem("access_token")
+            },
+            data: {
+                email: $('#invitiation-email').val(),
+                projectId: +$('#projectid-invite').val()
+            }
         })
-        fetchProjects()
-    })
-    .fail(err => {
-        console.log("INVITE MEMBER ERROR");
-        // console.log(err)
-
-        let arr = err.responseJSON.errors
-        let code = err.status
-        let type = err.statusText
-
-        let codetype = code + " " + type
-        arr.forEach(el => {
+        .done(response => {
+            console.log("MEMBER INVITED!");
             swal({
-                title: codetype,
-                text: el,
-                icon: "error",
+                title: "MEMBER INVITED",
+                text: "Please go back to Home",
+                icon: "success",
                 button: "CLOSE"
-            });
+            })
+            fetchProjects()
+        })
+        .fail(err => {
+            console.log("INVITE MEMBER ERROR");
+            // console.log(err)
+
+            let arr = err.responseJSON.errors
+            let code = err.status
+            let type = err.statusText
+
+            let codetype = code + " " + type
+            arr.forEach(el => {
+                swal({
+                    title: codetype,
+                    text: el,
+                    icon: "error",
+                    button: "CLOSE"
+                });
+            })
+
         })
 
-    })
+}
+
+
+function dropProject(projectid, event) {
+
+    event.preventDefault()
+
+    console.log("WE ARE ABOUT TO DELETE A PROJECT");
+
+
+    $.ajax({
+            method: 'DELETE',
+            url: BASEURL + '/projects/' + projectid,
+            headers: {
+                access_token: localStorage.getItem("access_token")
+            }
+        })
+        .done(response => {
+
+            console.log("PROJECT DELETED!");
+            swal({
+                title: "DELETE SUCCESS",
+                text: "Please go back to Home",
+                icon: "success",
+                button: "CLOSE"
+            })
+            fetchProjects()
+
+
+        })
+        .fail(err => {
+            console.log("CREATE PROJECT ERROR");
+            // console.log(err)
+
+            let arr = err.responseJSON.errors
+            let code = err.status
+            let type = err.statusText
+
+            let codetype = code + " " + type
+            arr.forEach(el => {
+                swal({
+                    title: codetype,
+                    text: el,
+                    icon: "error",
+                    button: "CLOSE"
+                });
+            })
+
+        })
+
 
 }

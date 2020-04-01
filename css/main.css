@@ -2,3 +2,10 @@
     float: right;
     margin-right: 50px;
 }
+
+
+.card .card-header {
+    background-color: red;
+    color: beige;
+    font-weight: bold;
+}
