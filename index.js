@@ -49,9 +49,9 @@ function fetchTodo() {
     }
   })
     .done((todo) => {
-      console.log(todo[0].status, 'ini statusnya');
       $('#todos').empty()
       for (let i = 0; i < todo.length; i++) {
+        let dateToday = new Date()
         let date = new Date(todo[i].due_date).toISOString().substring(0, 10)
         let year = date.substring(0, 4)
         let month = date.substring(5, 7)
@@ -60,13 +60,15 @@ function fetchTodo() {
         month = monthConvert(month)
         let newDate = `${day} ${month} ${year}`
         let statusIcon = ''
-        if (todo[i].status) {
+        if (!todo[i].status && new Date(todo[i].due_date) < dateToday) {
+          statusIcon = `<i class="far fa-times-circle fa-5x cross"></i>`
+        } else if (todo[i].status) {
           statusIcon = `<i class="far fa-check-circle fa-5x done"></i>`
         } else {
-          statusIcon = `<i class="far fa-times-circle fa-5x cross"></i>`
+          statusIcon = `<i class="fas fa-exclamation-circle fa-5x warn"></i>`
         }
         $('#todos').append(`
-          <div class="card">
+          <div class="card" id="todo-${todo[i].id}">
             <div class="card-body">
               <div class="todo-status">
                 ${statusIcon}
@@ -77,8 +79,8 @@ function fetchTodo() {
                 <div class="todo-footer">
                   <p class="card-text" style="margin: 0;"><medium class="text-muted">${newDate}</medium></p>
                   <div class="todo-options">
-                    <i onclick="editTodo(${todo[i].id})" class="far fa-edit fa-lg"    style="margin-right: 15px;"></i>
-                    <i onclick="deleteTodo(${todo[i].id})" class="far fa-trash-alt    fa-lg"></i>
+                    <i onclick="editTodo(${todo[i].id})" class="far fa-edit fa-lg" data-toggle="modal" data-target="#edit-todo" style="margin-right: 15px;"></i>
+                    <i onclick="deleteTodo(${todo[i].id})" class="far fa-trash-alt fa-lg"></i>
                   </div>
                 </div>
               </div>
@@ -99,6 +101,7 @@ function fecthWeather() {
   })
     .done((weather) => {
       // console.log(weather);
+      $('.segment-two').empty()
       $('.segment-two').append(`
         <div id="icon">
           <img ${weather.data}
@@ -117,9 +120,50 @@ function fecthWeather() {
 
 function getName() {
   let name = localStorage.getItem('name')
+  $('.segment-one').empty()
   $('.segment-one').append(`
-    <h1>Welcome <span>${name}</span></h1>
+    <h1>Hello <span>${name}</span></h1>
   `)
+}
+
+function editTodo(id) {
+  $.ajax({
+    method: 'GET',
+    url: `http://localhost:3000/todos/${id}`,
+    headers: {
+      token: localStorage.getItem('token')
+    }
+  })
+    .done((toedit) => {
+      localStorage.setItem('id', id)
+      let date = new Date(toedit.due_date).toISOString().substring(0, 10)
+      $('#edit-title').val(toedit.title)
+      $('#edit-description').val(toedit.description)
+      $('#edit-due_date').val(date)
+    })
+    .fail((err) => {
+      console.log(err);
+    })
+}
+
+function deleteTodo(id) {
+  $.ajax({
+    method: "DELETE",
+    url: `http://localhost:3000/todos/${id}`,
+    headers: {
+      token: localStorage.getItem('token')
+    }
+  })
+    .done((deletedTodo) => {
+      $(`#todo-${deletedTodo.id}`).remove();
+      $('#register-page').hide()
+      $('#login-page').hide()
+      $('#dashboard-page').show()
+    })
+    .fail((err) => {
+      console.log(err);
+
+    })
 }
 
 $(document).ready(function () {
@@ -197,6 +241,96 @@ $(document).ready(function () {
       })
   })
 
+  $('#edit-form').on('submit', function (event) {
+    event.preventDefault()
+    let id = localStorage.getItem('id')
+    let title = $('#edit-title').val()
+    let description = $('#edit-description').val()
+    let status = $('#edit-status').val()
+    let due_date = $('#edit-due_date').val()
+    $.ajax({
+      method: 'PUT',
+      url: `http://localhost:3000/todos/${id}`,
+      headers: {
+        token: localStorage.getItem('token')
+      },
+      data: {
+        title, description, status, due_date
+      }
+    })
+      .done((updatedTodo) => {
+        $('#edit-todo').modal('hide')
+        $('#register-page').hide()
+        $('#login-page').hide()
+        $('#dashboard-page').show()
+        fetchTodo()
+      })
+      .fail(err => {
+        console.log(err);
+      })
+  })
+
+  $('#create-form').on('submit', function (event) {
+    event.preventDefault()
+    let id = localStorage.getItem('id')
+    let title = $('#create-title').val()
+    let description = $('#create-description').val()
+    let status = $('#create-status').val()
+    let due_date = $('#create-due_date').val()
+    $.ajax({
+      method: 'POST',
+      url: `http://localhost:3000/todos`,
+      headers: {
+        token: localStorage.getItem('token')
+      },
+      data: {
+        title, description, status, due_date
+      }
+    })
+      .done((newTodo) => {
+        $('#create-todo').modal('hide')
+        // let date = new Date(newTodo.due_date).toISOString().substring(0, 10)
+        // let year = date.substring(0, 4)
+        // let month = date.substring(5, 7)
+        // let day = date.substring(8, 10)
+        // month = monthConvert(month)
+        // let newDate = `${day} ${month} ${year}`
+        // let statusIcon = ''
+        // if (newTodo.status) {
+        //   statusIcon = `<i class="far fa-check-circle fa-5x done"></i>`
+        // } else {
+        //   statusIcon = `<i class="far fa-times-circle fa-5x cross"></i>`
+        // }
+        // $('#todos').append(`
+        //   <div class="card" id="todo-${newTodo.id}">
+        //     <div class="card-body">
+        //       <div class="todo-status">
+        //         ${statusIcon}
+        //       </div>
+        //       <div class="main-todo">
+        //         <h5 class="card-title">${newTodo.title}</h5>
+        //         <p class="card-text">${newTodo.description}</p>
+        //         <div class="todo-footer">
+        //           <p class="card-text" style="margin: 0;"><medium class="text-muted">${newDate}</medium></p>
+        //           <div class="todo-options">
+        //             <i onclick="editTodo(${newTodo.id})" class="far fa-edit fa-lg" data-toggle="modal" data-target="#edit-todo" style="margin-right: 15px;"></i>
+        //             <i onclick="deleteTodo(${newTodo.id})" class="far fa-trash-alt fa-lg"></i>
+        //           </div>
+        //         </div>
+        //       </div>
+        //     </div>
+        //   </div>
+        // `)
+        $('#register-page').hide()
+        $('#login-page').hide()
+        $('#dashboard-page').show()
+        fetchTodo()
+      })
+      .fail(err => {
+        console.log(err);
+      })
+  })
+
   $('#join-btn').on('click', function () {
     $('#register-page').show()
     $('#login-page').hide()
@@ -204,6 +338,14 @@ $(document).ready(function () {
   })
 
   $('#login-btn').on('click', function () {
+    $('#register-page').hide()
+    $('#login-page').show()
+    $('#dashboard-page').hide()
+  })
+
+  $('#logout-btn').on('click', function () {
+    localStorage.clear()
+    // signOut()
     $('#register-page').hide()
     $('#login-page').show()
     $('#dashboard-page').hide()

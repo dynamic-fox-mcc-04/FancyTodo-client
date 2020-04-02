@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="./img/todo.png">
   <title>ToDo - List</title>
 </head>
 
@@ -100,14 +101,129 @@
         <div class="col-md-6 col-sm-6 col-xs-12 segment-two">
         </div>
       </div>
+      <i id="logout-btn" class="fas fa-sign-out-alt fa-2x"></i>
     </div>
     <div id="main">
       <div id="title">
         <h2>My Todo</h2>
-        <i class="far fa-plus-square fa-2x"></i>
+        <i id="add-todo" data-toggle="modal" data-target="#create-todo" class="far fa-plus-square fa-2x"></i>
       </div>
       <div id="todos">
         <!-- card -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div class="modal fade" id="edit-todo" tabindex="-1" role="dialog" aria-labelledby="edit-todo" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="edit-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h3 class="modal-title" id="exampleModalLongTitle">Edit My Task</h3>
+        </div>
+
+        <div class="edit-body">
+          <form id="edit-form">
+            <div class="input-div one">
+              <div class="i">
+                <i class="fas fa-comment-alt"></i>
+              </div>
+              <div>
+                <input id="edit-title" type="text" class="input" placeholder="Title" required>
+              </div>
+            </div>
+            <div class="input-div two">
+              <div class="i">
+                <i class="fas fa-scroll"></i>
+              </div>
+              <div>
+                <input id="edit-description" type="text" class="input" placeholder="Description" required>
+              </div>
+            </div>
+            <div class="input-div three">
+              <div class="i">
+                <i class="fas fa-question-circle"></i>
+              </div>
+              <div>
+                <select id="edit-status" class="form-control" id="exampleFormControlSelect1">
+                  <option value="false">Ongoing</option>
+                  <option value="true">Done</option>
+                </select>
+              </div>
+            </div>
+            <div class="input-div four">
+              <div class="i">
+                <i class="fas fa-calendar-alt"></i>
+              </div>
+              <div>
+                <input id="edit-due_date" type="date" class="input" required>
+              </div>
+            </div>
+            <input type="submit" class="btn" value="EDIT TODO">
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- CREATE MODAL -->
+  <div class="modal fade" id="create-todo" tabindex="-1" role="dialog" aria-labelledby="create-todo" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="create-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h3 class="modal-title" id="exampleModalLongTitle">Create New Task</h3>
+        </div>
+
+        <div class="create-body">
+          <form id="create-form">
+            <div class="input-div one">
+              <div class="i">
+                <i class="fas fa-comment-alt"></i>
+              </div>
+              <div>
+                <input id="create-title" type="text" class="input" placeholder="Title" required>
+              </div>
+            </div>
+            <div class="input-div two">
+              <div class="i">
+                <i class="fas fa-scroll"></i>
+              </div>
+              <div>
+                <input id="create-description" type="text" class="input" placeholder="Description" required>
+              </div>
+            </div>
+            <div class="input-div three">
+              <div class="i">
+                <i class="fas fa-question-circle"></i>
+              </div>
+              <div>
+                <select id="create-status" class="form-control" id="exampleFormControlSelect1">
+                  <option value="false">Ongoing</option>
+                  <option value="true">Done</option>
+                </select>
+              </div>
+            </div>
+            <div class="input-div four">
+              <div class="i">
+                <i class="fas fa-calendar-alt"></i>
+              </div>
+              <div>
+                <input id="create-due_date" type="date" class="input" required>
+              </div>
+            </div>
+            <input type="submit" class="btn" value="CREATE TASK">
+          </form>
+        </div>
+
       </div>
     </div>
   </div>
