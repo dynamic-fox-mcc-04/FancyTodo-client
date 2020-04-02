@@ -58,3 +58,12 @@ table, th, td {
 #Home :hover {
     cursor: pointer;
 }
+
+#CreateTodo {
+    text-align: center;
+
+}
+#UpdateTodo {
+    text-align: center;
+
+}

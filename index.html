@@ -34,9 +34,9 @@
             <form id="FormLogin"><br>
                 <h2>Login</h2>
                 Id:<br>
-                <input type="email" id="EmailLogin" required><br>
+                <input type="email" id="EmailLogin" required placeholder=""><br>
                 Password:<br>
-                <input type="password" id="PasswordLogin" required><br>
+                <input type="password" id="PasswordLogin" required placeholder=""><br><br>
                 <input type="submit"><br>or<br> 
             </form>
             <div class="g-signin2" data-onsuccess="onSignIn"></div>
@@ -47,25 +47,33 @@
           <form id="FormRegister"><br>
             <h2>Register</h2>
           Id:<br>
-          <input type="email" id="EmailRegister" required><br>
+          <input type="email" id="EmailRegister" required placeholder=""><br>
           Password:<br>
-          <input type="password" id="PasswordRegister" required><br>
+          <input type="password" id="PasswordRegister" required placeholder=""><br>
           <input type="submit"><br><br> 
         </form>
       </div>
 
-        <div id="MainBody">
+        <div id="ProjectBody">
             <div id="ProjectsBar">
                 <h3>Current Project:</h3><br>
-                <form>
+                <form id="SelectProject">
                     <select id="Project">
                         </select>
-                        <input type="submit">
+                        <input type="submit"><br><br>
+                </form>
+                <form id="AddProject">
+                    <input type="text" id="ProjectName" >
+                    <input type="submit" value="Create Project">
                 </form>
             </div>
+            
+        </div>
   
+        <div id="MainBody">
             <div id="MemberList">
-                <textarea rows="4" cols="30" readonly></textarea>
+                <h2>Member List</h2>
+                <textarea rows="4" cols="30" readonly id="Members"></textarea>
                 <form>
                     Type Here:<br>
                     <input type="email" id="MemberEmail" placeholder="Add/Delete Email"><br><br>
@@ -94,9 +102,47 @@
                     </tr>
                 </table>
             </div>
-      </div>
+
+            <div id="CreateTodo">
+                <h2>Create Todo</h2>
+                <form id="TodoCreate">
+                    Title:<br>
+                    <input type="text" id="CreateTitle"><br>
+                    Content:<br>
+                    <input type="text" id="CreateContent"><br>
+                    Due Date:<br>
+                    <input type="date" id="CreateDate"><br>
+                    Status:<br>
+                    <select id="CreateStatus">
+                        <option value="false">On Progress</option>
+                        <option value="true">Done</option>
+                    </select><br><br>
+                    <input type="submit" value="Create">
+                </form>
+            </div>
+            
+            <div id="UpdateTodo">
+              <h2>Update Todo</h2>
+              <form id="TodoUpdate">
+                  Title:<br>
+                  <input type="text" id="UpdateTitle"><br>
+                  Content:<br>
+                  <input type="text" id="UpdateContent"><br>
+                  Due Date:<br>
+                  <input type="date" id="UpdateDate"><br>
+                  Status:<br>
+                  <select id="UpdateStatus">
+                      <option value="false">On Progress</option>
+                      <option value="true">Done</option>
+                  </select><br><br>
+                  <input type="submit" value="Update">
+              </form>
+          </div>
+        
+        </div>
+
+
       
-  
     
 
 
