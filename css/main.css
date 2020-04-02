@@ -9,3 +9,8 @@
     color: beige;
     font-weight: bold;
 }
+
+body {
+    margin: 2vh;
+    padding: 2vh;
+}

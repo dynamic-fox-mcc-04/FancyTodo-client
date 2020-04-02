@@ -4,6 +4,12 @@ let puser //project user
 let todo
 let user
 let members
+let projectid
+let title
+let due
+let status
+let desc
+let url2send
 
 $(document).ready(function () {
     auth()
@@ -199,10 +205,78 @@ function onSignIn(googleUser) {
 }
 
 
+
 function go2Upd() {
     $('.login-page').hide()
     $('.main-page').hide()
     $('.update-page').show()
+}
+
+/*
+------------------------------
+ PROJECTS RELATED
+------------------------------ 
+ */
+
+function inviteForm(projectid) {
+
+    console.log("ENTERING INVITATION FORM PAGE");
+    $('.invitation-page').show()
+    $('.main-page').hide()
+    $('.todos-page').hide()
+
+    $('#projectid-invite').val(projectid)
+
+}
+
+
+function inviteMember(event) {
+
+    event.preventDefault()
+
+    console.log("WE'RE NOW INVITING MEMBER FOR PROJECT");
+
+    $.ajax({
+            method: 'POST',
+            url: BASEURL + '/projects/invite',
+            headers: {
+                access_token: localStorage.getItem("access_token")
+            },
+            data: {
+                email: $('#invitiation-email').val(),
+                projectId: +$('#projectid-invite').val()
+            }
+        })
+        .done(response => {
+            console.log("MEMBER INVITED!");
+            swal({
+                title: "MEMBER INVITED",
+                text: "Please go back to Home",
+                icon: "success",
+                button: "CLOSE"
+            })
+            fetchProjects()
+        })
+        .fail(err => {
+            console.log("INVITE MEMBER ERROR");
+            // console.log(err)
+
+            let arr = err.responseJSON.errors
+            let code = err.status
+            let type = err.statusText
+
+            let codetype = code + " " + type
+            arr.forEach(el => {
+                swal({
+                    title: codetype,
+                    text: el,
+                    icon: "error",
+                    button: "CLOSE"
+                });
+            })
+
+        })
+
 }
 
 
@@ -221,8 +295,8 @@ function fetchProjects() {
             for (let i = 0; i < response.data.length; i++) {
 
                 puser = response.data[i]
-                let title = puser.Project.title
-                let projectid = puser.ProjectId
+                title = puser.Project.title
+                projectid = puser.ProjectId
                 members = puser.Project.Users
 
 
@@ -318,161 +392,6 @@ function createProject(event) {
 }
 
 
-function convertDate(input) {
-
-
-    let dd = new Date(input).getDate()
-    let mm = new Date(input).getMonth() + 1
-    let yyyy = new Date(input).getFullYear()
-
-    if(dd < 10) {
-        dd = '0'+dd
-    }
-
-    if(mm < 10) {
-         mm = '0'+mm
-    }
-
-    let parsdDate = yyyy+"-"+mm+"-"+dd
-
-    return parsdDate
-
-}
-
-function showTodoTbl(projectid) {
-
-    console.log("SHOWING TODOS OF CORRESPONDING PROJECTS");
-    $('.invitation-page').hide()
-    $('.main-page').hide()
-    $('.todos-page').show()
-
-    $('.todos-list').empty()
-    $('#projectid-addform').val(projectid)
-    // $('#projectname-addform').val(projectname)
-
-    $.ajax({
-            method: 'GET',
-            url: BASEURL + '/projects/' + projectid + '/todos',
-            headers: {
-                access_token: localStorage.access_token
-            }
-        })
-        .done(response => {
-
-            console.log("DONE FETCHING TODOS");
-            let todolist = response.data
-            console.log(todolist);
-            $('#projectname-addform').val(todolist[0]['Project']['title'])
-            for (let i = 0; i < todolist.length; i++) {
-                let todo = todolist[i]
-                let todoDue = todo['due_date']
-                let todoDueConverted = convertDate(todoDue)
-
-                $('.todos-list').append(`
-                    <br>
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-header">
-                            ${todo.title}
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">${todo.description}</li>
-                            <li class="list-group-item">${todo.status}</li>
-                            <li class="list-group-item">${todoDueConverted}</li>
-                        </ul>
-                    </div>
-                    <br>
-                `)
-            }
-
-        })
-        .fail(err => {
-            console.log("LOGIN ERROR");
-            // console.log(err)
-
-
-            let arr = err.responseJSON.errors
-            let code = err.status
-            let type = err.statusText
-
-            let codetype = code + " " + type
-            arr.forEach(el => {
-                swal({
-                    title: codetype,
-                    text: el,
-                    icon: "error",
-                    button: "CLOSE"
-                });
-            })
-
-        })
-
-
-
-}
-
-
-function inviteForm(projectid) {
-
-    console.log("ENTERING INVITATION FORM PAGE");
-    $('.invitation-page').show()
-    $('.main-page').hide()
-    $('.todos-page').hide()
-
-    $('#projectid-invite').val(projectid)
-
-}
-
-
-function inviteMember(event) {
-
-    event.preventDefault()
-
-    console.log("WE'RE NOW INVITING MEMBER FOR PROJECT");
-
-    $.ajax({
-            method: 'POST',
-            url: BASEURL + '/projects/invite',
-            headers: {
-                access_token: localStorage.getItem("access_token")
-            },
-            data: {
-                email: $('#invitiation-email').val(),
-                projectId: +$('#projectid-invite').val()
-            }
-        })
-        .done(response => {
-            console.log("MEMBER INVITED!");
-            swal({
-                title: "MEMBER INVITED",
-                text: "Please go back to Home",
-                icon: "success",
-                button: "CLOSE"
-            })
-            fetchProjects()
-        })
-        .fail(err => {
-            console.log("INVITE MEMBER ERROR");
-            // console.log(err)
-
-            let arr = err.responseJSON.errors
-            let code = err.status
-            let type = err.statusText
-
-            let codetype = code + " " + type
-            arr.forEach(el => {
-                swal({
-                    title: codetype,
-                    text: el,
-                    icon: "error",
-                    button: "CLOSE"
-                });
-            })
-
-        })
-
-}
-
-
 function dropProject(projectid, event) {
 
     event.preventDefault()
@@ -522,3 +441,183 @@ function dropProject(projectid, event) {
 
 
 }
+
+
+/*
+------------------------------
+ TODOS RELATED
+------------------------------ 
+ */
+
+
+function convertDate(input) {
+
+
+    let dd = new Date(input).getDate()
+    let mm = new Date(input).getMonth() + 1
+    let yyyy = new Date(input).getFullYear()
+
+    if(dd < 10) {
+        dd = '0'+dd
+    }
+
+    if(mm < 10) {
+         mm = '0'+mm
+    }
+
+    let parsdDate = yyyy+"-"+mm+"-"+dd
+
+    return parsdDate
+
+}
+
+
+function showTodoTbl(projectid) {
+
+    console.log("SHOWING TODOS OF CORRESPONDING PROJECTS");
+    $('.invitation-page').hide()
+    $('.main-page').hide()
+    $('.todos-page').show()
+
+    $('.todos-list').empty()
+    $('#projectid-addform').val(projectid)
+    $.ajax({
+            method: 'GET',
+            url: BASEURL + '/projects/' + projectid + '/todos',
+            headers: {
+                access_token: localStorage.access_token
+            }
+        })
+        .done(response => {
+
+            console.log("DONE FETCHING TODOS");
+            let todolist = response.data
+            console.log(todolist);
+            // $('#projectname-addform').val(todolist[0]['Project']['title'])
+            for (let i = 0; i < todolist.length; i++) {
+                let todo = todolist[i]
+                let todoDue = todo['due_date']
+                let todoDueConverted = convertDate(todoDue)
+
+                $('.todos-list').append(`
+                    <br>
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-header">
+                            ${todo.title}
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">${todo.description}</li>
+                            <li class="list-group-item">${todo.status}</li>
+                            <li class="list-group-item">${todoDueConverted}</li>
+                            <li class="list-group-item">
+                                <button type="button" onclick="formEditTodo(${todo.id})" 
+                                    class="btn btn-warning">EDIT</button>
+                                <button type="button" onclick="dropTodo(${todo.id})" 
+                                    class="btn btn-danger">DELETE</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <br>
+                `)
+            }
+
+        })
+        .fail(err => {
+            console.log("LOGIN ERROR");
+            // console.log(err)
+
+
+            let arr = err.responseJSON.errors
+            let code = err.status
+            let type = err.statusText
+
+            let codetype = code + " " + type
+            arr.forEach(el => {
+                swal({
+                    title: codetype,
+                    text: el,
+                    icon: "error",
+                    button: "CLOSE"
+                });
+            })
+
+        })
+
+
+
+}
+
+
+function addTodo(event) {
+
+    event.preventDefault()
+    console.log("WE ARE ABOUT TO ADD NEW TODO");
+
+    projectid = Number($('#projectid-addform').val())
+    title = $('#add-todo-title').val()
+    desc = $('#add-todo-desc').val()
+    due = $('#add-todo-due').val()
+
+    console.log("THE INPUT PARAMS ARE");
+    console.log([projectid, title, desc, due]);
+
+    
+
+    $.ajax({
+        method: 'POST',
+        url: BASEURL + '/projects/' + projectid + '/todos',
+        headers: {
+            access_token: localStorage.getItem("access_token")
+        },
+        data: {
+            title: title,
+            description: desc,
+            due_date: due
+        }
+    })
+    .done(response => {
+
+        console.log("SUCCESS CREATE TODO");
+        console.log(response)
+        swal({
+            title: "SUCCESS",
+            text: "New Project Has Been Created",
+            icon: "success",
+            button: "CLOSE"
+        })
+        
+        showTodoTbl(projectid)
+
+    })
+    .fail(err => {
+        console.log("CREATE TODO ERROR");
+        // console.log(err)
+
+        let arr = err.responseJSON.errors
+        let code = err.status
+        let type = err.statusText
+
+        let codetype = code + " " + type
+        arr.forEach(el => {
+            swal({
+                title: codetype,
+                text: el,
+                icon: "error",
+                button: "CLOSE"
+            });
+        })
+
+    })
+
+
+}
+
+
+
+
+
+
+
+
+
+

@@ -89,16 +89,32 @@
         </div>
 
         <h1>PROJECT'S TODOS</h1>
-        Project ID: <input type="text" id="projectid-addform"  readonly><br>
+        Project ID: <input type="text" id="projectid-addform"  readonly><br><br>
         
         <!-- Project Name: <input type="text" id="projectname-addform"  readonly><br> -->
         
         <!-- <h3 onclick="showAddTodoForm()">ADD TODO</h3> -->
+        <div id="pg-form-add-todo">
+
+            <form id="form-add-todo" class="form-inline" onsubmit="addTodo(event)">
+                <label class="sr-only" for="add-todo-title">Title</label>
+                <input type="text" required class="form-control mb-2 mr-sm-2" id="add-todo-title" placeholder="Project Title">
+              
+                <label class="sr-only" for="add-todo-desc">Description</label>
+                <input type="text" class="form-control mb-2 mr-sm-2" id="add-todo-desc" placeholder="Project Description">
+
+                <label class="sr-only" for="add-todo-due">Due</label>
+                <input type="date" class="form-control mb-2 mr-sm-2" id="add-todo-due" placeholder="Due Date">
+
+                <button type="submit" class="btn btn-primary mb-2">ADD TODO</button>
+            </form>
+
+        </div>
+        
 
         <div class="todos-list">
             
         </div>
-
 
     </div>
 
