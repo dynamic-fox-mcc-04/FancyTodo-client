@@ -20,7 +20,25 @@
     </div>
     <div class = "mainPage">
         <button class = "logout">Logout</button>
+        
         <h1>My Todo</h1>
+            <!-- MODAL -->
+            <div class="row flex-spaces child-borders">
+                <label class="paper-btn margin" for="modal-2">Indonesia Holiday List</label>
+            </div>
+            <input class="modal-state" id="modal-2" type="checkbox">
+            <div class="modal">
+                <div class="modal-body">
+                    <label class="btn-close" for="modal-2">X</label>
+                    <h4 class="modal-title">Indonesia Holiday List &nbsp;&nbsp;&nbsp;</h4>
+                    <form onsubmit="showHoliday(event)">
+                        <input id="year" type="number" value="2020">
+                        <input type="submit" value="submit">
+                    </form>
+                </div>
+            </div>
+        <!-- END MODAL -->
+
             <!-- MODAL -->
             <div class="row flex-spaces child-borders">
                 <label class="paper-btn margin" for="modal-1">Add Todo</label>
@@ -39,8 +57,18 @@
                 </div>
             </div>
             <!-- END MODAL -->
-        
-        <div class = "todoList"></div>
+
+            <table border>
+                <thead>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Due Date</th>
+                    <th>Action</th>
+                </thead>
+                <tbody class = "todoList">
+                </tbody>
+            </table>
     </div>
 
     <div class = "updatePage">
@@ -56,12 +84,29 @@
             <input type="submit" value="submit">
         </form>
     </div>
+
+
+    <div class = "holidayPage">
+        <h1>Indonesia Holiday List</h1>
+        <button onclick = "auth()">Back</button>
+        <table border>
+            <thead>
+                <th>No</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Date</th>
+            </thead>
+            <tbody class = "holidayList">
+            </tbody>
+            </table>
+    </div>
     
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script
   src="https://code.jquery.com/jquery-3.4.1.js"
   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous"></script>
+  crossorigin="anonymous">
+    </script>
     <script src = "main.js"></script>
 </body>
 </html>

@@ -8,8 +8,8 @@ $(document).ready( () => {
         auth2.signOut().then(function () {
         console.log('User signed out.');
     });
- 
-        auth()
+
+    auth()
     })
 })
 
@@ -37,11 +37,13 @@ function auth() {
         $('.loginPage').hide()
         $('.mainPage').show()
         $('.updatePage').hide()
+        $('.holidayPage').hide()
         fetchTodos()
     } else {
         $('.loginPage').show()
         $('.mainPage').hide()
         $('.updatePage').hide()
+        $('.holidayPage').hide()
     }
 }
 
@@ -54,19 +56,8 @@ function fetchTodos() {
             accessToken: localStorage.token
         }
     })
-    //BUG susunan row disini
         .done(data => {
-            $('.todoList').prepend(`
-                <table border>
-                    <thead>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Status</th>
-                        <th>Due Date</th>
-                        <th>Action</th>
-                    </thead>
-                    <tbody>
-            `)
+            
             for(let i = 0; i < data.todos.length; i++) {
                 let title = data.todos[i].title
                 let description = data.todos[i].description
@@ -75,7 +66,6 @@ function fetchTodos() {
                 let id = data.todos[i].id
 
                 $('.todoList').append(`
-                <table border>
                             <tr>
                                 <td>${title}</td>
                                 <td>${description}</td>
@@ -86,13 +76,9 @@ function fetchTodos() {
                                     <button onclick = "deleteBtn(${id})">Delete</button>
                                 </td>
                             </tr>
-                            </table>
                 `)
             }
-            // $('.todoList').append(`
-            //         </tbody>
-            //     </table>
-            // `)
+
         })
         .fail(err => console.log(err, 'error'))
 }
@@ -117,8 +103,7 @@ function createTodo(event) {
     })
         .done(result => {
             auth()
-            //BUG add todo tidak bisa 2x dsini
-            $('.modal').hide()
+            $('#modal-1').trigger('click')
         })
         .fail(err => {
             console.log(err, 'error')
@@ -216,4 +201,38 @@ $.ajax({
             })
     }
       
-    
+    function showHoliday(event) {
+        event.preventDefault()
+        $('.holidayList').empty()
+        $('.holidayPage').show()
+        $('.mainPage').hide()
+        let year = $('#year').val()
+        $('#modal-2').trigger('click')
+
+
+        $.ajax({
+            method: 'GET',
+            url: baseUrl + '/api/calendarificID/' + year
+        })
+            .done( result => {
+                console.log(result.data.response.holidays)
+
+                for(let i = 0; i < result.data.response.holidays.length; i++) {
+                    let name = result.data.response.holidays[i].name
+                    let description = result.data.response.holidays[i].description
+                    let date = result.data.response.holidays[i].date.iso
+
+                    $('.holidayList').append(`
+                        <tr>
+                            <td>${i+1}</td>
+                            <td>${name}</td>
+                            <td>${description}</td>
+                            <td>${date}</td>
+                        </tr>
+                    `)
+                }
+            })
+            .fail( err => {
+                console.log(err, 'error')
+            })
+    }
