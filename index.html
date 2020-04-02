@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="968077344405-rvl2cge90ban5o4o0pih2at150gbq1p7.apps.googleusercontent.com">
+    <title>Fancy Todo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+    <section class="login-page">
+        <div class="form-group d-flex justify-content-center">
+            <h1>Login Form</h1>
+        </div>
+        <div class="form-group d-flex justify-content-center">
+            <form id="login" onsubmit="login(event)">
+                <div class="form-group">
+                    <input type="email" id="email-login-value" placeholder="email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password-login-value" placeholder="password" required>
+                </div>
+                <div class="form-group d-flex justify-content-center">
+                    <input type="submit" value="login">
+                </div>
+            </form>
+        </div>
+        <div class="form-group d-flex justify-content-center">
+            <span>Do you haven't account yet? </span><a href="#" class="ml-2" id="btn-register">register now</a>
+        </div>
+        <div class="form-group d-flex justify-content-center">
+            <span>or login with :</span>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        </div>
+    </section>
+    <section class="register-page">
+        <div class="form-group d-flex justify-content-center">
+            <h1>Register Form</h1>
+        </div>
+        <div class="form-group d-flex justify-content-center">
+            <form id="register" onsubmit="register(event)">
+                <div class="form-group">
+                    <input type="email" id="email-register-value" placeholder="email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password-register-value" placeholder="password" required>
+                </div>
+
+                <div class="form-group d-flex justify-content-center">
+                    <input type="submit" value="register">
+                </div>
+            </form>
+        </div>
+        <div class="form-group d-flex justify-content-center">
+            <span>Already have account ? </span><a href="#" id="btn-login"class="ml-2"> login now</a>
+        </div>
+    </section>
+    <section class="dashboard-page">
+        <div class="form-group">
+            <div class="sidebar">
+                <button id="btn-logout" class="btn btn-outline-danger">Logout</button c>
+            </div>
+        </div>
+        <div id="header">
+            <h1>Fancy Todo List</h1>
+        </div>
+        <div class="form-group">
+            <div class="data-todos">
+                <h3>Daftar Todos</h3>
+                <div class="todos">
+                    <!-- the todos will appear here -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="create-todo-page">
+        <div class="input-todo">
+            <form id="create-todo" onsubmit="createTodos(event)">
+                <label for="title">What's your plan for the next?</label>
+                <input type="text" name="title" id="title">
+                <label for="description">Description</label>
+                <input type="text" name="description" id="description">
+                <label for="due_date">Due Date</label>
+                <input type="date" name="due_date" id="due_date">
+                <input type="submit" value="Create" class="submit-input">
+            </form>
+        </div>
+        <button class="btn-back" onclick="showDashboard()">Back</button>
+    </section>
+    <section class="update-todo-page">
+
+    </section>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

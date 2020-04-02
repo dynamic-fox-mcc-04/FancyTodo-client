@@ -1,0 +1,18 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Exo:100,200,400);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);
+@import url(https://fonts.googleapis.com/css?family=Nunito:400,600,700);
+
+body {
+  font-family: "Exo", sans-serif;
+  color: rgb(37, 37, 37);
+}
+
+#header h1 {
+  font-size: 4rem;
+}
