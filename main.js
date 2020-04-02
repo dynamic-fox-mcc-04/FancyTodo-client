@@ -1,4 +1,8 @@
-let baseUrl = "http://localhost:3000"
+// for localhost
+// let baseUrl = "http://localhost:3000"
+
+//for heroku
+let baseUrl = "https://fancytodo-server.herokuapp.com/"
 
 $(document).ready( () => {
     auth()
