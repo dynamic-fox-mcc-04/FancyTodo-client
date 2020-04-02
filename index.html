@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/journal/bootstrap.min.css" rel="stylesheet" integrity="sha384-0d2eTc91EqtDkt3Y50+J9rW3tCXJWw6/lDgf1QNHLlV0fadTyvcA120WPsSOlwga" crossorigin="anonymous">
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous">
+    </script>
+    <script src="main.js"></script>
+    <title>Home</title>
+</head>
+<body>
+    <div class="login">
+        <form id="login">
+            <h3>Log in</h2><br>
+            E-mail <br>
+            <input type="email" class="email" placeholder="Email" required><br>
+            Password<br>
+            <input type="password" class="password" placeholder="Password" required><br>
+            <input type="submit" value="Log in" class="btn btn-primary"><br>
+        </form>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div><br>
+        <button id="toRegister" class="btn btn-secondary">Register</button><br>
+    </div>
+    <div class="register">
+        <form id="register">
+            <h3>Register</h2>
+            E-mail <br>
+            <input type="email" class="email" placeholder="Email" required><br>
+            Password<br>
+            <input type="password" class="password" placeholder="Password" required><br>
+            <input type="submit" value="Register" class="btn btn-secondary">
+        </form>
+        <button class="btn btn-primary" id="to-log-in">Log in</button><br>
+    </div>
+    <div class="create-todo">
+        <form id="create-todo">
+            <h3>Create Todo</h2><br>
+            Title <br>
+            <input type="text" id="title" placeholder="Title" required><br>
+            Description<br>
+            <input type="text" id="description" placeholder="Description"><br>
+            Due Date<br>
+            <input type="date" id="due_date" placeholder="Due Date"><br>
+            <input type="submit" value="Create" class="btn btn-primary"><br>
+        </form>
+        <button id="to-show-todo" class="btn btn-secondary">Show Todo</button>
+        <!-- <button id="logout" class="btn btn-danger">Log out</button> -->
+    </div>
+    <div class="show-todo">
+        <h3>Todo list</h3>
+        <table border="1" id="todo-table">
+            <thead>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Due Date</th>
+                <th>Action</th>
+            </thead>
+        </table>
+        <button id="to-create-todo" class="btn btn-primary">Create Todo</button>
+        <button id="logout" class="btn btn-danger">Log out</button>
+    </div>
+</body>
+</html>
