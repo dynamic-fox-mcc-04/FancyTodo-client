@@ -6,11 +6,43 @@ let urlmaster ='http://localhost:3000'
 $(document).ready(function(event){
     $('.createForm').hide()
     $('.editForm').hide()
+    $('#registerForm').hide()
     authentication()
    
     event.preventDefault;
 })
 
+function createUser(event){
+    
+    let signup_email = $('#signup_email').val()
+    let signup_pass = $('#signup_pass').val()
+    let signup_pass2 = $('#signup_pass2').val()
+    if(signup_pass==signup_pass2){
+        $.ajax({
+            method :'POST',
+            url: urlmaster +'/user/register',        
+            data:{
+                email: signup_email,
+                password: signup_pass
+            }
+        })
+        .done(result=>{
+            // $('.createForm').hide()
+            $('#registerForm').hide()
+            $('#registerForm').hide()
+            $('#todocontent').show()
+            viewtodo()
+        })
+        .fail(err=>{
+            console.log(err)
+        })
+    } else {
+        console.log("salah");
+        
+        $('#msg_signup').html("Password tidak sama")
+    }
+    event.preventDefault()
+}
 
 function login(event){
     event.preventDefault();
@@ -31,7 +63,6 @@ function login(event){
         authentication()
     })
     .fail(err=>{
-        alert(err.responseJSON.msg)
         
     })
 
@@ -117,7 +148,6 @@ function viewtodo(){
 
     
 }
-
 function formatDate(date) {
     var d = new Date(date),
         month = '' + (d.getMonth() + 1),
@@ -145,8 +175,6 @@ function formatDateEdit(date) {
     // return [year,month,day].join('-');
     return year +"-"+month+"-"+day ;
 }
-
-
 function createTodo(event){
         
     let title = $('#title').val()
@@ -176,27 +204,26 @@ function createTodo(event){
     })
     event.preventDefault()
 }
-
 $('.addtodoform').click(function () {
     $('.createForm').show()
     $('#todocontent').hide()
     $('.editForm').hide()
 })
-
 $('.editform').click(function () {
     $('.createForm').hide()
     $('#todocontent').hide()
     $('.editForm').show()
 })
-
 $('.signout').click(function () {
-    
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
    localStorage.clear()
    $('#email').val('') 
     $('#pass').val('') 
    authentication()
 })
-
 function updateStatus(id){
     $.ajax({
         method:"PUT",
@@ -209,7 +236,7 @@ function updateStatus(id){
         }
     })
     .done(result=>{
-        alert('berhasil di update')
+       
         authentication()
     })
     .fail(err=>{
@@ -217,7 +244,6 @@ function updateStatus(id){
     })
 
 }
-
 function del(id){
     $.ajax({
         method:"DELETE",
@@ -227,7 +253,7 @@ function del(id){
         }
     })
     .done(result=>{
-        alert('berhasil didelete')
+    
         authentication()
     })
     .fail(err=>{
@@ -235,7 +261,6 @@ function del(id){
     })
 
 }
-
 function update(event){
 
     let id = $('#editid').val()
@@ -259,15 +284,13 @@ function update(event){
         }
     })
     .done(result=>{
-        alert('berhasil di update')
+    
     })
     .fail(err=>{
 
     })
     event.preventDefault;
 }
-
-
 function updateForm(id,title,description,due_date){
        console.log(id,title,description,due_date)
        
@@ -280,3 +303,35 @@ function updateForm(id,title,description,due_date){
 
 
 }
+function show_signup_form(event){
+    $('.limiter').hide()
+    $('#registerForm').show()
+}
+function login_view(event){
+    $('.limiter').show()
+    $('#registerForm').hide()
+}
+
+function onSignIn(googleUser) {
+    let id_token = googleUser.getAuthResponse().id_token
+    $.ajax({
+        method :'POST',
+        url: urlmaster +'/user/gmail',
+        data:{
+            id_token
+        }
+    })
+    .done(result=>{
+        // $('.createForm').hide()
+        // authentication()
+        console.log(result);
+        
+        localStorage.setItem('token',result.Data.token)
+        localStorage.setItem('email',result.Data.email)
+        authentication()
+           
+    })
+    .fail(err=>{
+        console.log("errrooo",err)
+    })
+  }
