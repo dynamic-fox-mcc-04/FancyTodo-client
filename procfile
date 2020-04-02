@@ -1,1 +1,1 @@
-web: node main.js
+web: live-server --host "https://fancytodo-client.herokuapp.com/"
