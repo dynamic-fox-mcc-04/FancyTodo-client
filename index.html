@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="1057597439501-ig06fslk9gab8igsjre1o46dpirkajcn.apps.googleusercontent.com">
 </head>
 <body>
     <div class="login-wrap">
@@ -16,34 +16,36 @@
                     <form onsubmit="signin(event)">
                         <div class="group">
                             <label for="user" class="label">Username</label>
-                            <input id="user" type="text" class="input">
+                            <input id="user" type="text" class="input" placeholder="Username">
                         </div>
                         <div class="group">
                             <label for="pass" class="label">Password</label>
-                            <input id="pass" type="password" class="input" data-type="password">
+                            <input id="pass" type="password" class="input" data-type="password" placeholder="Password">
                         </div>
                         <div class="group">
                             <input type="submit" class="button" value="Sign In">
                         </div>
                         <div class="hr"></div>
                         <div class="foot-lnk">
-                            <a href="#forgot">Forgot Password?</a>
+                            <!-- <a href="#forgot">Forgot Password?</a> -->
+                            <div class="g-signin2" data-onsuccess="onSignIn"></div>
                         </div>
                     </form>
+                   
                 </div>
                 <div class="sign-up-htm">
                     <form onsubmit="signup(event)">
                         <div class="group">
                             <label for="username" class="label">Username</label>
-                            <input id="username" type="text" class="input">
+                            <input id="username" type="text" class="input" placeholder="Username">
                         </div>
                         <div class="group">
                             <label for="password" class="label">Password</label>
-                            <input id="password" type="password" class="input" data-type="password">
+                            <input id="password" type="password" class="input" data-type="password" placeholder="Password">
                         </div>
                         <div class="group">
                             <label for="email" class="label">Email Address</label>
-                            <input id="email" type="text" class="input">
+                            <input id="email" type="text" class="input" placeholder="Email">
                         </div>
                         <div class="group">
                             <input type="submit" class="button" value="Sign Up">
@@ -55,6 +57,7 @@
     </div>
    
     <div class = "main-page-warp">
+            <button type="button" class="btn btn-outline-danger" data-toggle="modal" id="logout">Logout</button>
             <!-- Modal -->
             <div class= "add-task">
                 <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#addTask">Add Task</button>
@@ -133,7 +136,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
                                 <div class="button-update">
-                                    
+
                                 </div>
                             </div>
                      </form>
@@ -147,11 +150,12 @@
     </div>
 </body>
 
-
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script> 
 <script src="main.js"></script>
+<link rel="stylesheet" href="style.css">
 </html>

@@ -1,9 +1,41 @@
 const baseUrl = 'http://localhost:3000'
 
 $( document ).ready(function () {
-  
-      $('.main-page-warp').hide()
+      authentication()
+      
+      $('#logout').click(function () {
+            signOut()
+            localStorage.clear()
+            sessionStorage.clear()
+            authentication()
+      })
 })
+
+function onSignIn(googleUser) {
+    var id_token = googleUser.getAuthResponse().id_token;
+    $.ajax({
+        method : 'POST',
+        url : baseUrl + '/user/googleSign',
+        data : {
+            id_token
+        }
+    })
+    .done(result => {
+        localStorage.setItem('access_token', result.access_token)
+        authentication()
+    })
+    .fail(err => {
+        console.log(err);
+        
+    })
+}
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
 
 function signup(event){
     event.preventDefault();
@@ -65,12 +97,12 @@ function authentication(){
     } else {
         $('.login-wrap').show()
         $('.main-page-warp').hide()
+        $('.todoList').empty()
     }
 
 }
 
 function getTodos() {
-
     $.ajax({
         method:'GET',
         url : baseUrl + '/todos',
@@ -138,7 +170,7 @@ function updateBtn(id){
         $('#newstatus').val(result.todos.status)
 
         $('.button-update').append(
-            `<button type="submit" class="btn btn-primary" data-dismiss = "modal" onclick="update(${id})">Save </button>`
+            `<button type="submit" class="btn btn-primary" data-dismiss = "modal" onclick="update(${result.todos.id})">Save </button>`
         )
     })
     .fail(err => {
@@ -147,8 +179,6 @@ function updateBtn(id){
 }
 
 function update(id){
-
-    console.log(id);
     
     let title = $('#newtitle').val()
     let description = $('#newdescription').val()
@@ -173,10 +203,8 @@ function update(id){
         getTodos()
     })
     .fail(err => {
-        console.log(err);
-        
+        console.log(err);   
     })
-
 }
 
 function create(event) {
