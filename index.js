@@ -1,3 +1,37 @@
+function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  var id_token = googleUser.getAuthResponse().id_token;
+  $.ajax({
+    method: "GET",
+    url: "http://localhost:3000/glogin",
+    headers: {
+      token: id_token
+    }
+  })
+    .done((data) => {
+      name = data.name
+      token = data.token
+      localStorage.setItem('token', token)
+      localStorage.setItem('name', name)
+      $('#register-page').hide()
+      $('#login-page').hide()
+      $('#dashboard-page').show()
+      getName()
+      fetchTodo()
+      fecthWeather()
+    })
+    .fail((err) => {
+      console.log(err);
+    })
+}
+
+function signOut() {
+  var auth2 = gapi.auth2.getAuthInstance();
+  auth2.signOut().then(function () {
+    console.log('User signed out.');
+  });
+}
+
 function monthConvert(month) {
   switch (month) {
     case '01':
@@ -345,7 +379,7 @@ $(document).ready(function () {
 
   $('#logout-btn').on('click', function () {
     localStorage.clear()
-    // signOut()
+    signOut()
     $('#register-page').hide()
     $('#login-page').show()
     $('#dashboard-page').hide()
