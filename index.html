@@ -63,83 +63,104 @@
                         <input type="submit"><br><br>
                 </form>
                 <form id="AddProject">
-                    <input type="text" id="ProjectName" >
+                    <input type="text" id="ProjectName" minlength="3" required>
                     <input type="submit" value="Create Project">
+                    <br>
+                    <br>
                 </form>
             </div>
             
         </div>
   
         <div id="MainBody">
-            <div id="MemberList">
-                <h2>Member List</h2>
-                <textarea rows="4" cols="30" readonly id="Members"></textarea>
-                <form>
+                <div id="MemberList">
+                    <table id="MembersList">
+                        <thead>
+                            <th>Friends</th>
+                        </thead>
+                        <Tbody id="Members">
+
+                        </Tbody>
+                    </table>
+            </div>
+                <form id="addf">
                     Type Here:<br>
                     <input type="email" id="MemberEmail" placeholder="Add/Delete Email"><br><br>
-                    <button type="button" >Add Friend</button>
-                    <button type="button" >Delete Friend</button>
+                    <button type="button" id="AddFriend">Add Friend</button>
+                    <button type="button" id="DeleteFriend" >Delete Friend</button>
                 </form>
+            
             </div>
-    
             <div id="Todos">
-                <h2>Todo Table</h2><br>
+                <h2>Todo Table</h2>
+                <button id="CreateTodoButton">Create Todo</button><br><br>
+            </div>
+            <div id="todoBox">
                 <table id="TodoTable">
-                    <tr>
-                        <th>Title</th>
-                        <th>Content</th>
-                        <th>DueDate</th>
-                        <th>Status</th>
-                        <th colspan="2">Options</th>
-                    </tr>
-                    <tr>
-                        <th>test</th>
-                        <th>test</th>
-                        <th>test</th>
-                        <th>test</th>
-                        <th>test</th>
-                        <th>test</th>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Content</th>
+                            <th>DueDate</th>
+                            <th>Status</th>
+                            <th colspan="2">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody id="TodoBody">
+                        <tr>
+                            <td>test</td>
+                            <td>test</td>
+                            <td>test</td>
+                            <td>test</td>
+                            <td>test</td>
+                            <td>test</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
+
+        
 
             <div id="CreateTodo">
                 <h2>Create Todo</h2>
                 <form id="TodoCreate">
                     Title:<br>
-                    <input type="text" id="CreateTitle"><br>
+                    <input type="text" id="CreateTitle" required><br>
                     Content:<br>
-                    <input type="text" id="CreateContent"><br>
+                    <input type="text" id="CreateContent" required><br>
                     Due Date:<br>
-                    <input type="date" id="CreateDate"><br>
+                    <input type="date" id="CreateDate" required><br>
                     Status:<br>
                     <select id="CreateStatus">
                         <option value="false">On Progress</option>
                         <option value="true">Done</option>
                     </select><br><br>
                     <input type="submit" value="Create">
+                    <button id="CreateCancel">Cancel</button>
                 </form>
             </div>
             
             <div id="UpdateTodo">
               <h2>Update Todo</h2>
               <form id="TodoUpdate">
+                  <input type="text" id="UpdateId" hidden>
                   Title:<br>
-                  <input type="text" id="UpdateTitle"><br>
+                  <input type="text" id="UpdateTitle" required><br>
                   Content:<br>
-                  <input type="text" id="UpdateContent"><br>
+                  <input type="text" id="UpdateContent" required><br>
                   Due Date:<br>
-                  <input type="date" id="UpdateDate"><br>
+                  <input type="date" id="UpdateDate" required><br>
                   Status:<br>
                   <select id="UpdateStatus">
                       <option value="false">On Progress</option>
                       <option value="true">Done</option>
                   </select><br><br>
                   <input type="submit" value="Update">
+                  <button id="UpdateCancel">Cancel</button>
               </form>
           </div>
         
-        </div>
+        
 
 
       

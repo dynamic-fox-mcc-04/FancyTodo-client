@@ -31,7 +31,6 @@ $(document).ready(function() {
     })
     //REGISTER PROCEDURE
     $("#FormRegister").on('submit', function(e) {
-        console.log(BaseUrl+'/user/register')
         e.preventDefault()
         $.ajax({
             url: BaseUrl+'/user/register',
@@ -42,7 +41,6 @@ $(document).ready(function() {
             }
         })
         .done(function(result) {
-            console.log(result)
             swal("Good job!", result.message, "success");
             RegisterClear()
 
@@ -56,8 +54,6 @@ $(document).ready(function() {
     //LOGIN PROCEDURE
     $('#FormLogin').on('submit', function(e) {
         e.preventDefault()
-        console.log($('#EmailLogin').val())
-        console.log($('#PasswordLogin').val())
         $.ajax({
             url: BaseUrl+'/user/login',
             method: 'POST',
@@ -67,6 +63,7 @@ $(document).ready(function() {
             }
         })
             .done(function(result) {
+                localStorage.setItem('Email', result.Email)
                 localStorage.setItem('Access_Token', result.Access_Token)
                 swal('Login Success', `You Are Accessing From IP ${result.geolocation.ip}, Location ${result.geolocation.city}`, 'success')
                 SignedIn()
@@ -81,7 +78,6 @@ $(document).ready(function() {
     //CREATE PROJECT PROCEDURE
     $('#AddProject').on('submit', function(e) {
         e.preventDefault()
-        console.log($('#ProjectName').val())
         $.ajax({
             url: BaseUrl+'/projects/add',
             method: 'POST',
@@ -93,29 +89,122 @@ $(document).ready(function() {
             }
         })
             .done(function(result) {
+                $('#Project').empty()
                 swal('Add Project Success', `Success Creating Project`, 'success')
-                console.log(result)
                 GenerateProject()
                 RegisterClear()
             })
             .fail(function(err) {
-                console.log(err)
                 swal('Add Project Failed', err.responseJSON.message, 'error')
             })
     })
     //SELECT PROJECT (GENERATE TODO)
     $('#SelectProject').on('submit', function(e) {
         e.preventDefault()
-        console.log($('#Project').val())
-
-    })
+        generateTodo()
+    })  
 
     //CREATE TODO PROCEDURE
     $('#TodoCreate').on('submit', function(e) {
         e.preventDefault()
-        console.log($('#CreateTitle').val())
-        console.log($('#CreateContent').val())
-        console.log($('#CreateDate').val())
-        console.log($('#CreateStatus').val())
+        $.ajax({
+            url: BaseUrl+'/projects/todos/add',
+            method: 'POST',
+            data: {
+                Title : $('#CreateTitle').val(),
+                Content: $('#CreateContent').val(),
+                DueDate: $('#CreateDate').val(),
+                Status: $('#CreateStatus').val(),
+                ProjectId: $('#Project').val()
+            },
+            headers: {
+                Access_Token: localStorage.getItem('Access_Token')
+            }
+        })
+            .done(function(result) {
+                generateTodo()
+                swal('Create Success', 'Successfully Create Todos,Press OK to dismiss', 'success')
+                $('#CreateTodo').hide()
+                $('#CreateTitle').val('')
+                $('#CreateContent').val('')
+                $('#CreateDate').val('')
+                $('#todoBox').show()
+                $('#Todos').show()
+            })
+            .fail(function(err) {
+                swal('Create Failed',err, 'error')
+            })
     })
+})
+//UPDATE TODO PROCEDURE
+$('#TodoUpdate').on('submit', function(e) {
+    e.preventDefault()
+        $.ajax({
+            url: BaseUrl+`/projects/todos/${$('#UpdateId').val()}`,
+            method: 'PATCH',
+            headers: {
+                Access_Token: localStorage.getItem('Access_Token')
+            },
+            data: {
+                Title : $('#UpdateTitle').val(),
+                Content: $('#UpdateContent').val(),
+                DueDate: $('#UpdateDate').val(),
+                Status: $('#UpdateStatus').val(),
+                ProjectId: $('#Project').val()
+            }
+        })
+            .done(function(result) {
+                generateTodo()
+                $('#todoBox').show()
+                $('#Todos').show()
+                $('#UpdateTodo').hide()
+                swal('Update Success', result.msg, 'success')
+            })
+            .fail(function(err) {
+                swal('Update Failed', err, 'error')
+            })
+})
+//Add Friend Procedure
+$('#AddFriend').on('click', function(e) {
+    e.preventDefault()
+    $.ajax({
+        url: BaseUrl+`/projects/friend`,
+        method: 'POST',
+        headers: {
+            Access_Token: localStorage.getItem('Access_Token')
+        },
+        data: {
+            Email: $('#MemberEmail').val(),
+            ProjectId: $('#Project').val()
+        }
+    })
+        .done(function(result) {
+            swal('Add Friend Success!', 'Please Click OK to proceed', 'success')
+            generateTodo()
+        })
+        .fail(function(err) {
+            swal('Add Friend Failed!', err.responseJSON.message, 'error')
+        })
+})
+//Delete Friend Procedure
+$('#DeleteFriend').on('click', function(e) {
+    e.preventDefault()
+    $.ajax({
+        url: BaseUrl+`/projects/friend`,
+        method: 'DELETE',
+        headers: {
+            Access_Token: localStorage.getItem('Access_Token')
+        },
+        data: {
+            Email: $('#MemberEmail').val(),
+            ProjectId: $('#Project').val()
+        }
+    })
+        .done(function(result) {
+            swal('Delete Friend Success!', 'Please Click OK to proceed', 'success')
+            generateTodo()
+        })
+        .fail(function(err) {
+            swal('Add Friend Failed!', err.responseJSON.message, 'error')
+        })
 })
