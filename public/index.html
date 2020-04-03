@@ -32,7 +32,7 @@
                         <input type = "email" id = "createEmail" placeholder = "email" required>
                         <input type = "password" id = "createPassword" placeholder = "password" required>
                         <input type = "password" id = "createConfirm" placeholder = "confirm password" required>
-                        <input type = "submit" value = "Register & Login">            
+                        <input type = "submit" value = "Register">            
                     </form>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                     <label class="btn-close" for="modal-2">X</label>
                     <h4 class="modal-title">Indonesia Holiday List &nbsp;&nbsp;&nbsp;</h4>
                     <form onsubmit="showHoliday(event)">
-                        <input id="year" type="number" value="2020">
+                        <input id="year" type="number">
                         <input type="submit" value="submit">
                     </form>
                 </div>
@@ -95,6 +95,7 @@
     </div>
 
     <div class = "updatePage">
+        <div>
         <form onsubmit = "updateTodo(event)">
             <h1>Update Todo</h1>
             <input id="newTitle" type="text">
@@ -105,7 +106,9 @@
                 <label for="false">Not Done</label>
             <input id="newDue_date" type="date">
             <input type="submit" value="submit">
-        </form>
+        </form>      
+        <button class = "row"onclick = "auth()">Back</button>
+    </div>
     </div>
 
 
