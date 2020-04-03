@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/iguntop/FancyTodo-client/issues"
   },
-  "homepage": "https://github.com/iguntop/FancyTodo-client#readme"
+  "homepage": "https://github.com/iguntop/FancyTodo-client#readme",
+  "dependencies": {
+    "sweetalert2": "^9.10.9"
+  }
 }

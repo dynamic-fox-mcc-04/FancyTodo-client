@@ -1,3 +1,4 @@
+// const Swal = require('sweetalert2')
 let urlmaster ='http://localhost:3000'
 // $("#login").submit(function(event){
 //     // mengambil value dari html    
@@ -7,8 +8,23 @@ $(document).ready(function(event){
     $('.createForm').hide()
     $('.editForm').hide()
     $('#registerForm').hide()
+    $('#forgotform').hide()
     authentication()
+    $.ajax({
+        method:"GET",
+        url:urlmaster +'/apiquotes'
+    })
    
+    
+    .then(quote=>{
+        console.log(quote);
+        
+        $('#msg_quotes').html(quote.quotes.quoteText)
+    })
+    .catch(err=>{
+        console.log(err);
+        
+    })
     event.preventDefault;
 })
 
@@ -33,8 +49,9 @@ function createUser(event){
             $('#todocontent').show()
             viewtodo()
         })
-        .fail(err=>{
-            console.log(err)
+        .fail(err=>{                        
+            let bacaError =err.responseJSON.error.errors.map(el=>el.message).join(",")            
+            $('#msg_signup').html(bacaError)
         })
     } else {
         console.log("salah");
@@ -61,8 +78,14 @@ function login(event){
         localStorage.setItem('token',data.Data.token)
         localStorage.setItem('email',data.Data.email)
         authentication()
+        
+        
+
     })
     .fail(err=>{
+        console.log(err)
+        let bacaError =err.responseJSON.msg          
+        $('#msg_limiter').html(bacaError)
         
     })
 
@@ -85,7 +108,8 @@ function viewtodo(){
         method:'GET',
         url:urlmaster+'/todos',
         headers:{
-            token:localStorage.token
+            token:localStorage.token,
+            status:false
         }
     })
     .done(result=>{
@@ -99,13 +123,14 @@ function viewtodo(){
             createdAt,
             updatedAt} = result.todos[i]
             
-            
+            let color = random_color();
+            let color2 = random_color();
 
          $('.row').append (`
-         <div class="col-md-4 card-container">
+         <div class="col-md-4 card-container" style="background-color:${color}">
          <div class="card-flip">
            <!-- Card 1 Front -->
-           <div class="card front">
+           <div class="card front"  style="background-color:${color2}">
              <span class="fa fa-4x fa-smile-o text-center"></span>
              <div class="card-block">
                <h4 class="card-title text-center">${title}</h4>
@@ -116,7 +141,7 @@ function viewtodo(){
            <!-- End Card 1 Front -->
    
            <!-- Card 1 Back -->
-           <div class="card back">
+           <div class="card back" style="background-color:${color2}">
                 <div class="card-header">
                   <ul class="nav nav-tabs card-header-tabs">
                     
@@ -148,6 +173,84 @@ function viewtodo(){
 
     
 }
+
+
+function viewtodo_done(){
+    $('.row').empty()
+    $.ajax({
+        method:'GET',
+        url:urlmaster+'/todos',
+        headers:{
+            token:localStorage.token,
+            status:true
+        }
+    })
+    .done(result=>{
+        for( let i in result.todos){
+            let {id,
+            title,
+            description,
+            status,
+            due_date,
+            UserId,
+            createdAt,
+            updatedAt} = result.todos[i]
+        let color = random_color();
+        let color2 = random_color();
+            
+         $('.row').append (`
+         <div class="col-md-4 card-container" style="background-color:${color}">
+         <div class="card-flip">
+           <!-- Card 1 Front -->
+           <div class="card front" style="background-color:${color2}">
+             <span class="fa fa-4x fa-smile-o text-center"></span>
+             <div class="card-block">
+               <h4 class="card-title text-center">${title}</h4>
+               <h6 class="card-subtitle mb-2 text-muted text-center">${id}</h6>
+               <p class="card-text">${description}</p>
+             </div>
+           </div>
+           <!-- End Card 1 Front -->
+   
+           <!-- Card 1 Back -->
+           <div class="card back" style="background-color:${color2}">
+                <div class="card-header">
+                  <ul class="nav nav-tabs card-header-tabs">
+                    
+                    <li class="nav-item">
+                        <button onclick ="updateForm('${id}','${title}','${description}','${formatDateEdit(due_date)}')" class="nav-link" >Edit</button>
+                    </li>
+                    <li class="nav-item">
+                    <button onclick ="del(${id})" class="nav-link" >Delete</button>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-block">                  
+                  <p class="card-text">Due Date: ${formatDate(due_date)}</p>
+                  <p class="card-text">Create Date:${formatDate(createdAt)}</p>
+                  <p class="card-text">Updated Date:${formatDate(updatedAt)}</p>                  
+                </div>
+              </div>
+           <!-- End Card 1 Back -->
+         </div>
+       </div>
+         `)  
+        }
+    })
+    .fail(err=>{
+        console.log(err)        
+    })    
+
+    
+}
+
+
+function random_color() {
+    var color;
+    color = "#" + Math.random().toString(16).slice(2, 8).toUpperCase();
+    return color;
+  }
+
 function formatDate(date) {
     var d = new Date(date),
         month = '' + (d.getMonth() + 1),
@@ -209,10 +312,15 @@ $('.addtodoform').click(function () {
     $('#todocontent').hide()
     $('.editForm').hide()
 })
-$('.editform').click(function () {
+$('.view_done').click(function () {
     $('.createForm').hide()
-    $('#todocontent').hide()
-    $('.editForm').show()
+    $('.editForm').hide()
+    viewtodo_done()
+})
+$('.view_undone').click(function () {
+    $('.createForm').hide()
+    $('.editForm').hide()
+    viewtodo();
 })
 $('.signout').click(function () {
     var auth2 = gapi.auth2.getAuthInstance();
@@ -304,6 +412,7 @@ function updateForm(id,title,description,due_date){
 
 }
 function show_signup_form(event){
+    event.preventDefault()
     $('.limiter').hide()
     $('#registerForm').show()
 }
@@ -335,3 +444,27 @@ function onSignIn(googleUser) {
         console.log("errrooo",err)
     })
   }
+
+  function forgotpassword(event){
+      event.preventDefault()
+      console.log($('#forgot_email').val());
+      
+    $.ajax({
+        method:"GET",
+        url:urlmaster + '/user/forgot/' + $('#forgot_email').val()       
+    })
+    .done(result=>{
+    
+        authentication()
+    })
+    .fail(err=>{
+
+    })
+
+}
+function show_forgot_form(event){
+    event.preventDefault()
+    $('.limiter').hide()
+    $('#forgotform').show()
+
+}
