@@ -12,6 +12,7 @@
     <link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="shortcut icon" href="https://banner2.cleanpng.com/20180720/vsh/kisspng-computer-icons-editing-icon-design-show-window-5b51a9accc82c9.3788698515320785088377.jpg">
     <title>FANCY-TODO R</title>
 </head>
 
@@ -89,9 +90,14 @@
         </div>
 
         <h1>PROJECT'S TODOS</h1>
-        Project ID: <input type="text" id="projectid-addform"  readonly><br><br>
+
+        <div id="project-name">
+            
+        </div>
+
+        <input id="projectid-addform" readonly type='hidden'><br>
         
-        <!-- Project Name: <input type="text" id="projectname-addform"  readonly><br> -->
+        Project Name: <input type="text" id="projectname-addform"  readonly><br><br>
         
         <!-- <h3 onclick="showAddTodoForm()">ADD TODO</h3> -->
         <div id="pg-form-add-todo">
@@ -116,6 +122,34 @@
             
         </div>
 
+
+        <div id="pg-edit-todo-form">
+
+            <input type="text" readonly id="project-name-editform">
+
+            <form id="form-edit-todo" name="form-edit-todo" class="form" onsubmit="editTodo(event)">
+                <label class="sr-only" for="edit-todo-title">Title</label>
+                <input type="text" required class="form-control mb-2 mr-sm-2" id="edit-todo-title" placeholder="Todo Title">
+              
+                <label class="sr-only" for="edit-todo-desc">Description</label>
+                <input type="text" class="form-control mb-2 mr-sm-2" id="edit-todo-desc" placeholder="Todo Description">
+
+                <label class="sr-only" for="edit-todo-status">Status</label>
+                <select id="edit-todo-status" name="edit-todo-form-status" form="form-edit-todo">
+                    <option value="pending">pending</option>
+                    <option value="done">done</option>
+                </select>
+
+                <br><br>
+
+                <label class="sr-only" for="edit-todo-due">Due</label>
+                <input type="date" class="form-control mb-2 mr-sm-2" id="edit-todo-due" placeholder="Due Date">
+
+                <button type="submit" class="btn btn-warning mb-2">EDIT</button>
+            </form>
+
+        </div>
+
     </div>
 
 
@@ -125,23 +159,46 @@
             <button type="button" onclick="logout()" class="btn btn-danger">Logout</button>
         </div>
         <form id="invitation-page" onsubmit="inviteMember(event)">
-            Project ID:<br>
-            <input type="text" id="projectid-invite"  readonly><br>
+            <input type="hidden" id="projectid-invite"><br>
+            Project Name: 
+            <input type="readonly" id="project-name-invitation" readonly><br>
             Email:<br>
-            <input type="email" id="invitiation-email" required><br>
-            <input type="submit" value="INVITE TO PROJECT">
+            <input type="email" id="invitiation-email" placeholder="enter invitee email" required><br><br>
+            <input type="submit" class="btn btn-primary mb-2" value="INVITE TO PROJECT">
         </form>
     </div>
 
 
-    <!-- <div class="update-page">
+    <div class="showmembers-page">
         <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" onclick="auth()" class="btn btn-primary">Home</button>
-            <button type="button" onclick="go2Upd()" class="btn btn-secondary">Update Page</button>
             <button type="button" onclick="logout()" class="btn btn-danger">Logout</button>
         </div>
-        <h1>AAA, MI SCUSI, MI SCUSI!</h1>
-    </div> -->
+
+        <h1>MEMBERS' LIST</h1>
+        <input type="hidden"  id="showmembers-projectid">
+        <div id="showmembers-projectname"></div>
+        <div id="project-members"></div>
+    </div>
+
+
+
+    <div class="update-page">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" onclick="auth()" class="btn btn-primary">Home</button>
+            <button type="button" onclick="logout()" class="btn btn-danger">Logout</button>
+        </div>
+        <form id="form-edit-project" onsubmit="editProject(event)">
+            <input type="hidden" id="form-edit-project-id"><br>
+
+            Project Title: <br>
+            <input type="text" id="form-edit-project-name" required><br>
+
+            New Chief's Email:<br>
+            <input type="email" id="form-edit-project-owner" required><br><br>
+            <input type="submit" class="btn btn-warning mb-2" value="EDIT PROJECT">
+        </form>
+    </div>
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://code.jquery.com/jquery-3.4.1.js"
