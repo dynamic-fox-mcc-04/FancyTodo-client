@@ -5,6 +5,11 @@ let baseUrl = "http://localhost:3000"
 // let baseUrl = "https://fancytodo-server.herokuapp.com"
 
 $(document).ready( () => {
+
+    let today = new Date()
+    $('#year').val(today.getFullYear())
+    $('#due_date').val(today.toISOString().slice(0,10))
+    
     auth()
     $('.logout').click( () => {
         localStorage.clear()
