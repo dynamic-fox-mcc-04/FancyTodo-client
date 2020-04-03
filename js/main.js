@@ -1,10 +1,23 @@
-// const Swal = require('sweetalert2')
 let urlmaster ='http://localhost:3000'
-// $("#login").submit(function(event){
-//     // mengambil value dari html    
-//     login(event)
-// })
+toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": true,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
 $(document).ready(function(event){
+    
     $('.createForm').hide()
     $('.editForm').hide()
     $('#registerForm').hide()
@@ -19,14 +32,17 @@ $(document).ready(function(event){
     .then(quote=>{
         console.log(quote);
         
-        $('#msg_quotes').html(quote.quotes.quoteText)
+        $('#msg_quotes').html("'"+quote.quotes.quoteText+"'")
     })
     .catch(err=>{
         console.log(err);
         
     })
+  
+    
     event.preventDefault;
 })
+
 
 function createUser(event){
     
@@ -48,10 +64,12 @@ function createUser(event){
             $('#registerForm').hide()
             $('#todocontent').show()
             viewtodo()
+            toastr["info"]("WELCOME TO TODO APPS", "SELAMAT")  
         })
         .fail(err=>{                        
             let bacaError =err.responseJSON.error.errors.map(el=>el.message).join(",")            
             $('#msg_signup').html(bacaError)
+            toastr["warning"](bacaError, "Message")  
         })
     } else {
         console.log("salah");
@@ -86,7 +104,7 @@ function login(event){
         console.log(err)
         let bacaError =err.responseJSON.msg          
         $('#msg_limiter').html(bacaError)
-        
+        toastr["warning"](bacaError, "Message")  
     })
 
 
@@ -103,6 +121,7 @@ function authentication(){
 }
 
 function viewtodo(){
+     
     $('.row').empty()
     $.ajax({
         method:'GET',
@@ -176,6 +195,7 @@ function viewtodo(){
 
 
 function viewtodo_done(){
+    
     $('.row').empty()
     $.ajax({
         method:'GET',
@@ -245,6 +265,8 @@ function viewtodo_done(){
 }
 
 
+
+
 function random_color() {
     var color;
     color = "#" + Math.random().toString(16).slice(2, 8).toUpperCase();
@@ -279,7 +301,7 @@ function formatDateEdit(date) {
     return year +"-"+month+"-"+day ;
 }
 function createTodo(event){
-        
+    event.preventDefault()
     let title = $('#title').val()
     let description = $('#description').val()
     let due_date = $('#duedate').val()
@@ -299,28 +321,39 @@ function createTodo(event){
     })
     .done(result=>{
         $('.createForm').hide()
-        authentication()
-           
+        authentication()        
+        toastr["success"]("anda telah berhasil menambahkan todo", "Add todo ")    
     })
     .fail(err=>{
-        console.log(err)
+
+        let bacaError = err.responseJSON.todos.errors.map(el=>el.message).join(",")     
+        toastr["error"](bacaError, "Messages ")
+
     })
-    event.preventDefault()
+   
 }
+
+
+
+
 $('.addtodoform').click(function () {
     $('.createForm').show()
     $('#todocontent').hide()
     $('.editForm').hide()
 })
 $('.view_done').click(function () {
+    
     $('.createForm').hide()
     $('.editForm').hide()
-    viewtodo_done()
+    viewtodo_done()    
+    toastr["info"]("Todo list Done", "Message")
+    
 })
 $('.view_undone').click(function () {
     $('.createForm').hide()
     $('.editForm').hide()
     viewtodo();
+    toastr["info"]("Todo list still on progress", "Message") 
 })
 $('.signout').click(function () {
     var auth2 = gapi.auth2.getAuthInstance();
@@ -344,11 +377,12 @@ function updateStatus(id){
         }
     })
     .done(result=>{
-       
+        toastr["success"]("Update Todo list success", "Message")
         authentication()
     })
     .fail(err=>{
-
+        let bacaError = err.responseJSON.todos.errors.map(el=>el.message).join(",")   
+        toastr["error"](bacaError, "Message")
     })
 
 }

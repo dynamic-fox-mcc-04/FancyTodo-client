@@ -26,7 +26,8 @@
 	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
 <!--===============================================================================================-->
 <style>	@import url('css/main.css');</style>
-   
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css" integrity="sha256-He3QEBKoL/nMXlVsoM7S2C2kjFQqS5L+mgA+F8LpG+U=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" integrity="sha256-R91pD48xW+oHbpJYGn5xR0Q7tMhH4xOrWn1QqMRINtA=" crossorigin="anonymous" />
 <link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 <!--===============================================================================================-->
@@ -214,11 +215,23 @@
 						<button onclick="createTodo(event)" type = "submit" class="contact100-form-btn">
 							<span>
 								Submit
-								<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+								<i class="m-l-7" aria-hidden="true"></i>
 							</span>
 						</button>
 					</div>
 				</div>
+				<div class="container-contact100-form-btn">
+					<div class="wrap-contact100-form-btn">
+						<div class="contact100-form-bgbtn"></div>						
+						<button onclick="loginview(event)" class="contact100-form-btn">
+							<span>
+								<i class=" m-l-7" aria-hidden="true"></i>
+								cancel
+							</span>
+						</button>
+					</div>
+				</div>
+
 			</form>
 		</div>
 	    </div>
@@ -256,11 +269,23 @@
 						<button type = "submit" class="contact100-form-btn">
 							<span>
 								Submit
-								<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+								<i class=" m-l-7" aria-hidden="true"></i>
 							</span>
 						</button>
 					</div>
 				</div>
+				<div class="container-contact100-form-btn">
+					<div class="wrap-contact100-form-btn">
+						<div class="contact100-form-bgbtn"></div>						
+						<button onclick="loginview(event)" class="contact100-form-btn">
+							<span>
+								<i class=" m-l-7" aria-hidden="true"></i>
+								cancel
+							</span>
+						</button>
+					</div>
+				</div>
+
 			</form>
 		</div>
 	    </div>
@@ -269,12 +294,15 @@
     <div id="dropDownSelect1"></div>
 	
 	
+	
 	<div id="todocontent" class="container-login100" style="background-image: url('images/bg-01.jpg');"">
 	<main>
-	<h1 align="center">TODO LIST</h1></main></br>
-	<h5><label id="msg_quotes"></label></h5>	
+	<h1 align="center">TODO LIST</h1><br>
+	<h4 align="center">quotes of the day</h4><br>
+	<h6 align="center" id="msg_quotes" ></h6><br>
 	</main>
-    
+	
+    <P ></p>
     <div class="container" >
         <div class="row">           
         </div>
@@ -305,10 +333,12 @@
 	<!-- <script src="vendor/jquery/jquery-3.2.1.min.js"></script> -->
 	
 	
+	
 	<script
 src="https://code.jquery.com/jquery-3.4.1.js"
 integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 <!--===============================================================================================-->
 	<script src="vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
@@ -323,8 +353,8 @@ crossorigin="anonymous"></script>
 	<script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
 
-<script src="js/main.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-<script src="sweetalert2.all.min.js"></script>
+
+<script src="js/main.js"></script>
 </body>
 </html>

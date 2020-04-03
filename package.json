@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/iguntop/FancyTodo-client#readme",
   "dependencies": {
-    "sweetalert2": "^9.10.9"
+    "sweetalert2": "^9.10.9",
+    "toastify": "^2.0.0"
   }
 }
