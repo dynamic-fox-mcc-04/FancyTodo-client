@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="1000124266102-otf8p69eu8541ovtm2ilu0290ql8g5gt.apps.googleusercontent.com">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css">
+    <link type = "text/css" rel = "stylesheet" href = "./style.css">
+    <title>Index</title>
+</head>
+<body>
+    <div class = "loginPage">
+        <div>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <form onsubmit = "login(event)" id = "login">
+                <h1>Fancy Todo</h1>
+                <input type = "email" id = "email" placeholder = "email" required>
+                <input type = "password" id = "password" placeholder = "password" required>
+                <input type = "submit" value = "Login">            
+            </form>
+            <!-- MODAL -->
+            <div class="row flex-spaces child-borders">
+                <label class="paper-btn margin" for="modal-3">Register</label>
+            </div>
+            <input class="modal-state" id="modal-3" type="checkbox">
+            <div class="modal">
+                <div class="modal-body">
+                    <label class="btn-close" for="modal-3">X</label>
+                    <h4 class="modal-title">Register</h4>
+                    <form onsubmit="createUser(event)">
+                        <input type = "email" id = "createEmail" placeholder = "email" required>
+                        <input type = "password" id = "createPassword" placeholder = "password" required>
+                        <input type = "password" id = "createConfirm" placeholder = "confirm password" required>
+                        <input type = "submit" value = "Register & Login">            
+                    </form>
+                </div>
+            </div>
+            <!-- END MODAL -->
+        </div>
+    </div>
+
+
+    <div class = "mainPage">
+        <button class = "logout">Logout</button>
+        
+        <h1>My Todo</h1>
+            <!-- MODAL -->
+            <div class="row flex-spaces child-borders">
+                <label class="paper-btn margin" for="modal-2">Indonesia Holiday List</label>
+            </div>
+            <input class="modal-state" id="modal-2" type="checkbox">
+            <div class="modal">
+                <div class="modal-body">
+                    <label class="btn-close" for="modal-2">X</label>
+                    <h4 class="modal-title">Indonesia Holiday List &nbsp;&nbsp;&nbsp;</h4>
+                    <form onsubmit="showHoliday(event)">
+                        <input id="year" type="number" value="2020">
+                        <input type="submit" value="submit">
+                    </form>
+                </div>
+            </div>
+        <!-- END MODAL -->
+
+            <!-- MODAL -->
+            <div class="row flex-spaces child-borders">
+                <label class="paper-btn margin" for="modal-1">Add Todo</label>
+            </div>
+            <input class="modal-state" id="modal-1" type="checkbox">
+            <div class="modal">
+                <div class="modal-body">
+                    <label class="btn-close" for="modal-1">X</label>
+                    <h4 class="modal-title">Add Todo</h4>
+                    <form onsubmit="createTodo(event)">
+                        <input id="title" type="text" placeholder="title">
+                        <textarea id="description" rows="4" cols="50" placeholder = "description here..."></textarea>
+                        <input id="due_date" type="date">
+                        <input type="submit" value="submit">
+                    </form>
+                </div>
+            </div>
+            <!-- END MODAL -->
+
+            <table border>
+                <thead>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Due Date</th>
+                    <th>Action</th>
+                </thead>
+                <tbody class = "todoList">
+                </tbody>
+            </table>
+    </div>
+
+    <div class = "updatePage">
+        <form onsubmit = "updateTodo(event)">
+            <h1>Update Todo</h1>
+            <input id="newTitle" type="text">
+            <textarea id="newDescription" rows="4" cols="50"></textarea>
+                <input type="radio" class="newStatus" name = "newStatus" value="true">
+                <label for="true">Done</label>
+                <input type="radio" class="newStatus" name = "newStatus" value="false">
+                <label for="false">Not Done</label>
+            <input id="newDue_date" type="date">
+            <input type="submit" value="submit">
+        </form>
+    </div>
+
+
+    <div class = "holidayPage">
+        <h1>Indonesia Holiday List</h1>
+        <button onclick = "auth()">Back</button>
+        <table border>
+            <thead>
+                <th>No</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Date</th>
+            </thead>
+            <tbody class = "holidayList">
+            </tbody>
+            </table>
+            <div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous">
+    </script>
+    <script src = "main.js"></script>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="/__/firebase/7.13.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="/__/firebase/7.13.1/firebase-analytics.js"></script>
+
+<!-- Initialize Firebase -->
+<script src="/__/firebase/init.js"></script>
+
+
+</body>
+</html>
