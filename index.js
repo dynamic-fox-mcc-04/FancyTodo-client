@@ -95,11 +95,34 @@ function fetchTodo() {
         let newDate = `${day} ${month} ${year}`
         let statusIcon = ''
         if (!todo[i].status && new Date(todo[i].due_date) < dateToday) {
-          statusIcon = `<i class="far fa-times-circle fa-5x cross"></i>`
+          statusIcon = `<i 
+          style="background-color: #fbecee; 
+          width: 70px;
+          height: 70px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 5px;" 
+          class="far fa-times-circle fa-3x cross"></i>`
         } else if (todo[i].status) {
-          statusIcon = `<i class="far fa-check-circle fa-5x done"></i>`
+          statusIcon = `<i 
+          style="background-color: 	#eceef4; 
+          width: 70px;
+          height: 70px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 5px;" 
+          class="far fa-check-circle fa-3x done"></i>`
         } else {
-          statusIcon = `<i class="fas fa-exclamation-circle fa-5x warn"></i>`
+          statusIcon = `<i style="background-color: #ffe4d4; 
+          width: 70px;
+          height: 70px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 5px;" 
+          class="fas fa-exclamation-circle fa-3x warn"></i>`
         }
         $('#todos').append(`
           <div class="card" id="todo-${todo[i].id}">
@@ -108,8 +131,8 @@ function fetchTodo() {
                 ${statusIcon}
               </div>
               <div class="main-todo">
-                <h5 class="card-title">${todo[i].title}</h5>
-                <p class="card-text">${todo[i].description}</p>
+                <h4 class="card-title">${todo[i].title}</h4>
+                <h5 class="card-text">${todo[i].description}</h5>
                 <div class="todo-footer">
                   <p class="card-text" style="margin: 0;"><medium class="text-muted">${newDate}</medium></p>
                   <div class="todo-options">

@@ -226,6 +226,7 @@ body {
   flex-direction: row;
   justify-content: space-between;
   background-image: url('./img/img.png');
+  background-size: auto;
   background-color: #ffe4d4;
   border-radius: 0 0 30px 30px;
 }
@@ -237,7 +238,7 @@ body {
 }
 
 #dashboard-header i:hover{
-  color: #d34157
+  color: #e28391
 }
 
 .segment-one h1{
@@ -309,29 +310,48 @@ body {
 
 .card-body{
   display: flex;
-  justify-content: space-around;
-}
-
-.warn{
-  color: #d3b141;
-}
-
-.done{
-  color: #435295;
-}
-
-.cross{
-  color: #d34157;
-}
-
-.todo-status{
-  display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
 }
 
+.warn{
+  color: #ffae7c;
+}
+
+.done{
+  color: #9fa6c8;
+}
+
+.cross{
+  color: #e28391;
+}
+
+.todo-status{
+  width: 70px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+#title h2{
+  color: #454244;
+}
+
 .main-todo{
-  width: 80%;
+  width: 90%;
+  margin-left: 10px;
+}
+
+.main-todo h4{
+  font-weight: 700;
+  margin: 0;
+  color: #454244;
+}
+
+.main-todo h5{
+  color: #454244;
 }
 
 .todo-footer{
@@ -343,6 +363,11 @@ body {
 
 .todo-options i{
   cursor: pointer;
+  color: #425195;
+}
+
+.modal-title{
+  color: #454244;
 }
 
 /* EDIT MODAL */
