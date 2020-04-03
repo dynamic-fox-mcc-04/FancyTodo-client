@@ -1,0 +1,26 @@
+.todo-card {
+    border: 2px solid red;
+    border-radius: 5px;
+    margin: 5px 15%;
+    padding: 15px;
+}
+.card-title{
+    font-size: 45px;
+    margin:15px 0px 15px 0px
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+

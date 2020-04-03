@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="google-signin-client_id" content="809842491089-o1njkq7t3f5edl513rp3ni2gjc82nocd.apps.googleusercontent.com">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>My todos</title>
 </head>
 <body>
-    <div class = "login-page">
-        <form>
+    <div class = "signIn-page">
+        <form onsubmit="signIn(event)" id="formSignIn">
             <h1>Welcome to to-do-app!</h1>
             <label for="email">Email:</label><br>
             <input type="email" id="email" name="email" placeholder="Your email here..." required><br><br>
@@ -17,9 +18,52 @@
             <input type="password" id="password" name="password" placeholder="Your password here..." required><br><br>
             <input type="submit" value="Sign in">
         </form>
-
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
     </div>
 
+    <div class="main-page">
+        <button class="signout">Sign Out</button>
+        <h1>My to-do-lists</h1>
+        <button class="add-to-do-button" onclick="showAddForm( event )">Add a new todo</button>
+        <div class="all-todo-list"></div>
+    </div>
+
+    <div class="update-page">
+        <div class="update-form">
+            <div class="update-form-body">
+                <h4 class="update-form-title">Update this todo</h4>
+                <form onsubmit="updateToDo( event )">
+                    <label for="update-title">Title:</label><br>
+                    <input id="update-title" type="text" placeholder="Your todo title here..."><br><br>
+                    <label for="update-description">Description:</label><br>
+                    <input id="update-description" type="text" placeholder="Your todo description here..."> <br><br>
+                    <label for="update-due_date">Due date:</label><br>
+                    <input id="update-due_date" type="date" value="2020-01-01"><br><br>
+                    <input type="submit" value="Update">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="add-todo-page">
+        <div class="form">
+            <div class="form-body">
+                <h4 class="form-title">Add New Todo</h4>
+                <form onsubmit="addTodos(event)">
+                    <label for="title">Title:</label><br>
+                    <input id="title" type="text" placeholder="Your todo title here..."><br><br>
+                    <label for="description">Description:</label><br>
+                    <input id="description" type="text" placeholder="Your todo description here..."> <br><br>
+                    <label for="due_date">Due date:</label><br>
+                    <input id="due_date" type="date" value="2020-01-01"><br><br>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script
         src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
