@@ -2,13 +2,23 @@ const baseUrl = 'http://localhost:3000'
 
 $( document ).ready(function () {
       authentication()
-      
+
       $('#logout').click(function () {
-            signOut()
             localStorage.clear()
             sessionStorage.clear()
+            signOut()
             authentication()
       })
+
+      $('#due_date').datepicker({
+        uiLibrary: 'bootstrap4'
+      });
+
+     $('#due_date').datepicker({
+        uiLibrary: 'bootstrap4'
+     });
+    
+
 })
 
 function onSignIn(googleUser) {
@@ -115,10 +125,12 @@ function getTodos() {
         
         result.todos.forEach(el => {
             let date    = new Date(el.due_date)
+            let r_month = (date.getMonth() * 1) + 1
+
             let year     = date.getFullYear()
-            let month   = date.getMonth() < 10 ? '0' + date.getMonth() : date.getMonth()
+            let month   = r_month < 10 ? '0' + r_month : r_month
             let day     = date.getDate()  < 10 ? '0' + date.getDate()  : date.getDate()
-            let newDate = year + '/' + month + '/' + day;
+            let newDate = month + '/' + day + '/' + year;
             
             let status = (el.status.toLowerCase() == 'on progress') ? 'text-warning' : 'text-success'
 
