@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- <meta name="google-signin-client_id" content="758731203563-0ben8ai532ehsvmlsq8271ks7u7hg20u.apps.googleusercontent.com"> -->
+    <meta name="google-signin-client_id" content="758731203563-0ben8ai532ehsvmlsq8271ks7u7hg20u.apps.googleusercontent.com">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -28,7 +28,8 @@
                 <div class="form-group">
                     <input id="password-login" type="password" class="form-control rounded-pill form-control-lg" placeholder="Password">
                 </div>
-                <button type="submit" class="btn mt-5 rounded-pill btn-lg btn-custom btn-block text-uppercase">Log in</button>
+                <button type="submit" class="btn mt-5 rounded-pill btn-lg btn-custom btn-block text-uppercase">Log in</button><br>
+                <div class="g-signin2 btn rounded-pill btn-lg " data-onsuccess="onSignIn"></div>
                 <p class="mt-3 font-weight-normal">Don't have an account? <a onclick="toRegister(event)" href=""><strong>Register Now</strong></a></p>
             </form>
         </div>
@@ -59,92 +60,125 @@
               <div class="sidebar-heading text-center">Todo App</div>
               <div id="nav-dspl" class="d-flex align-items-center justify-content-lg-between list-group">
                   <div id="tools" class="btn-sdb">
-                      <button class="btn btn-outline-info btn-block m-1">Holidays</button>
-                      <button class="btn btn-outline-primary btn-block m-1">Tasks</button>
-                      <button class="btn btn-outline-success btn-block m-1">Completed</button>
+                      <button class="btn btn-outline-info btn-block m-1" onclick="readHoliday()" data-toggle="modal" data-target="#holiday">Holidays</button>
+                      <button class="btn btn-outline-primary btn-block m-1" onclick="readTask()">Tasks</button>
+                      <button class="btn btn-outline-success btn-block m-1" onclick="readCompleted()">Completed</button>
                   </div>
 
                   <div id="logout" class="btn-sdb">
-                    <button class="btn btn-danger btn-block m-1">Logout</button>
+                    <button class="btn btn-danger btn-block m-1" onclick="logout(event)">Logout</button>
                   </div>
               </div>
             </div>
+
+            <!-- modal dialog add-->
+            <div class="modal fade" id="myModal">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
             
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                    <h4 class="modal-title">Add Task</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+            
+                  <!-- Modal body -->
+                  <div class="modal-body">
+                    <form>
+                      <label for="title-modal">Title</label><br>
+                      <input type="text" name="title-modal" id="title-modal" class="form-control"><br>
+                      
+                      <label for="description-modal">Description</label>
+                      <textarea name="description-modal" id="description-modal" class="form-control textarea-autosize" cols="30" rows="5"></textarea><br>
+
+                      <label for="date-modal">Due Date</label><br>
+                      <input type="date" name="date-modal" id="date-modal" class="form-control">
+                    </form>
+                  </div>
+            
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="save-modal"  data-dismiss="modal" onclick="addTask(event)">Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                  </div>
+            
+                </div>
+              </div>
+            </div>
+
+
             <div id="page-content-wrapper">
                 <nav id="pcw-nav" class="d-flex align-items-center justify-content-lg-between navbar navbar-expand-lg navbar-light bg-light border-bottom m-1">
                     <button class="btn btn-primary" id="menu-toggle">Menu</button>
-                    <button class="btn btn-warning btn-md" id="add-task"><i class="fas fa-plus"></i></button>
+                    <button class="btn btn-warning btn-md" id="add-task" data-toggle="modal" data-target="#myModal"><i class="fas fa-plus"></i></button>
                     <h2>Tasks</h2>
                 </nav>
-        
-        
-                <div class="container-fluid d-flex flex-column align-items-center">
-                    
-                    <div class="card m-1" style="width:400px;">
-                        <div class="card-body">
-                          <h4 class="card-title">Jane Doe</h4>
-                          <p class="card-text">Some example text some example text. Jane Doe is an architect and engineer</p>
-                        <div>
-                            <button type="button" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></button>
-                            <button type="button" class="btn btn-success btn-sm"><i class="fas fa-check"></i></button>
-                            <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                        </div> 
-                        </div>
-                      </div>
 
-                      <div class="card m-1" style="width:400px;">
-                        <div class="card-body">
-                          <h4 class="card-title">Jane Doe</h4>
-                          <p class="card-text">Some example text some example text. Jane Doe is an architect and engineer</p>
-                        <div>
-                            <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></button>
-                            <button type="button" class="btn btn-success btn-sm"><i class="fas fa-check"></i></button>
-                            <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                        </div> 
-                        </div>
-                      </div>
-
-                      <div class="card m-1" style="width:400px;">
-                        <div class="card-body">
-                          <h4 class="card-title">Jane Doe</h4>
-                          <p class="card-text">Some example text some example text. Jane Doe is an architect and engineer</p>
-                        <div>
-                            <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></button>
-                            <button type="button" class="btn btn-success btn-sm"><i class="fas fa-check"></i></button>
-                            <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                        </div> 
-                        </div>
-                      </div>
-
-                      <div class="card m-1" style="width:400px;">
-                        <div class="card-body">
-                          <h4 class="card-title">Jane Doe</h4>
-                          <p class="card-text">Some example text some example text. Jane Doe is an architect and engineer</p>
-                        <div>
-                            <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></button>
-                            <button type="button" class="btn btn-success btn-sm"><i class="fas fa-check"></i></button>
-                            <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                        </div> 
-                        </div>
-                      </div>
+                <div class="container-fluid d-flex flex-column align-items-center" id="task-container">
+                  
                 </div>
             </div>
+
             <div id="page-content-wrapper-detail">
         
                 <div class="container-fluid">
 
                     <div id="header-edit">
                         <nav class="d-flex align-items-center justify-content-lg-between navbar navbar-expand-lg navbar-light bg-light border-bottom m-1">
-                        <button type="button" class="btn btn-success btn-sm"><i class="fas fa-check"></i></button>
-                        <input class="form-control ml-5" type="date" name="date" id="date">
+                          <h2>Edit</h2>
+                        <input class="form-control-sm ml-0" type="date" name="date" id="date">
                     </div>
                     <div id="detail-edit" class="bg-light border-bottom m-1 p-3">
-                        <label for="title">Title</label><br>
-                        <input class="form-control input-sm" id="title" name="title" type="text"><br><br>
+                      <label for="title">Title</label><br>
+                        <input class="form-control input-sm" id="title" name="title" type="text"><br>
                         <label for="description">Description</label><br>
-                        <textarea class="form-control" name="description" id="description" cols="30" rows="10"></textarea>
+                        <textarea class="form-control" name="description" id="description" cols="30" rows="10"></textarea><br>
+                        <button type="button" id="edit-task" class="btn btn-primary" onclick="">Update</button>
+
+                      </div>
+                      <div id="header-edit" class="mt-3">
+                        <nav class="d-flex align-items-center justify-content-lg-between navbar navbar-expand-lg navbar-light bg-light border-bottom m-1">
+                          <h2>Prayer Time:</h2> 
+                          <h2 id="time-prayer-date">2020-12-12</h2>
                     </div>
+                    <div id="detail-edit" class="bg-light border-bottom m-1 p-3">
+                      <div class="col" id="detail-time">
+                        <div class="col">
+                          <div class="card m-1" style="height: 60px" >
+                            <div class="card-body d-flex flex-row justify-content-lg-between">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="card m-1" style="height: 60px">
+                            <div class="card-body d-flex flex-row justify-content-lg-between">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="card m-1" style="height: 60px">
+                            <div class="card-body d-flex flex-row justify-content-lg-between">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="card m-1" style="height: 60px">
+                            <div class="card-body d-flex flex-row justify-content-lg-between">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="card m-1" style="height: 60px">
+                            <div class="card-body d-flex flex-row justify-content-lg-between">
+                            </div>
+                          </div>
+                        </div>
+                      </div> 
+
+                      </div>                    
                 </div>
+
+                
             </div>
         
         </div>
@@ -155,13 +189,13 @@
             });
           </script>
     </div>
-    <!-- <script src="https://apis.google.com/js/platform.js" async defer></script>      -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    <script src="https://apis.google.com/js/platform.js" async defer></script>     
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script> -->
         <script
         src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="

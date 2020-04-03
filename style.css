@@ -6,6 +6,7 @@ body{
   font-size: 16px;
   background: #eee;
   color:#666;
+  position: static;
 }
 
 .main-page{
@@ -63,17 +64,14 @@ body{
   box-shadow: 0 0 0 0.2rem rgba(114,61,190,.25);
 }
 
-body {
-  overflow-x: hidden;
-}
+
 
 #nav-dspl {
-  min-height: 90vh;
-
+  height: 100vh;
 }
 
 #sidebar-wrapper {
-  min-height: 100vh;
+  height: 852px;
   margin-left: -15rem;
   -webkit-transition: margin .25s ease-out;
   -moz-transition: margin .25s ease-out;
@@ -92,11 +90,12 @@ body {
 
 #sidebar-wrapper .list-group {
   width: 15rem;
+  height: 92vh;
 }
 
 #page-content-wrapper-detail{ 
   min-width: 40vw;
-  max-height: 100vh;
+  height: 400px;
 }
 
 #page-content-wrapper-detail{
@@ -108,6 +107,13 @@ body {
   /* position: absolute; */
   overflow: scroll;
   max-height: 100vh;
+}::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
+}
+
+#holiday-container {
+  overflow: scroll;
 }::-webkit-scrollbar {
   width: 0px;
   background: transparent; /* make scrollbar transparent */
@@ -141,7 +147,7 @@ body {
 
 #description{
   min-width: auto;
-  min-height: 150px;
+  height: 120px;
   border-style: solid;
   resize: none;
 }
@@ -154,5 +160,9 @@ body {
 }
 
 #detail-edit{
-  height: 100vh;
+  height: 350px;
+}
+
+#description-modal{
+  resize: none;
 }
