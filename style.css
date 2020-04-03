@@ -1,0 +1,240 @@
+*{
+    margin:0;
+    padding: 0;
+}
+/*
+---------------------------ini login page----------------------------------------------
+*/
+body{
+    background-color: rgb(43, 71, 71);
+}
+.loginPage {
+    background-color:rgb(43, 71, 71);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.header{
+    background-color:rgb(97, 185, 185) ;
+    min-width: 20vw ;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#h1fancytodo{
+    font-family: 'Dancing Script', cursive;
+    color: whitesmoke;
+    font-size: 500%;
+}
+.loginCardAll{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 5%;
+}
+#login{
+    height: 60%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+#login input[type=email]{
+    min-width: 150%;
+    min-height: 20%;
+    margin-bottom: 5%;
+}
+#login input[type=password]{
+    min-width: 150%;
+    min-height: 20%;
+    margin-bottom: 5%;
+}
+#login input[type=submit]{
+    min-width: 150%;
+    min-height: 20%;
+    margin-bottom: 5%;
+}
+#login button{
+    min-width: 150%;
+    min-height: 20%;
+    margin-bottom: 5%;
+}
+.loginPageCard{
+    background-color: rgba(238, 245, 247, 0.9);
+    min-width: 30vw ;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+#h1Login{
+    color: rgb(8, 8, 8);
+    font-size: 500% ;
+}
+/*
+---------------------------ini login page----------------------------------------------
+*/
+/*
+---------------------------ini resister page----------------------------------------------
+*/
+
+.registerPage {
+    background-color:rgb(43, 71, 71);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.registerCardAll{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 5%;
+}
+#register{
+    height: 60%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+#register input[type=email]{
+    min-width: 150%;
+    min-height: 20%;
+    margin-bottom: 5%;
+}
+#register input[type=password]{
+    min-width: 150%;
+    min-height: 20%;
+    margin-bottom: 5%;
+}
+#register input[type=submit]{
+    min-width: 150%;
+    min-height: 20%;
+    margin-bottom: 5%;
+}
+.registerPageCard{
+    background-color: rgba(238, 245, 247, 0.9);
+    min-width: 30vw ;
+    height: 50vh;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+}
+#h1Register{
+    color: rgb(8, 8, 8);
+    font-size: 500% ;
+}
+
+/*
+---------------------------ini resister page----------------------------------------------
+*/
+
+.todoList{
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 3%;
+}
+#titleTodoList {
+    
+    background-color: rgba(197, 245, 247, 0.9);
+    min-width: 10vw;
+    max-width: 10vw;
+    display: inline-table;
+}
+#descriptionTodoList {
+    background-color: rgba(197, 245, 247, 0.9);
+    min-width: 20vw;
+    max-width: 20vw;
+    display: inline-table;
+}
+#statusTodoList {
+    background-color: rgba(197, 245, 247, 0.9);
+    min-width: 10vw;
+    max-width: 10vw;
+    display: inline-table;
+}
+#duedateTodoList {
+    background-color: rgba(197, 245, 247, 0.9);
+    min-width: 10vw;
+    max-width: 10vw;
+    display: inline-table;
+}
+#actionTodoList {
+    background-color: rgba(197, 245, 247, 0.9);
+    min-width: 20vw;
+    max-width: 20vw;
+    display: inline-table;
+}
+
+#titleHeadTodo{
+    font-size: 150%;
+    background-color: turquoise;
+    min-width: 10vw;
+    max-width: 10vw;
+    display: inline-table;
+}
+#descriptionHeadTodo {
+    font-size: 150%;
+    background-color: turquoise;
+    min-width: 20vw;
+    max-width: 20vw;
+    display: inline-table;
+}
+#duedateHeadTodo {
+    font-size: 150%;
+    background-color: turquoise;
+    min-width: 10vw;
+    max-width: 10vw;
+    display: inline-table;
+}
+#statusHeadTodo {
+    font-size: 150%;
+    background-color: turquoise;
+    min-width: 10vw;
+    max-width: 10vw;
+    display: inline-table;
+}
+#actionHeadTodo {
+    font-size: 150%;
+    background-color: turquoise;
+    min-width: 20vw;
+    max-width: 20vw;
+    display: inline-table;
+}
+
+.mainPage{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+#TODOLISTH1{
+    font-family: 'Dancing Script', cursive;
+    font-size: 500%;
+    color: whitesmoke;
+}
