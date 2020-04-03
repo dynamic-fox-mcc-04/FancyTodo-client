@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-signin-client_id" content="191027788205-7be5c3606k5dfcak5ldblahind0aptpm.apps.googleusercontent.com">
+  <script src="https://kit.fontawesome.com/3f3ef64186.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="./img/todo.png">
+  <title>ToDo - List</title>
+</head>
+
+<body>
+  <!-- register page -->
+  <div id="register-page">
+    <div class="container">
+      <div class="img">
+        <img src="./img/list.svg">
+      </div>
+      <div class="register-container">
+        <form id="register-form">
+          <img class="avatar" src="./img/avatar.svg">
+          <h2>Register</h2>
+          <div class="input-div zero">
+            <div class="i">
+              <i class="fas fa-user"></i>
+            </div>
+            <div>
+              <input id="register-name" type="text" class="input" placeholder="Name" required>
+            </div>
+          </div>
+          <div class="input-div one">
+            <div class="i">
+              <i class="fas fa-at"></i>
+            </div>
+            <div>
+              <input id="register-email" type="text" class="input" placeholder="Email" required>
+            </div>
+          </div>
+          <div class="input-div two">
+            <div class="i">
+              <i class="fas fa-lock"></i>
+            </div>
+            <div>
+              <input id="register-password" type="password" class="input" placeholder="Password" required>
+            </div>
+          </div>
+          <div class="option">
+            <p>Already have account? <a id="login-btn">Login</a></p>
+          </div>
+          <input type="submit" class="btn" value="Register">
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- login page -->
+  <div id="login-page">
+    <div class="container">
+      <div class="img">
+        <img src="./img/list.svg">
+      </div>
+      <div class="login-container">
+        <form id="login-form">
+          <img class="avatar" src="./img/avatar.svg">
+          <h2>Welcome</h2>
+          <div class="input-div one">
+            <div class="i">
+              <i class="fas fa-at"></i>
+            </div>
+            <div>
+              <input id="login-email" type="text" class="input" placeholder="Email" required>
+            </div>
+          </div>
+          <div class="input-div two">
+            <div class="i">
+              <i class="fas fa-lock"></i>
+            </div>
+            <div>
+              <input id="login-password" type="password" class="input" placeholder="Password" required>
+            </div>
+          </div>
+          <div class="option">
+            <p>Dont have an account? <a id="join-btn">Join Us</a></p>
+          </div>
+          <input type="submit" class="btn" value="Login">
+          <h6>Or you can use:</h6>
+          <div id="gsignin" style="display: flex; justify-content: center; margin-top: 20px;">
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- dashboard -->
+  <div id="dashboard-page">
+    <div id="dashboard-header">
+      <div class="row" style="width: 100%; padding: 15px;">
+        <div class="col-md-6 col-sm-6 col-xs-12 segment-one">
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12 segment-two">
+        </div>
+      </div>
+      <i id="logout-btn" class="fas fa-sign-out-alt fa-2x"></i>
+    </div>
+    <div id="main">
+      <div id="title">
+        <h2>My Todo</h2>
+        <i style="color: #425195;" id="add-todo" data-toggle="modal" data-target="#create-todo" class="far fa-plus-square fa-2x"></i>
+      </div>
+      <div id="todos">
+        <!-- card -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div class="modal fade" id="edit-todo" tabindex="-1" role="dialog" aria-labelledby="edit-todo" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="edit-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h3 class="modal-title" id="exampleModalLongTitle">Edit My Task</h3>
+        </div>
+
+        <div class="edit-body">
+          <form id="edit-form">
+            <div class="input-div one">
+              <div class="i">
+                <i class="fas fa-comment-alt"></i>
+              </div>
+              <div>
+                <input id="edit-title" type="text" class="input" placeholder="Title" required>
+              </div>
+            </div>
+            <div class="input-div two">
+              <div class="i">
+                <i class="fas fa-scroll"></i>
+              </div>
+              <div>
+                <input id="edit-description" type="text" class="input" placeholder="Description" required>
+              </div>
+            </div>
+            <div class="input-div three">
+              <div class="i">
+                <i class="fas fa-question-circle"></i>
+              </div>
+              <div>
+                <select id="edit-status" class="form-control" id="exampleFormControlSelect1">
+                  <option value="false">Ongoing</option>
+                  <option value="true">Done</option>
+                </select>
+              </div>
+            </div>
+            <div class="input-div four">
+              <div class="i">
+                <i class="fas fa-calendar-alt"></i>
+              </div>
+              <div>
+                <input id="edit-due_date" type="date" class="input" required>
+              </div>
+            </div>
+            <input type="submit" class="btn" value="EDIT TODO">
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- CREATE MODAL -->
+  <div class="modal fade" id="create-todo" tabindex="-1" role="dialog" aria-labelledby="create-todo" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="create-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h3 class="modal-title" id="exampleModalLongTitle">Create New Task</h3>
+        </div>
+
+        <div class="create-body">
+          <form id="create-form">
+            <div class="input-div one">
+              <div class="i">
+                <i class="fas fa-comment-alt"></i>
+              </div>
+              <div>
+                <input id="create-title" type="text" class="input" placeholder="Title" required>
+              </div>
+            </div>
+            <div class="input-div two">
+              <div class="i">
+                <i class="fas fa-scroll"></i>
+              </div>
+              <div>
+                <input id="create-description" type="text" class="input" placeholder="Description" required>
+              </div>
+            </div>
+            <div class="input-div three">
+              <div class="i">
+                <i class="fas fa-question-circle"></i>
+              </div>
+              <div>
+                <select id="create-status" class="form-control" id="exampleFormControlSelect1">
+                  <option value="false">Ongoing</option>
+                  <option value="true">Done</option>
+                </select>
+              </div>
+            </div>
+            <div class="input-div four">
+              <div class="i">
+                <i class="fas fa-calendar-alt"></i>
+              </div>
+              <div>
+                <input id="create-due_date" type="date" class="input" required>
+              </div>
+            </div>
+            <input type="submit" class="btn" value="CREATE TASK">
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- script dan lain-lain-->
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <script src="index.js"></script>
+</body>
+
+</html>
