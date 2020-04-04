@@ -62,7 +62,14 @@ function createUser(event){
             }
         })
         .done(result=>{
-            // $('.createForm').hide()      
+            $('#email').val(signup_email)
+            $('#pass').val(signup_pass)
+            login(event)
+            $('#email').val('')
+            $('#pass').val('')
+            $('#signup_email').val('')
+            $('#signup_pass').val('')
+            $('#signup_pass2').val('')
             localStorage.setItem('action','#todocontent')
             authentication(localStorage.action)   
             toastr["info"]("WELCOME TO TODO APPS", "SELAMAT")  
@@ -81,6 +88,7 @@ function createUser(event){
 }
 
 function login(event){
+    
     event.preventDefault();
     let email = $('#email').val()
     let password =$('#pass').val()
@@ -97,9 +105,7 @@ function login(event){
         localStorage.setItem('token',data.Data.token)
         localStorage.setItem('email',data.Data.email)
         localStorage.setItem('action','#todocontent')
-        authentication(localStorage.action)              
-       
-        
+        authentication(localStorage.action)
 
     })
     .fail(err=>{
