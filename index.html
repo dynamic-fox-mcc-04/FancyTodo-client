@@ -26,7 +26,7 @@
               <input class="input" type="password" placeholder="512412415" id="password-login">
             </div>
         </div>
-        <button onclick="login()" class="button is-primary is-rounded">Login</button>
+        <button onclick="login(event)" class="button is-primary is-rounded">Login</button>
         <p>Don't have an account? Click <a onclick="showRegister(event)" href="">here</a> to register.</p>
         <p>Or sign in through Google:</p>
         <br>
@@ -53,7 +53,7 @@
     </div>
     <div id="dashboard">
         <!-- Navbar here -->
-        <nav class="navbar" role="navigation" aria-label="main navigation">
+        <nav class="navbar atas" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
               <a class="navbar-item" >
                 Fancy Todo!
@@ -68,34 +68,12 @@
           
             <div id="navbarBasicExample" class="navbar-menu">
               <div class="navbar-start">
-                <a class="navbar-item">
-                  Home
-                </a>
-          
-                <a class="navbar-item">
-                  Documentation
-                </a>
-          
-                <div class="navbar-item has-dropdown is-hoverable">
-                  <a class="navbar-link">
-                    More
-                  </a>
-          
-                  <div class="navbar-dropdown">
-                    <a class="navbar-item">
-                      About
+                <div class="navbar-item">Welcome back, 
+                    <a class="navbar-item" id="username">
                     </a>
-                    <a class="navbar-item">
-                      Jobs
+                    <a class="navbar-item" id="pic">
+
                     </a>
-                    <a class="navbar-item">
-                      Contact
-                    </a>
-                    <hr class="navbar-divider">
-                    <a class="navbar-item">
-                      Report an issue
-                    </a>
-                  </div>
                 </div>
               </div>
           
@@ -105,8 +83,8 @@
                     <a class="button is-primary">
                       <strong>Sign up</strong>
                     </a>
-                    <a class="button is-light">
-                      Log in
+                    <a onclick="logout(event)" href="" class="button is-light">
+                      Logout
                     </a>
                   </div>
                 </div>

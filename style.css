@@ -33,3 +33,7 @@ body {
 .g-signin2 {
     margin: 10px;
 }
+.atas {
+    position: fixed;
+    top: 0;
+}

@@ -13,6 +13,10 @@ function showRegister(event) {
     $('#dashboard').hide()
 }
 function showDashboard() {
+    $('#username').empty()
+    $('#pic').empty()
+    $('#username').append(`${localStorage.getItem('email')}`)
+    $('#pic').append(`<img width="25" height="25" src="${localStorage.getItem('avatar')}">`)
     $('#dashboard').show()
     $('#register-page').hide()
     $('#landing-page').hide()
@@ -31,7 +35,9 @@ function login(event) {
         $('#password-login').val('')
         console.log(response)
         localStorage.setItem("avatar", response.avatar)
+        localStorage.setItem("email", response.email)
         localStorage.setItem("token", response.token)
+        showDashboard()
     })
 }
 function onSignIn(googleUser) {
@@ -73,6 +79,16 @@ function onSignIn(googleUser) {
                 })
             })
         })
+}
+
+function logout(event) {
+    event.preventDefault()
+    localStorage.clear()
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        console.log('User signed out.');
+    });
+    showLandingPage()
 }
 
 $(document).ready(function() {
