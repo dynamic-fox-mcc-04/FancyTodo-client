@@ -2,6 +2,11 @@ const baseUrl = 'http://localhost:3000'
 
 $( document ).ready(function() {
     auth()
+    $( '#myModal' ).on('shown', function() {
+        $( '#title-error' ).empty()   
+        $( '#dueDate-error' ).empty()  
+
+    })
 })
 
 const register = (event) => {
@@ -126,11 +131,19 @@ const addTask = (event) => {
     .done(data => {
         readTask()
         resetModal()
+        $('#myModal').modal('hide')
+        $('#modal-content-text').empty()
+        $('#modal-content-text').append(data.message)
+        $('#success-modal').modal('show')
     })
     .fail(err => {
-
         err.responseJSON.errors.forEach(data => {
             console.log(data.message)
+            if (data.message.trim() == 'Validation notEmpty on title failed') {
+                $( '#title-error' ).append(data.message.trim())   
+            } else {
+                $( '#dueDate-error' ).append(data.message.trim()) 
+            }
         })
     })
     
@@ -220,6 +233,7 @@ const loadModal = (id) => {
     $("#delete-modal").attr('onclick', `deleteTask(event, ${id})`) 
 }
 
+
 const readCompleted = () => {
     $.ajax({
         method: 'GET',
@@ -246,8 +260,8 @@ const readCompleted = () => {
             <div class="d-flex flex-row justify-content-lg-between align-items-center">
             <div>
                 <button type="button" class="btn btn-primary btn-sm" onclick="readEditTask(${datum.id})"><i class="fas fa-edit"></i></button>
-                <button type="button" class="btn btn-success btn-sm" onclick="updateCompleted(${datum.id}, false)"><i class="fas fa-backspace"></i></button>
-                <button type="button" class="btn btn-danger btn-sm" onclick="deleteTask(event, ${datum.id})"><i class="fas fa-trash"></i></button>
+                <button type="button" class="btn btn-success btn-sm" onclick="updateCompleted(${datum.id}, true)"><i class="fas fa-check"></i></button>
+                <button type="button" id="dlt-task" class="btn btn-danger btn-sm" data-toggle="modal" data-target='#delete-modal-task' onclick="loadModal(${datum.id})"><i class="fas fa-trash"></i></button>
             </div> 
             <div>
             <p class="card-text" id="card-date-${datum.id}">${newDate}</p>
@@ -365,23 +379,44 @@ const editTask = (id) => {
     })
 }
 
-const readHoliday = () => {
-    let appends = `<div class="card-body">
-    <h4 class="card-title" id="card-title-23">Liburan</h4>
-    <p class="card-text" id="card-description-23">ke Bali</p>
-  <div class="d-flex flex-row justify-content-lg-between align-items-center">
-  <div>
-      <button type="button" class="btn btn-primary btn-sm" onclick="readEditTask(23)"><i class="fas fa-edit" aria-hidden="true"></i></button>
-      <button type="button" class="btn btn-success btn-sm" onclick="updateCompleted(23, true)"><i class="fas fa-check" aria-hidden="true"></i></button>
-      <button type="button" class="btn btn-danger btn-sm" onclick="deleteTask(event, 23)"><i class="fas fa-trash" aria-hidden="true"></i></button>
-  </div> 
-  <div>
-  <p class="card-text" id="card-date-23">Fri Jan 01 2021</p>
-  </div>
-  </div>
-  </div>`
+const showModalHoliday = () => {
+    $( '#holidayModal' ).modal('show')
+}
 
-  $("#card-holiday").append(appends)
+const readHoliday = () => {
+    let year = +$( '#year-modal' ).val() || 2017
+    console.log(year)
+    $.ajax({
+        method: 'GET',
+        headers: {
+            'access_token': localStorage.access_token
+        },
+        url: baseUrl + `/features/check-holidays/${year}`
+    })
+    .done(data => {
+        console.log(data)
+        $( '#page-content-wrapper' ).empty()
+        $( '#page-content-wrapper' ).append(`<nav id="pcw-nav" class="d-flex align-items-center justify-content-lg-between navbar navbar-expand-lg navbar-light bg-light border-bottom m-1">
+        <button class="btn btn-primary" id="menu-toggle" onclick="toggleUp(event)">Menu</button>
+        <h2>Holiday</h2></nav>
+        <div class="container-fluid d-flex flex-column align-items-center" id="task-container">
+        </div>`)
+        let appends = ''
+        data.holidays.forEach(datum => {
+            appends += `<div class="card" style="width:400px;">
+            <div class="card-body">
+              <h4 class="card-title">${datum.date}</h4>
+              <p class="card-text">${datum.localName}</p>
+            </div>
+          </div>\n`
+        })
+        $( '#task-container' ).append(appends)
+    })
+    .fail(err => {
+        err.responseJSON.errors.forEach(data => {
+            console.log(data.message)
+        })
+    })
 }
 
 function onSignIn(googleUser) {

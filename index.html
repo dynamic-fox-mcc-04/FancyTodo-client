@@ -6,9 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="google-signin-client_id" content="758731203563-0ben8ai532ehsvmlsq8271ks7u7hg20u.apps.googleusercontent.com">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
         crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
@@ -63,7 +61,7 @@
               <div class="sidebar-heading text-center">Todo App</div>
               <div id="nav-dspl" class="d-flex align-items-center justify-content-lg-between list-group">
                   <div id="tools" class="btn-sdb">
-                      <button class="btn btn-outline-info btn-block m-1" onclick="readHoliday()" data-toggle="modal" data-target="#holiday">Holidays</button>
+                      <button class="btn btn-outline-info btn-block m-1" onclick="showModalHoliday()">Holidays</button>
                       <button class="btn btn-outline-primary btn-block m-1" onclick="readTask()">Tasks</button>
                       <button class="btn btn-outline-success btn-block m-1" onclick="readCompleted()">Completed</button>
                   </div>
@@ -89,19 +87,21 @@
                   <div class="modal-body">
                     <form>
                       <label for="title-modal">Title</label><br>
-                      <input type="text" name="title-modal" id="title-modal" class="form-control"><br>
+                      <input type="text" name="title-modal" id="title-modal" class="form-control">
+                      <p id="title-error" style="color: red;"></p> <br>
                       
                       <label for="description-modal">Description</label>
                       <textarea name="description-modal" id="description-modal" class="form-control textarea-autosize" cols="30" rows="5"></textarea><br>
 
                       <label for="date-modal">Due Date</label><br>
                       <input type="date" name="date-modal" id="date-modal" class="form-control">
+                      <p id="dueDate-error" style="color: red;"></p> <br>
                     </form>
                   </div>
             
                   <!-- Modal footer -->
                   <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" data-dismiss="modal" id="save-modal"  onclick="addTask(event)">Save</button>
+                    <button type="submit" class="btn btn-primary"  id="save-modal" onclick="addTask(event)">Save</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="resetModal()">Close</button>
                   </div>
             
@@ -109,7 +109,58 @@
               </div>
             </div>
 
-            <!-- modal dialog add-->
+
+             <!-- modal dialog Holiday-->
+             <div class="modal fade" id="holidayModal">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+            
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                    <h4 class="modal-title">Please Input Year</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+            
+                  <!-- Modal body -->
+                  <div class="modal-body">
+                    <form>
+                      <label for="year-modal">Year</label><br>
+                      <input type="text" name="year-modal" id="year-modal" class="form-control">
+                    </form>
+                  </div>
+            
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" data-dismiss="modal" id="save-modal" onclick="readHoliday()">Search</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                  </div>
+            
+                </div>
+              </div>
+            </div>
+
+
+            <!-- modal success -->
+            <div class="modal fade" id="success-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+            
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                    <h4 class="modal-title">Success</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+            
+                  <!-- Modal body -->
+                  <div class="modal-body">
+                    <p>New Task has been created</p>
+                  </div>
+            
+                </div>
+              </div>
+            </div>
+
+            <!-- modal dialog delete-->
             <div class="modal fade" id="delete-modal-task">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -213,25 +264,25 @@
             </div>
         
         </div>
-          <script>
-            $("#menu-toggle").click(function(e) {
-              e.preventDefault();
-              $("#wrapper").toggleClass("toggled");
-            });
-          </script>
+         
     </div>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>     
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>   
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script> -->
+      crossorigin="anonymous"></script> -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script> -->
-        <script
-        src="https://code.jquery.com/jquery-3.4.1.js"
-        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-        crossorigin="anonymous">
+      crossorigin="anonymous"></script> -->
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"></script>
     </script>
+            <script>
+              $("#menu-toggle").click(function(e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+              });
+            </script>
     <script src="main.js"></script>
 </body>
 
