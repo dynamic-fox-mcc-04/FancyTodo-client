@@ -5,30 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <link rel="stylesheet" href="style.css">
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="810529219616-q2qogn1dnfgm21h3ljv8he6a6nr3ukih.apps.googleusercontent.com>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <title>FancyToDo By Rerun</title>
 </head>
 <body>
-    <div id="landing-page">
+    <div class="box is-vcentered is-centered is-half" id="landing-page">
         <h3 class="title">ToDo by Rerun</h3>
         <div class="field">
             <label class="label">Email</label>
             <div class="control">
-              <input class="input" type="email" placeholder="e.g. alexsmith@gmail.com"">
+              <input class="input" type="email" placeholder="e.g. alexsmith@gmail.com" id="email-login">
             </div>
         </div>
           
         <div class="field">
             <label class="label">Password</label>
             <div class="control">
-              <input class="input" type="password" placeholder="512412415">
+              <input class="input" type="password" placeholder="512412415" id="password-login">
             </div>
         </div>
-        <button class="button is-primary is-rounded">Login</button>
-        <p>Don't have an account? Click here to register.</p>
+        <button onclick="login()" class="button is-primary is-rounded">Login</button>
+        <p>Don't have an account? Click <a onclick="showRegister(event)" href="">here</a> to register.</p>
         <p>Or sign in through Google:</p>
+        <br>
         <div class="g-signin2" data-onsuccess="onSignIn"></div>
     </div>
-    <div id="register-page">
+    <div class="box is-vcentered is-centered is-half"  id="register-page">
         <h3 class="title">ToDo by Rerun</h3>
         <div class="field">
             <label class="label">Email</label>
@@ -44,6 +48,8 @@
             </div>
         </div>
         <button class="button is-primary is-rounded">Register Now!</button>
+        <br><br>
+        <button class="button is-secondary is-rounded" onclick="showLandingPage()">Back to login page</button>
     </div>
     <div id="dashboard">
         <div id="create-form">
@@ -56,5 +62,7 @@
     <div id="edit-page">
 
     </div>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
+    </script>
+    <script src="main.js"></script>
 </body>
