@@ -355,13 +355,7 @@ body{
     background-color: white;
     justify-content: center;
 }
-.loading{
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin-top: 50%;
-}
+
 /* The Modal (background) */
 .modaldelete {
     display: none; /* Hidden by default */
