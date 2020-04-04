@@ -3,68 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="style.css"> -->
-    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/journal/bootstrap.min.css" rel="stylesheet" integrity="sha384-0d2eTc91EqtDkt3Y50+J9rW3tCXJWw6/lDgf1QNHLlV0fadTyvcA120WPsSOlwga" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/input.css">
+    <link rel="stylesheet" href="css/button.css">
+    <link rel="stylesheet" href="css/href.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta name="google-signin-client_id" content="625399283033-21mv73nob8586uuel28gai0ghmna0per.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <title>Home</title>
+</head>
+<body>
+    <nav id="navbar"class="d-flex">
+        <button id="toShowTodo" class="learn-more mr-auto p-2" onclick="showTodo()">Home</button>
+        <button id="logout" class="learn-more p-2" onclick="signOut()">Logout</button>
+    </nav>
+    <main class="d-flex align-items-center justify-content-center">
+        <div class="login">
+            <form id="login" onsubmit="login(event)">
+                <h3>FANCY TODO</h3><br>
+                <div class="form__group field">
+                    <input type="email" class="form__field" placeholder="Email" id="email-login" required />
+                    <label for="email" class="form__label">Email</label>
+                </div>
+                <div class="form__group field">
+                    <input type="password" class="form__field" placeholder="Password" id="password-login" required />
+                    <label for="password" class="form__label">Password</label>
+                </div>
+                <input type="submit" value="Login" class="brk-btn button"><br>
+            </form>
+            Login with Google?<div class="g-signin2" data-onsuccess="onSignIn"></div><br>
+            Don't have an account?
+            <a href="" id="toRegister" class="underlined-a" style="text-decoration: none;">Register</a>
+        </div>
+        <div class="register">
+            <form id="register" onsubmit="register(event)">
+                <h3>Register</h3>
+                <div class="form__group field">
+                    <input type="email" class="form__field" placeholder="Email" id="email-register" required />
+                    <label for="email" class="form__label">Email</label>
+                </div>
+                <div class="form__group field">
+                    <input type="password" class="form__field" placeholder="Password" id="password-register" required />
+                    <label for="password" class="form__label">Password</label>
+                </div>
+                <input type="submit" value="Register" class="brk-btn button">
+            </form>
+            Already have an account?
+            <a href="" id="toLogIn" class="underlined-a" style="text-decoration: none;">Login</a>
+        </div>
+        <div class="create-todo">
+            <form id="create-todo" onsubmit=" createTodo(event)">
+                <h3 style="text-align: center;">Create Todo</h3><br>
+                <div class="form__group field">
+                    <input type="text" class="form__field" placeholder="Title" id="title-create" required/>
+                    <label for="title" class="form__label">Title</label>
+                </div>
+                <div class="form__group field">
+                    <input type="text" class="form__field" placeholder="Description" id="description-create"/>
+                    <label for="description" class="form__label">Description</label>
+                </div>
+                <div class="form__group field">
+                    <input type="date" class="form__field" id="due_date-create"/>
+                    <label for="due_date" class="form__label">Due Date</label>
+                </div>
+                <button class="c-smileyButton button mr-auto p-2">
+                    <span class="c-smileyButton__face"></span>
+                    &nbsp;Create
+                </button>
+            </form>
+        </div>
+        <div class="show-todo">
+            <h3 style="text-align: center;">Todo list</h3>
+            <button id="to-create-todo" class="btn btn-primary">Create Todo</button>
+            <div class="tbl-header">
+                <table cellspacing="5" cellpadding="5" border="0" id="todo-table">
+                    <thead style="text-align: center;">
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Due Date</th>
+                        <th>Action</th>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="update-todo">
+            <form id="update-todo" onsubmit="updateTodo(event)">
+                <input class="input" type="hidden" id="id-update">
+                <h3 style="text-align: center;">Update Todo</h3><br>
+                <div class="form__group field">
+                    <input type="text" class="form__field" placeholder="Title" id="title-update" required/>
+                    <label for="title" class="form__label">Title</label>
+                </div>
+                <div class="form__group field">
+                    <input type="text" class="form__field" placeholder="Description" id="description-update"/>
+                    <label for="description" class="form__label">Description</label>
+                </div>
+                <div class="form__group field">
+                    <input type="date" class="form__field" id="due_date-update"/>
+                    <label for="due_date" class="form__label">Due Date</label>
+                </div>
+                <div class="form__group field">
+                    <select id="status-update" class="form__field">
+                        <option value="false">Pending</option>
+                        <option value="true">Done</option>
+                    </select>
+                    <label for="status" class="form__label">Status</label>
+                </div>
+                <button class="c-smileyButton button mr-auto p-2">
+                    <span class="c-smileyButton__face"></span>
+                    &nbsp;Update
+                </button>
+            </form>
+        </div>
+    </main>
+    <footer class="d-flex flex-column" style="text-align: center;" id="weather">
+        <h5 id="airvisual-city" class="p-2"></h5>
+        <p id="airvisual" type="text" class="p-2"></p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script
     src="https://code.jquery.com/jquery-3.4.1.js"
     integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
     crossorigin="anonymous">
     </script>
     <script src="main.js"></script>
-    <title>Home</title>
-</head>
-<body>
-    <div class="login">
-        <form id="login">
-            <h3>Log in</h2><br>
-            E-mail <br>
-            <input type="email" class="email" placeholder="Email" required><br>
-            Password<br>
-            <input type="password" class="password" placeholder="Password" required><br>
-            <input type="submit" value="Log in" class="btn btn-primary"><br>
-        </form>
-        <div class="g-signin2" data-onsuccess="onSignIn"></div><br>
-        <button id="toRegister" class="btn btn-secondary">Register</button><br>
-    </div>
-    <div class="register">
-        <form id="register">
-            <h3>Register</h2>
-            E-mail <br>
-            <input type="email" class="email" placeholder="Email" required><br>
-            Password<br>
-            <input type="password" class="password" placeholder="Password" required><br>
-            <input type="submit" value="Register" class="btn btn-secondary">
-        </form>
-        <button class="btn btn-primary" id="to-log-in">Log in</button><br>
-    </div>
-    <div class="create-todo">
-        <form id="create-todo">
-            <h3>Create Todo</h2><br>
-            Title <br>
-            <input type="text" id="title" placeholder="Title" required><br>
-            Description<br>
-            <input type="text" id="description" placeholder="Description"><br>
-            Due Date<br>
-            <input type="date" id="due_date" placeholder="Due Date"><br>
-            <input type="submit" value="Create" class="btn btn-primary"><br>
-        </form>
-        <button id="to-show-todo" class="btn btn-secondary">Show Todo</button>
-        <!-- <button id="logout" class="btn btn-danger">Log out</button> -->
-    </div>
-    <div class="show-todo">
-        <h3>Todo list</h3>
-        <table border="1" id="todo-table">
-            <thead>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Due Date</th>
-                <th>Action</th>
-            </thead>
-        </table>
-        <button id="to-create-todo" class="btn btn-primary">Create Todo</button>
-        <button id="logout" class="btn btn-danger">Log out</button>
-    </div>
+    <script src="google.js"></script>
+    <script src="weather.js"></script>
 </body>
 </html>

@@ -3,61 +3,49 @@ let baseUrl = "http://localhost:3000/";
 $(document).ready(function()
 {
     authentication();
+    $("a").click(event => event.preventDefault());
     $(".register").hide();
-    
-    $("#login").submit(function( event ) {
-        login(event)
-      });
+
     $("#toRegister").click(function( event ) {
         $(".register").show();
         $(".login").hide();
     });
-    $("#to-log-in").click(function( event ) {
+
+    $("#toLogIn").click(function( event ) {
         $(".register").hide();
         $(".login").show();
     });
-    $("#register").submit(function( event ) {
-        register(event)
-    });
-    $("#create-todo").submit(function( event ) {
-        createTodo(event)
-    });
-    $("#to-show-todo").click(function( event ) {
-        showTodo();
-        $(".show-todo").show();
-        $(".create-todo").hide();
-    });
+
     $("#to-create-todo").click(function( event ) {
         $(".show-todo").hide();
         $(".create-todo").show();
     });
+
     $("#logout").click(function( event ) {
         localStorage.removeItem("accessToken");
-        $(".create-todo").hide();
-        $(".show-todo").hide();
         authentication();
     });
 });
-
-function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-  }
 
 function authentication()
 {
     $(".show-todo").hide();
     if(localStorage.accessToken)
     {
-        $(".create-todo").show();
+        weather();
+        $("#logout").show();
+        $("#toShowTodo").show();
+        showTodo();
         $(".login").hide();
     }
     else
     {
+        $("#airvisual-city").text(``);
+        $("#airvisual").text(``);
+        $("#logout").hide();
+        $("#toShowTodo").hide();
         $(".create-todo").hide();
+        $(".update-todo").hide();
         $(".login").show();
     }
 }
@@ -65,10 +53,10 @@ function authentication()
 function login(event)
 {
     event.preventDefault();
-    let email = $(".email").val();
-    let password = $(".password").val();
-    $(".email").val("");
-    $(".password").val("");
+    let email = $("#email-login").val();
+    let password = $("#password-login").val();
+    $("#email-login").val("");
+    $("#password-login").val("");
     $.ajax(
     {
         type: "POST",
@@ -106,9 +94,9 @@ function register(event)
 function createTodo(event)
 {
     event.preventDefault();
-    let title = $("#title").val();
-    let description = $("#description").val();
-    let due_date = $("#due_date").val();
+    let title = $("#title-create").val();
+    let description = $("#description-create").val();
+    let due_date = $("#due_date-create").val();
 
     $.ajax(
     {
@@ -119,14 +107,24 @@ function createTodo(event)
     })
     .done((data) =>
     {
-        // alert("Success create a Todo");
+        $("#title-create").val("");
+        $("#description-create").val("");
+        $("#due_date-create").val("");
+
         console.log("Success create a Todo", data);
     })
-    .fail(err => console.log("error", err));
+    .fail(err => 
+    {
+        console.log("error", err)
+    });
 }
 
 function showTodo()
 {
+    $(".create-todo").hide();
+    $(".update-todo").hide();
+    $(".show-todo").show();
+    
     $.ajax(
     {
         type: "GET",
@@ -137,21 +135,95 @@ function showTodo()
     {
         for(let i in data)
         {
+            if(!data[i].status)
+                data[i].status = "Pending";
+            else
+            data[i].status = "Done";
             let add =
-            `<tr id="todo-${i}">
-                <td>${data[i].id}</td>
-                <td>${data[i].title}</td>
-                <td>${data[i].description}</td>
-                <td>${data[i].status}</td>
-                <td>${data[i].due_date}</td>
-                <td>
-                    <button id="update-todo-${data[i].id}" class="btn btn-primary">Update Todo</button>
-                    <button id="delete-todo-${data[i].id}" class="btn btn-primary">Delete Todo</button>
+            `<tr id="todo-${data[i].id}">
+                <td nowrap>${data[i].id}</td>
+                <td nowrap>${data[i].title}</td>
+                <td nowrap>${data[i].description}</td>
+                <td nowrap>${data[i].status}</td>
+                <td nowrap>${data[i].due_date}</td>
+                <td nowrap>
+                    <button onclick="showUpdate(${data[i].id})" class="btn btn-primary">Update</button>
+                    <button onclick="deleteTodo(${data[i].id})" class="btn btn-primary">Delete</button>
                 </td>
             </tr>`;
-            $(`#todo-${i}`).remove();
+
+            $(`#todo-${data[i].id}`).remove();
             $("#todo-table").append(add);
         }
     })
     .fail(err => console.log("error", err));
+}
+
+function deleteTodo(id)
+{
+    $.ajax(
+    {
+        type: "DELETE",
+        url: baseUrl + `todos/${id}`,
+        headers : {usertoken : localStorage.accessToken}
+    })
+    .done(() => 
+    {
+        $(`#todo-${id}`).remove();
+        showTodo();
+    })
+    .fail(err => console.log(err));
+}
+
+function showUpdate(id)
+{
+    $.ajax(
+    {
+        type: "GET",
+        url: baseUrl + `todos/${id}`,
+        headers : {usertoken : localStorage.accessToken}
+    })
+    .done(data =>
+    {
+        $("#title-update").val(data.title);
+        $("#description-update").val(data.description);
+        $("#due_date-update").val(data.due_date);
+        if(data.status)
+        {
+            $(`#status-update option[value='true']`).attr("selected", true);
+            $(`#status-update option[value='false']`).attr("selected", false);
+        }
+        else
+        {
+            $(`#status-update option[value='true']`).attr("selected", false);
+            $(`#status-update option[value='false']`).attr("selected", true);
+        }
+        $("#id-update").val(id);
+        $(".show-todo").hide();
+        $(".update-todo").show();
+    })
+}
+
+function updateTodo(event)
+{
+    event.preventDefault();
+    let id = $("#id-update").val();
+    $.ajax(
+    {
+        type: "PUT",
+        url: baseUrl + `todos/${id}`,
+        headers : {usertoken : localStorage.accessToken},
+        data  :
+        {
+            title : $("#title-update").val(), 
+            description : $("#description-update").val(), 
+            due_date : $("#due_date-update").val(),
+            status : $("#status-update").val()
+        }
+    })
+    .done(() => 
+    {
+        showTodo();
+    })
+    .fail(err => console.log(err));
 }
