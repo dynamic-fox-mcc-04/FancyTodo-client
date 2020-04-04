@@ -10,6 +10,19 @@
 
 /* PAGE 0 | SIGN-IN-REGISTER-PAGE */
 
+.signin-page-sentence{
+    font-size: 48px;
+    font-family: 'Bebas Neue', cursive;
+    margin: 5px 0px;
+}
+
+.signin-page-texts{
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+
+
 #main-title {
     display:flex;
     justify-content:center;

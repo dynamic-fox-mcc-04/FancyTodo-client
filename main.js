@@ -27,7 +27,7 @@ function auth() {
         $('.main-page').hide()
         $('.update-page').hide()
         $('.add-todo-page').hide()
-        $('all-productivity-articles-page').hide()
+        $('.all-productivity-articles-page').hide()
     }
 }
 

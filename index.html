@@ -12,14 +12,14 @@
     <div class = "signIn-page">
         <div class="register-signin-box">
             <form onsubmit="signIn(event)" id="formSignIn">
-                <h1>Welcome to to-do-app!</h1>
+                <h1 class="signin-page-sentence">Welcome to to-do-app!</h1>
                 <!-- <button class="signout">Sign Out</button> -->
-                <label for="email">Email:</label><br>
+                <label class="signin-page-texts" for="email">Email:</label><br>
                 <input type="email" id="email" name="email" placeholder="Your email here..." required><br><br>
-                <label for="password">Password:</label><br>
+                <label class="signin-page-texts" for="password">Password:</label><br>
                 <input type="password" id="password" name="password" placeholder="Your password here..." required><br><br>
                 <input type="submit" value="Sign in">
-                <p>Don't have an account yet? You can register right away using:</p>
+                <p class="signin-page-texts">Don't have an account yet? You can register right away using:</p>
                 <div class="g-signin2" data-onsuccess="onSignIn"></div>
             </form>
         </div>
