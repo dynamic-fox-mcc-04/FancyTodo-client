@@ -6,12 +6,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <link rel="stylesheet" href="style.css">
     <meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="810529219616-q2qogn1dnfgm21h3ljv8he6a6nr3ukih.apps.googleusercontent.com>
+    <meta name="google-signin-client_id" content="810529219616-q2qogn1dnfgm21h3ljv8he6a6nr3ukih.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <title>FancyToDo By Rerun</title>
 </head>
 <body>
-    <div class="box is-vcentered is-centered is-half" id="landing-page">
+    <div class="box is-vcentered is-centered is-half log-form" id="landing-page">
         <h3 class="title">ToDo by Rerun</h3>
         <div class="field">
             <label class="label">Email</label>
@@ -30,9 +30,9 @@
         <p>Don't have an account? Click <a onclick="showRegister(event)" href="">here</a> to register.</p>
         <p>Or sign in through Google:</p>
         <br>
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <div class="g-signin2" data-theme="dark" data-onsuccess="onSignIn"></div>
     </div>
-    <div class="box is-vcentered is-centered is-half"  id="register-page">
+    <div class="box is-vcentered is-centered is-half log-form"  id="register-page">
         <h3 class="title">ToDo by Rerun</h3>
         <div class="field">
             <label class="label">Email</label>
@@ -49,9 +49,71 @@
         </div>
         <button class="button is-primary is-rounded">Register Now!</button>
         <br><br>
-        <button class="button is-secondary is-rounded" onclick="showLandingPage()">Back to login page</button>
+        <button class="button is-danger is-outlined is-rounded back" onclick="showLandingPage()">Back to login page</button>
     </div>
     <div id="dashboard">
+        <!-- Navbar here -->
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+              <a class="navbar-item" >
+                Fancy Todo!
+              </a>
+          
+              <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </a>
+            </div>
+          
+            <div id="navbarBasicExample" class="navbar-menu">
+              <div class="navbar-start">
+                <a class="navbar-item">
+                  Home
+                </a>
+          
+                <a class="navbar-item">
+                  Documentation
+                </a>
+          
+                <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-link">
+                    More
+                  </a>
+          
+                  <div class="navbar-dropdown">
+                    <a class="navbar-item">
+                      About
+                    </a>
+                    <a class="navbar-item">
+                      Jobs
+                    </a>
+                    <a class="navbar-item">
+                      Contact
+                    </a>
+                    <hr class="navbar-divider">
+                    <a class="navbar-item">
+                      Report an issue
+                    </a>
+                  </div>
+                </div>
+              </div>
+          
+              <div class="navbar-end">
+                <div class="navbar-item">
+                  <div class="buttons">
+                    <a class="button is-primary">
+                      <strong>Sign up</strong>
+                    </a>
+                    <a class="button is-light">
+                      Log in
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        <!-- End of Navbar -->
         <div id="create-form">
 
         </div>
