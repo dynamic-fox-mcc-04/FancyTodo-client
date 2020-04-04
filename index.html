@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet"> 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet"> 
     <title>Fancy Todo</title>
 </head>
 <body>
@@ -16,7 +17,7 @@
             <h1 id="h1fancytodo">Fancy Todo</h1>
         </div>
         <div class="loginPageCard">
-                <div>
+                <div class="divH1Login">
                     <h1 id="h1Login">Login</h1><br><br>
                 </div>
                 <div class="loginCardAll">
@@ -29,7 +30,6 @@
                     </form>
                 </div>
                 
-            </div>
         </div>
     </div>
     <div class="registerPage">
@@ -50,43 +50,74 @@
         </div>
     </div>
     <div class="mainPage">
-        <div>
-            <button onclick="logout()">Log Out</button>
-        </div>
-        <h1 id="TODOLISTH1">Todo List</h1>
-        <div>
-            <button onclick="createTodoForm()">Add Todo</label>
+        
+        <div class="navbar">
+            <ul id="listNavbar">
+                <li><button onclick="authentication()">Home</button></li>
+                <li><button onclick="News()">News</button></li>
+                <li><button onclick="logout()">Log Out</button></li>
+            </ul>
         </div>
         
+        <h1 id="TODOLISTH1">Todo List</h1>
+        <div style="margin-bottom: 1%;">
+            <button onclick="createTodoForm()">Add Todo</label>
+        </div>
+        <div class="cuaca">
+            
+        </div>
         <div class="todoList">
             
         </div>
+        
     </div>
 
     <div class="modal">
+        <div class="navbar">
+            <ul id="listNavbar">
+                <li><button onclick="authentication()">Home</button></li>
+                <li><button onclick="logout()">News</button></li>
+                <li><button onclick="logout()">Log Out</button></li>
+            </ul>
+        </div>
         <div class="modal-body">
-            <h4 class="modal-title">Add Favorites Book</h4>
+            <h4 class="modal-title">Add Todo</h4><br><b><br></b>
             <form onsubmit="createTodo(event)" autocomplete="off">
                 <div>
-                    <input id="title" type="text" placeholder="title">
+                    <input id="titleAdd" type="text" placeholder="title">
                 </div><br>
                 <div>
-                    <input id="description" type="text" placeholder="description">
+                    <input id="descriptionAdd" type="text" placeholder="description">
                 </div><br>
                 <div>
-                    <input id="due_date" type="date">
+                    <input id="due_dateAdd" type="date">
                 </div><br>
                 <div>
                     <input type="submit" value="submit">
                 </div>
-                
             </form>
         </div>
     </div>
 
     <div class="updatePage">
+        
     </div>
 
+    <div class="newsPage">
+        <div class="navbar">
+            <ul id="listNavbar">
+                <li><button onclick="authentication()">Home</button></li>
+                <li><button onclick="News()">News</button></li>
+                <li><button onclick="logout()">Log Out</button></li>
+            </ul>
+        </div>
+        <div style="margin-top: 3%;">
+            <h1 style="font-family: 'Fjalla One', sans-serif; text-decoration: underline;"> NEWS </h1>
+        </div>
+        <div class="news-content">
+        </div>
+
+    </div>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script
     src="https://code.jquery.com/jquery-3.4.1.js"

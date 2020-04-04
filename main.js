@@ -1,6 +1,7 @@
 let baseUrl = 'http://localhost:3000'
 $( document ).ready(function() {
     authentication()
+    
 });
 
 function onSignIn(googleUser) {
@@ -78,17 +79,20 @@ function onSignIn(googleUser) {
       function authentication(){
         if(localStorage.access_token) {
             fetchTodoList()
+            cuaca()
             $('.loginPage').hide()
             $('.mainPage').show()
             $('.modal').hide()
             $('.updatePage').hide()
             $('.registerPage').hide()
+
         } else {
             $('.loginPage').show()
             $('.mainPage').hide()
             $('.modal').hide()
             $('.updatePage').hide()
             $('.registerPage').hide()
+            $('.newsPage').hide()
         }
     }
 
@@ -201,18 +205,27 @@ function onSignIn(googleUser) {
             // console.log(data.Todo[0].title)
             $('.updatePage').empty()
             $('.updatePage').append(`
-            <form autocomplete="off" onsubmit="updateTodo(event)">
-            <h1>Update Todo Data</h1>
-            <input id="idUpdate" type="hidden" value="${data.Todo[0].id}">
-            <input id="titleUpdate" type="text" value="${data.Todo[0].title}">
-            <input id="descriptionUpdate" type="text" value="${data.Todo[0].description}">
-            <input id="due_dateUpdate" type="text" value="${data.Todo[0].due_date}">
-            <select id="statusUpdate">
-            <option selected value="true">Finished</option>
-                <option value="false">Unfinished</option>
-            </select>
-            <input type="submit" value="submit">
-            </form> 
+            <div class="navbar">
+            <ul id="listNavbar">
+                <li><button onclick="authentication()">Home</button></li>
+                <li><button onclick="logout()">News</button></li>
+                <li><button onclick="logout()">Log Out</button></li>
+            </ul>
+            </div>
+            <div class="update-body">
+                <h1 id="h1UpdateTodo">Update Todo Data</h1>
+                <form class="formUpdate" autocomplete="off" onsubmit="updateTodo(event)">
+                <input id="idUpdate" type="hidden" value="${data.Todo[0].id}">
+                <input id="titleUpdate" type="text" value="${data.Todo[0].title}">
+                <input id="descriptionUpdate" type="text" value="${data.Todo[0].description}">
+                <input id="due_dateUpdate" type="text" value="${data.Todo[0].due_date}">
+                <select id="statusUpdate">
+                <option selected value="true">Finished</option>
+                    <option value="false">Unfinished</option>
+                </select>
+                <input type="submit" value="submit">
+                </form>
+            </div>
             `)
         })
         .fail(err => {
@@ -274,4 +287,86 @@ function onSignIn(googleUser) {
     });
 
     }
+
+    function cuaca() {
+        $('.cuaca').empty()
+        let city= 'depok'
+        $.ajax({
+            method: 'GET',
+            url: baseUrl + '/api/weather/' + city,
+            headers: {
+                access_token: localStorage.access_token
+            }
+        })
+            .done(data=>{
+                console.log(data);
+                $('.cuaca').append(`
+                    <div class="mb-3">
+                        <div>
+                            <label style="color:#FFFFFF !important;">Status : </label>
+                            <img src="https://www.weatherbit.io/static/img/icons/${data.data.data[0].weather.icon}.png" style="width:32px;">
+                        </div>
+                        <div>
+                            <p>${data.data.data[0].weather.description}, Temp : ${data.data.data[0].temp}</p>
+                        </div>
+                        <div>
+                            <label style="color:#FFFFFF !important;">City Name : </label>
+                            <p>${data.data.data[0].city_name}</p>
+                        </div>
+                    </div>`
+                )
+            })
+            .fail(err =>{
+                console.log(err)
+            })
+
+        }
+    
+    function News() {
+        $('.news-content').empty()
+        $('.newsPage').show()
+        $('.mainPage').hide()
+        $('.modal').hide()
+        $('.updatePage').hide()
+        $('.registerPage').hide()
+        
+        const country = 'ID'
+        $.ajax({
+            method: 'GET',
+            url: baseUrl + '/api/news/' + country,
+            headers: {
+                access_token: localStorage.access_token
+            }
+        })
+            .done(data=>{
+                console.log(data);
+                for(let i in data.data.articles){
+                    let title = data.data.articles[i].title
+                    let author = data.data.articles[i].author
+                    let content = data.data.articles[i].content
+                    let urlToImage = data.data.articles[i].urlToImage
+                    let url = data.data.articles[i].url
+                    let date = data.data.articles[i].publishedAt
+                    $('.news-content').append(
+                        `<div class="card-news">
+                            <img src="${urlToImage}" alt="" style="width: 100%;">
+                            <div class="article-news">
+                                <h4>${title}</h4>
+                                <p>
+                                    ${content}
+                                </p>
+                                <a href="${url}">View</a>
+                            </div>
+                            <div class="identity-news">
+                                <b><label>${author}</label></b>
+                                <label>${date}</label>
+                            </div>
+                        </div>`
+                    )
+                }
+            })
+            .fail(err =>{
+                console.log(err)
+            })
+        }
   
