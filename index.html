@@ -32,7 +32,7 @@
             <p class="welcome-sentence">Here's your current list of tasks!</p>
             <div class = "all-buttons-box">
                 <button id="add-to-do-button" onclick="showAddForm( event )">Add a new todo</button>
-                <button id="article-page-button" onclick="showAllArticles( event )">Productivity Tips</button>
+                <button id="article-page-button" onclick="showAllArticles( event )">Productivity articles</button>
                 <button class="signout">Sign Out</button>
             </div>
             <div class="all-todo-list-box">
@@ -85,11 +85,18 @@
     </div>
 
     <div class="all-productivity-articles-page">
-        <div class="all-productivity-articles"></div>
+        <div class="articles-page-header">
+            <h1 id= "article-page-sentence">PRODUCTIVITY ARTICLES</h1>
+            <p id="update-form-sub-sentence">Curated from the best of publishers for you</p>
+        </div>
+        <div class = "all-buttons-box">
+            <button id="article-page-button" onclick="showMainPage( event )">All tasks</button>
+            <button class="signout">Sign Out</button>
+        </div>
+        <div class="all-productivity-box">
+            <div class="all-productivity-articles"></div>
+        </div>
     </div>
-
-    
-
 
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>

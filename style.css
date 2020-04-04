@@ -280,33 +280,104 @@
     font-size: 16px;
     border-radius: 5px;
 }
-/* 
-
-<div class="update-page">
-    <div class="update-form">
-        <div class="update-form-body">
-            <h4 class="update-form-title">Update this todo</h4>
-            <form onsubmit="updateToDo( event )">
-                <label for="update-title">Title:</label><br>
-                <input id="update-title" type="text" placeholder="Your todo title here..."><br><br>
-                <label for="update-description">Description:</label><br>
-                <input id="update-description" type="text" placeholder="Your todo description here..."> <br><br>
-                <label for="update-due_date">Due date:</label><br>
-                <input id="update-due_date" type="date" value="2020-01-01"><br><br>
-                <input type="submit" value="Update">
-                <button class="back-to-main-page-button" onclick="showMainPage( event )">Cancel</button>
-            </form>
-        </div>
-    </div>
-</div>
-
-*/
-
 
 /* PAGE 4 | PRODUCTIVIY TIPS PAGE */
 
+#article-page-sentence{
+    display:flex;
+    justify-content: center;
+    font-size: 48px;
+    font-family: 'Bebas Neue', cursive;
+    margin: 5px 0px;
+}
+
+#article-page-sub-sentence{
+    display:flex;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    margin: 5px 0px 30px 0px;
+}
+
+.article-page-body-background{
+    display:flex;
+    background-color: #f8ffde;
+    padding:20px;
+    justify-content: center;
+}
+
+.all-productivity-box{
+    background-color: #f8ffde;
+    padding:20px;
+}
+
+.article-card-body{
+    background-color: #2ecc71;
+    margin: 10px 15% 0px 15%;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.article-card-link-to-article{
+    text-decoration: none;
+}
+
+.article-card-title{
+    color:white;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 45px;
+    margin:15px 0px 15px 20px;
+}
+
+.article-card-description{
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    margin: 0px 0px 20px 20px
+}
+
+.article-card-publish-date{
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    margin: 0px 0px 20px 20px
+}
 
 
+/*
+<a class="article-card-link-to-article" href="${article_link}">
+<h4 class="article-card-title">${article_title}</h4>
+<p class="article-card-description">${article_description}</p>
+<p class="article-card-publish-date">${article_publishedAt}</p>
+
+.card-title{
+    color:white;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 45px;
+    margin:15px 0px 15px 20px;
+}
+.card-description{
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    margin: 0px 0px 20px 20px
+}
+.card-due_date{
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    margin: 0px 0px 20px 20px
+}
+.card-status{
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    margin: 0px 0px 20px 20px
+}
+
+
+
+
+*/
 
 
 

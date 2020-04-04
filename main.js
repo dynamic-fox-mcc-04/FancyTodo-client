@@ -178,9 +178,10 @@ function showAllArticles( event ){
             $('.all-productivity-articles').append(`
                 <div class="article-card">
                     <div class="article-card-body">
-                        <p>----------------------------------------------------------</p>
-                        <a class="article-card-link-to-article" href="${article_link}">
-                            <h4 class="article-card-title">${article_title}</h4>
+                        <a class="article-card-link-to-article" href="${article_link}" target="_blank">
+                            <div class="highlight-card-title">
+                                <h4 class="article-card-title">${article_title}</h4>
+                            </div>
                             <p class="article-card-description">${article_description}</p>
                             <p class="article-card-publish-date">${article_publishedAt}</p>
                         </a>
