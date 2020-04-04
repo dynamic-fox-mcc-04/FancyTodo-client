@@ -6,19 +6,76 @@ $(document).ready(() => {
 
 function auth() {
     if(localStorage.token) {
-        $('.dashboard-page').show();
-        $('.login-page').hide();
-        $('.register-page').hide();
-        $('.create-todo-page').hide();
-        $('.update-todo-page').hide();
+        $('#dashboard-page').show();
+        $('#login-page').hide();
+        $('#register-page').hide();
+        $('#show-todo-page').show();
+        $('#create-todo-page').hide();
+        $('#update-todo-page').hide();
+        $('#title-page').hide();
+        $('#table-movie').hide();
+        showTodos()
     } else {
-        $('.login-page').show();
-        $('.dashboard-page').hide();
-        $('.register-page').hide();
-        $('.create-todo-page').hide();
-        $('.update-todo-page').hide();
+        $('#dashboard-page').hide();
+        $('#login-page').show();
+        $('#register-page').hide();
+        $('#show-todo-page').hide();
+        $('#create-todo-page').hide();
+        $('#update-todo-page').hide();
+        $('#title-page').show();
+        $('#table-movie').hide();
     }
 }
+
+// <!-- BUTTON-REDIRECT ======================================================================== -->
+
+$('#btn-register').on('click', () => {
+    $('#dashboard-page').hide();
+    $('#login-page').hide();
+    $('#register-page').show();
+    $('#show-todo-page').hide();
+    $('#create-todo-page').hide();
+    $('#update-todo-page').hide();
+    $('#title-page').hide();
+    $('#table-movie').hide();
+})
+    
+$('#btn-login').on('click', () => {
+    $('#dashboard-page').hide();
+    $('#login-page').show();
+    $('#register-page').hide();
+    $('#show-todo-page').hide();
+    $('#create-todo-page').hide();
+    $('#update-todo-page').hide();
+    $('#title-page').hide();
+    $('#table-movie').hide();
+})
+    
+$('#btn-logout').on('click', () => {
+    logout();
+    localStorage.clear();
+    auth();
+})
+
+$('#create_button').on('click', () => {
+    $('#dashboard-page').show();
+    $('#login-page').hide();
+    $('#register-page').hide();
+    $('#show-todo-page').hide();
+    $('#create-todo-page').show();
+    $('#update-todo-page').hide();
+    $('#title-page').hide();
+    $('#table-movie').hide();
+})
+
+$('#btn-back').on('click', () => {
+    auth()
+})
+
+$('#btn-back-2').on('click', () => {
+    auth()
+})
+// <!-- AJAX ======================================================================== -->
 
 function login(event) {
     event.preventDefault();
@@ -34,10 +91,16 @@ function login(event) {
     })
         .done(data => {
             localStorage.setItem('token', data.token)
+            showTodos()
             auth()
         })
         .fail(err => {
-            console.log(err.responseJSON.errors);
+            $('#errorMsg').empty()
+            $("#errorMsg").fadeTo(2000, 500).slideUp(500, function(){
+            $("#errorMsg").slideUp(500);
+            });
+            $('#errorMsg').append(`<a onclick="showLogin()" id="create_todo_button" class="alert alert-danger">${err.responseJSON.errors.message}!</a>`)
+            showError()
         })
 }
 
@@ -54,13 +117,18 @@ function register(event) {
         }
     }) 
         .done(data => {
-            console.log(data)
+            localStorage.setItem('token', data.token);
+            auth();
         })
         .fail(err => {
-            console.log(err.responseJSON.errors);
+            $('#errorMsg').empty()
+            $("#errorMsg").fadeTo(2000, 500).slideUp(500, function(){
+                $("#errorMsg").slideUp(500);
+            });
+            $('#errorMsg').append(`<a onclick="showRegister()" id="create_todo_button" class="alert alert-danger">${err.responseJSON.errors.message}!</a>`)
+            showError()
         })
 }
-
 
 function onSignIn(googleUser) {
     let profile = googleUser.getBasicProfile();
@@ -68,7 +136,7 @@ function onSignIn(googleUser) {
 
     $.ajax({
         method: 'POST',
-        url: 'http://localhost:3000/googleSignIn',
+        url: baseUrl + '/googleSignIn',
         headers: {
             token: id_token
         }
@@ -76,11 +144,15 @@ function onSignIn(googleUser) {
         .done(token => {
             localStorage.setItem('token', token);
             console.log('sign in success', token);
-            fetchTodos();
             auth()
         })
         .fail(err => {
-            console.log('sign in failed', err);
+            $('#errorMsg').empty()
+            $("#errorMsg").fadeTo(2000, 500).slideUp(500, function(){
+                $("#errorMsg").slideUp(500);
+            });
+            $('#errorMsg').append(`<a onclick="showLogin()" id="create_todo_button" class="alert alert-danger">${err.responseJSON.errors.message}!</a>`)
+            showError()
         })
 
     console.log(id_token);
@@ -98,74 +170,254 @@ function logout() {
     });
 }
 
-function fetchTodos(event) {
+function showTodos() {
     $.ajax({
-        method: 'GET',
+        method: "GET",
         url: baseUrl + '/todos',
         headers: {
             token: localStorage.getItem('token')
         }
     })
-        .done(todos => {
-            $('.todos').empty();
+        .done(function (todos) {
+            console.log(todos)
+            $(".main").empty();
             if(todos.length == 0) {
-                $('.todos').append(`
-                <div id="no-todo">
-                    <h2>You have no todo</h2>
-                    <button onclick="showAddForm()" id="create-from-scratch">Create One</button>
-                </div>
-                `)
-            } else {
-                for (let i = 0; i < todos.length; i++) {
-                    let formattedDate = new Date(todos[i].due_date).toISOString().substring(0, 10);
-                    let year = formattedDate.substring(0, 4);
-                    let month = formattedDate.substring(5, 7);
-                    let date = formattedDate.substring(8, 10)
-                    month = monthConverter(month);
-                    let fixedFormattedDate = `${date} ${month} ${year}`
-                    
-                    if(!todos[i].status) {
-                        $('.todos').append(`
-                            <div class="todo">
-                            <div id="checkbox${todos[i].id}">
-                                <i onclick="markTodo(${todos[i].id})" class="fas fa-circle fa-2x"></i>
-                            </div>
-                            <div onclick="editTodo(${todos[i].id})" class="theTodo">
-                                <div id="titleAndDesc">
-                                    <h4>${todos[i].title}</h4>
-                                    <p>${todos[i].description}</p>
-                                </div>
-                                <h4>${fixedFormattedDate}</h4>
-                            </div>
-                            <div class="delete">
-                                <i onclick="deleteTodo(${todos[i].id})" class="fas fa-trash-alt fa-2x"></i>
-                            </div>
-                        </div>
-                        `)
-                    } else {
-                        $('.todos').append(`
-                        <div class="todo">
-                            <div id="checkbox${todos[i].id}">
-                                <i onclick="markTodo(${todos[i].id})" class="fas fa-check-circle fa-2x"></i>
-                            </div>
-                            <div onclick="editTodo(${todos[i].id})" class="theTodo">
-                                <div id="titleAndDesc">
-                                    <h4>${todos[i].title}</h4>
-                                    <p>${todos[i].description}</p>
-                                </div>
-                                <h4>${fixedFormattedDate}</h4>
-                            </div>
-                            <div class="delete">
-                                <i onclick="deleteTodo(${todos[i].id})" class="fas fa-trash-alt fa-2x"></i>
-                            </div>
+                $(".main").append(`
+                    <div id="no-todo">
+                        <h2>You have no todo</h2>
+                        <button onclick="showAddForm()" id="create-from-scratch">Create One</button>
+                    </div>`
+                )
+            }
+
+            for (let i = 0; i < todos.length; i++){
+                let formattedDate = new Date(todos[i].due_date).toISOString().substring(0, 10);
+                let year = formattedDate.substring(0, 4);
+                let month = formattedDate.substring(5, 7);
+                let date = formattedDate.substring(8, 10);
+                month = monthConverter(month);
+                let fixedDate = `${date} ${month} ${year}`
+                if(!status.length == 0){
+                    $('.main').append(`
+                    <div class="show-main-todo">
+                    <h3>Let's create todo</h3>
+                    <table class="table table-bordered table-hover table-info bg-light">
+                        <thead thead-dark>
+                            <tr>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                        </tbody>
+                    </table>
+                    </div>`)
+                } else {
+                    if(todos[i].status) {
+                        $('.main').append(`
+                        <div class="show-main-todo">
+                        <table class="table table-bordered table-hover table-info bg-light">
+                            <thead thead-dark>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Due Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <td>${todos[i].title}</td>
+                                    <td>${todos[i].description}</td>
+                                    <td>${fixedDate}</td>
+                                    <td><i onclick="markTodo(${todos[i].id})" class="fas fa-calendar-check fa-2x"></i></td>
+                                    <td><i onclick="deleteTodo(${todos[i].id})" class="fas fa-trash-alt fa-2x"></i> <i onclick="editTodo(${todos[i].id})" class="fas fa-edit fa-2x"></i></td>
+                            </tbody>
+                        </table>
                         </div>`)
+                    } else {
+                        $('.main').append(`
+                        <div class="show-main-todo">
+                        <table class="table table-bordered table-hover table-info bg-light">
+                            <thead thead-dark>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Due Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <td>${todos[i].title}</td>
+                                    <td>${todos[i].description}</td>
+                                    <td>${fixedDate}</td>
+                                    <td><i onclick="markTodo(${todos[i].id})" class="fas fa-calendar fa-2x"></i></td>
+                                    <td><i onclick="deleteTodo(${todos[i].id})" class="fas fa-trash-alt fa-2x"></i> <i onclick="editTodo(${todos[i].id})" class="fas fa-edit fa-2x"></i></td>
+                            </tbody>
+                        </table>
+                        </div>`)
+                        }
                     }
                 }
-            }
+            })
+                .fail(function (err) {
+                    $('#errorMsg').empty()
+                    $("#errorMsg").fadeTo(2000, 500).slideUp(500, function(){
+                        $("#errorMsg").slideUp(500);
+                    });
+                    if(err.responseJSON.errors){
+                        $('#errorMsg').append(`<a onclick="showLogin()" id="create_todo_button" class="alert alert-danger">${err.responseJSON.errors.message}!</a>`)
+                    } else {
+                        $('#errorMsg').append(`<a onclick="showLogin()" id="create_todo_button" class="alert alert-danger">${err.responseJSON.errors.message}!</a>`)
+                    }
+                    showError()
+                })
+}
+
+function createTodos(event) {
+    event.preventDefault();
+    console.log(localStorage.getItem('token'))
+    $.ajax({
+        method: "POST",
+        url: baseUrl + '/todos',
+        headers: {
+            token : localStorage.getItem('token')
+        },
+        data: {
+            title: $("#title").val(),
+            description: $("#description").val(),
+            status: false,
+            due_date: $("#due_date").val()
+        }
+    })
+        .done((result) => {
+            auth()
+            showTodos()
         })
         .fail(err => {
-            console.log(err)
+            $('#errorMsg').empty()
+            $("#errorMsg").fadeTo(2000, 500).slideUp(500, function(){
+                $("#errorMsg").slideUp(500);
+            });
+            $('#errorMsg').append(`<a onclick="showLogin()" id="create_todo_button" class="alert alert-danger">${err.responseJSON.errors.message}!</a>`)
+            showError()
         })
+}
+
+
+function markTodo(id) {
+    $.ajax({
+        method: 'GET',
+        url: baseUrl + `/todos/${id}`,
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+    .done(todoFound => {
+        if(!todoFound.status) {
+            $.ajax({
+                method: 'PATCH',
+                url: baseUrl + `/todos/done/${id}`,
+                headers: {
+                    token: localStorage.getItem('token')
+                }
+            })
+                .done(markedTodo => {
+                    markTodo.status = true;
+                    auth()
+                    console.log(markedTodo.status);
+                    console.log(markedTodo.id);
+                })
+                .fail(err => {
+                    $('#errorMsg').empty()
+                    $("#errorMsg").fadeTo(2000, 500).slideUp(500, function(){
+                        $("#errorMsg").slideUp(500);
+                    });
+                    $('#errorMsg').append(`<a onclick="showLogin()" id="create_todo_button" class="alert alert-danger">${err.responseJSON.errors.message}!</a>`)
+                        showError()
+                    })
+        } else {
+            $.ajax({
+                method: 'PATCH',
+                url: baseUrl + `/todos/undone/${id}`,
+                headers: {
+                    token: localStorage.getItem('token')
+                }
+            })
+                .done(markedTodo => {
+                    markTodo.status = false;
+                    auth()
+                    console.log(markedTodo.status);
+                    console.log(markedTodo.id);
+                })
+                .fail(err => {
+                    $('#errorMsg').empty()
+                    $("#errorMsg").fadeTo(2000, 500).slideUp(500, function(){
+                        $("#errorMsg").slideUp(500);
+                    });
+                    $('#errorMsg').append(`<a onclick="showLogin()" id="create_todo_button" class="alert alert-danger">${err.responseJSON.errors.message}!</a>`)
+                        showError()
+                    })
+        }
+    })
+    .fail(err => {
+        $('#errorMsg').empty()
+            $("#errorMsg").fadeTo(2000, 500).slideUp(500, function(){
+                $("#errorMsg").slideUp(500);
+            });
+            $('#errorMsg').append(`<a onclick="showLogin()" id="create_todo_button" class="alert alert-danger">${err.responseJSON.errors.message}!</a>`)
+            showError()
+    })
+}
+
+function deleteTodo(id) {
+    $.ajax({
+        method: 'DELETE',
+        url: baseUrl + `/todos/${id}`,
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+        .done(todo => {
+            console.log('Successfully deleted a todo');
+            auth()
+        })
+        .fail(err => {
+            $('#errorMsg').empty()
+            $("#errorMsg").fadeTo(2000, 500).slideUp(500, function(){
+                $("#errorMsg").slideUp(500);
+            });
+            $('#errorMsg').append(`<a onclick="showLogin()" id="create_todo_button" class="alert alert-danger">${err.responseJSON.errors.message}!</a>`)
+            showError()
+        })
+}
+
+function getMovie() {
+    $.ajax({
+    method: 'GET',
+    url: baseUrl + '/api/movieA',
+    headers: {
+        token: localStorage.get('token')
+    }
+})
+    .done(result => {
+        result.data.map(el => {
+            console.table(el)
+            showMovie(el)
+        })
+    })
+    .fail(err => {
+        console.log(err)
+    })
 }
 
 function monthConverter(month) {
@@ -211,21 +463,26 @@ function monthConverter(month) {
 }
 
 function editTodo(id) {
-    $('.dashboard-page').hide();
-    $('.login-page').hide();
-    $('.register-page').hide();
-    $('.create-todo-page').hide();
-    $('.update-todo-page').show();
+    $('#dashboard-page').show();
+    $('#login-page').hide();
+    $('#register-page').hide();
+    $('#show-todo-page').hide();
+    $('#create-todo-page').hide();
+    $('#update-todo-page').show();
+    $('#title-page').hide();
+    $('#table-movie').hide();
     $.ajax({
         method: 'GET',
-        url: baseUrl + '/todos/'+ id,
-        headers: localStorage.getItem("token")
+        url: baseUrl + `/todos/${id}`,
+        headers: {
+            token: localStorage.getItem('token')
+        }
     })
         .done(founded => {
             let dateFormat = new Date(founded.due_date).toISOString().substring(0, 10);
-            $('#update-title').val(founded.title);
-            $('#update-description').val(founded.description);
-            $('#update-due_date').val(dateFormat);
+            $('#title-update').val(founded.title);
+            $('#description-update').val(founded.description);
+            $('#due_date-update').val(dateFormat);
             localStorage.setItem('todoId', id);
         })
         .fail(err => {
@@ -233,77 +490,147 @@ function editTodo(id) {
         })
 }
 
-function markTodo(id) {
 
+// <!-- SHOW-PAGE ======================================================================== -->
+
+function showDashboard() {
+    showTodos();
+    auth();
 }
 
-function createTodos(event) {
+function showLogin() {
+    $('#dashboard-page').hide();
+    $('#login-page').show();
+    $('#register-page').hide();
+    $('#show-todo-page').hide();
+    $('#create-todo-page').hide();
+    $('#update-todo-page').hide();
+    $('#title-page').show();
+    $('#table-movie').hide();
+}
+
+function showRegister() {
+    $('#dashboard-page').hide();
+    $('#login-page').hide();
+    $('#register-page').show();
+    $('#show-todo-page').hide();
+    $('#create-todo-page').hide();
+    $('#update-todo-page').hide();
+    $('#title-page').show();
+    $('#table-movie').hide();
+}
+
+function showEdit() {
+    $('#dashboard-page').show();
+    $('#login-page').hide();
+    $('#register-page').hide();
+    $('#show-todo-page').hide();
+    $('#create-todo-page').hide();
+    $('#update-todo-page').show();
+    $('#title-page').show();
+    $('#table-movie').hide();
+}
+
+function postUpdateTodo(event) {
     event.preventDefault();
-    const title = $('#title').val();
-    const description = $('#description').val();
-    const due_date = $('due_date').val();
+    const title = $('#title-update').val();
+    const description = $('#description-update').val();
+    const due_date = $('#due_date-update').val();
+
+    console.log(title)
+    
+    console.log(localStorage.getItem('todoId'))
     $.ajax({
-        method: 'POST',
-        url: baseUrl + '/todos',
-        headers: {
-            token: localStorage.getToken
-        },
+        method: 'PUT',
+        url: baseUrl + `/todos/${localStorage.getItem('todoId')}`,
         data: {
             title,
             description,
-            status: false,
             due_date
+        },
+        headers: {
+            token: localStorage.getItem('token')
         }
-            .done(_ => {
-                auth();
-                // $('').hide();
-                fetchTodos()
-            })
-            .fail(err => {
-                console.log(err);
-            })
     })
+        .done(response => {
+            console.log(response)
+            auth()
+        })
+        .fail(err => {
+            console.log('Error!', err);
+        })
 }
 
-function showDashboard() {
-    fetchTodos();
-    $('.dashboard-page').show();
-    $('.login-page').hide();
-    $('.register-page').hide();
-    $('.create-todo-page').hide();
-    $('.update-todo-page').hide();
+function loading() {
+    $('body').append(`
+        <img src="https://media1.tenor.com/images/db85ba00c6073b451a8f05156a66524e/tenor.gif?itemid=9856796></img>
+    `)
 }
 
-function showAddForm() {
-    $('.dashboard-page').hide();
-    $('.login-page').hide();
-    $('.register-page').hide();
-    $('.create-todo-page').show();
-    $('.update-todo-page').hide();
+
+function showMovie(el) {
+    $.ajax({
+        method: 'GET',
+        url: baseUrl + '/api/corona',
+    })
+        .done((res) => {
+            $('#corona').empty()
+            $('#corona').append(`
+                <tr>
+                    <td>${res.cases}</td>
+                    <td>${res.deaths}</td>
+                    <td>${res.recovered}</td>
+                    <td>${res.updated}</td>
+                    <td>${res.active}</td>
+                    <td>${res.affectedCountries}</td>
+                </tr>
+            `)
+        })
+        .fail(err => {
+            console.log(err)
+        })
 }
 
-$('#btn-register').on('click', () => {
-    $('.dashboard-page').hide();
-    $('.login-page').hide();
-    $('.register-page').show();
-    $('.create-todo-page').hide();
-    $('.update-todo-page').hide();
+$('#btn-movie').on('click', () => {
+    $('#dashboard-page').show();
+    $('#login-page').hide();
+    $('#register-page').hide();
+    $('#show-todo-page').hide();
+    $('#create-todo-page').hide();
+    $('#update-todo-page').hide();
+    $('#title-page').hide();
+    $('#table-movie').show();
+    showMovie()
 })
 
-$('#btn-login').on('click', () => {
-    $('.dashboard-page').hide();
-    $('.login-page').show();
-    $('.register-page').hide();
-    $('.create-todo-page').hide();
-    $('.update-todo-page').hide();
-})
-
-$('#btn-logout').on('click', () => {
-    logout();
-    localStorage.clear();
-    $('.dashboard-page').hide();
-    $('.login-page').show();
-    $('.register-page').hide();
-    $('.create-todo-page').hide();
-    $('.update-todo-page').hide();
-})
+jQuery(function ($) {
+    $(".sidebar-dropdown > a").click(function() {
+    $(".sidebar-submenu").slideUp(200);
+    if (
+    $(this)
+        .parent()
+        .hasClass("active")
+    ) {
+    $(".sidebar-dropdown").removeClass("active");
+    $(this)
+        .parent()
+        .removeClass("active");
+    } else {
+    $(".sidebar-dropdown").removeClass("active");
+    $(this)
+        .next(".sidebar-submenu")
+        .slideDown(200);
+    $(this)
+        .parent()
+        .addClass("active");
+    }
+    });
+    
+    $("#close-sidebar").click(function() {
+    $(".page-wrapper").removeClass("toggled");
+    });
+    $("#show-sidebar").click(function() {
+    $(".page-wrapper").addClass("toggled");
+    });
+    
+    });
