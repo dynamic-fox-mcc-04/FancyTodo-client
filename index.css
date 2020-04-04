@@ -103,3 +103,28 @@ table, th, td {
     overflow: auto;
     margin-bottom: auto;
 }
+#LandingPage {
+    margin-left: 40vw;
+}
+
+.loader {
+    background-image: url('./asset/tehe.png');
+    width: 160px;
+    height: 160px;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    margin-left: 45vw;
+    margin-top:20vh;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+#background{
+    background-color: white;
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+}

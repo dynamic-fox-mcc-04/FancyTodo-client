@@ -10,8 +10,8 @@ function StartNotSignedIn() {
     $('#TodoTable').hide()
     $('#CreateTodo').hide()
     $('#UpdateTodo').hide()
-
-
+    $('#LandingPage').show()
+    $('#background').hide()
     
 
 }
@@ -29,6 +29,9 @@ function StartSignedIn() {
     $('#UpdateTodo').hide()
     $('#CreateTodo').hide()
     $('#UpdateTodo').hide()
+    $('#LandingPage').hide()
+    $('#background').hide()
+
     GenerateProject()
 }
 
@@ -43,6 +46,7 @@ function Login() {
     $('#RegisterForm').hide()
     $('#ProjectBody').hide()
     $('#MainBody').hide()
+    $('#LandingPage').hide()
 
 }
 
@@ -56,6 +60,8 @@ function Register() {
     $('#RegisterForm').show()
     $('#ProjectBody').hide()
     $('#MainBody').hide()
+    $('#LandingPage').hide()
+
 }
 
 function Logout() {
@@ -72,6 +78,7 @@ function Logout() {
     $('#TodoTable').hide()
     $('#CreateTodo').hide()
     $('#UpdateTodo').hide()
+    $('#LandingPage').show()
     localStorage.removeItem('Access_Token')
     localStorage.removeItem('Email')
     var auth2 = gapi.auth2.getAuthInstance();
@@ -167,11 +174,17 @@ function generateTodo() {
             $('#Todos').show()
             $('#TodoTable').show()
             for(let i = 0; i < result.Todos.length; i++) {
+                if(result.Todos[i].Status == false) {
+                    result.Todos[i].Status = 'On Progress'
+                }
+                else {
+                    result.Todos[i].Status = 'Done'
+                }
                 $('#TodoBody').append(`
                 <tr>
                     <td>${result.Todos[i].Title}</td>
                     <td>${result.Todos[i].Content}</td>
-                    <td>${result.Todos[i].DueDate}</td>
+                    <td>${result.Dates[i]}</td>
                     <td>${result.Todos[i].Status}</td>
                     <td><button id="UpdateTodo-${result.Todos[i].id}"> Update</button></td>
                     <td><button id="DeleteTodo-${result.Todos[i].id}">Delete</button></td>
@@ -182,7 +195,7 @@ function generateTodo() {
                     $('#UpdateTodo').show()
                     $('#UpdateTitle').val(`${result.Todos[i].Title}`)
                     $('#UpdateContent').val(`${result.Todos[i].Content}`)
-                    $('#UpdateDate').val(`${result.Todos[i].DueDate}`)
+                    $('#UpdateDate').val(`${result.Dates[i]}`)
                     $('#UpdateStatus').val(`${result.Todos[i].Status}`)
                     $('#UpdateId').val(`${result.Todos[i].id}`)
                     $('#todoBox').hide()
@@ -257,6 +270,8 @@ $('#CreateTodoButton').on('click', function() {
 })
 //Google Login
 function onSignIn(googleUser) {
+    $('#LoginForm').hide()
+    $('#background').show()
     var id_token = googleUser.getAuthResponse().id_token;
     $.ajax({
         url: BaseUrl+'/user/googlelogin',
@@ -266,6 +281,8 @@ function onSignIn(googleUser) {
         }
     })
     .done(function(result) {
+        $('#background').hide()
+
         localStorage.setItem('Email', result.Email)
         localStorage.setItem('Access_Token', result.Access_Token)
         swal('Login Success', `You Are Accessing From IP ${result.geolocation.ip}, Location ${result.geolocation.city}`, 'success')
@@ -273,6 +290,8 @@ function onSignIn(googleUser) {
         LoginClear()
     })
     .fail(function(err) {
+        $('#LoginForm').show()
+        $('#background').hide()
         swal('Login Failed', err.responseJSON.message, 'error')
         LoginClear()
     })

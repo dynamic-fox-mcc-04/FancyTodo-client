@@ -32,6 +32,8 @@ $(document).ready(function() {
     //REGISTER PROCEDURE
     $("#FormRegister").on('submit', function(e) {
         e.preventDefault()
+        $('#background').show()
+
         $.ajax({
             url: BaseUrl+'/user/register',
             method: 'POST',
@@ -41,11 +43,13 @@ $(document).ready(function() {
             }
         })
         .done(function(result) {
+            $('#background').hide()
             swal("Good job!", result.message, "success");
             RegisterClear()
 
         })
         .fail(function(err){
+            $('#background').hide()
             swal("Too Bad", err.responseJSON.message, "error");
             RegisterClear()
 
@@ -53,6 +57,8 @@ $(document).ready(function() {
     }) 
     //LOGIN PROCEDURE
     $('#FormLogin').on('submit', function(e) {
+        $('#LoginForm').hide()
+        $('#background').show()
         e.preventDefault()
         $.ajax({
             url: BaseUrl+'/user/login',
@@ -63,6 +69,7 @@ $(document).ready(function() {
             }
         })
             .done(function(result) {
+                $('#background').hide()
                 localStorage.setItem('Email', result.Email)
                 localStorage.setItem('Access_Token', result.Access_Token)
                 swal('Login Success', `You Are Accessing From IP ${result.geolocation.ip}, Location ${result.geolocation.city}`, 'success')
@@ -70,6 +77,8 @@ $(document).ready(function() {
                 LoginClear()
             })
             .fail(function(err) {
+                $('#background').hide()
+                $('#LoginForm').show()
                 swal('Login Failed', err.responseJSON.message, 'error')
                 LoginClear()
             })
@@ -106,6 +115,7 @@ $(document).ready(function() {
 
     //CREATE TODO PROCEDURE
     $('#TodoCreate').on('submit', function(e) {
+        $('#background').show()
         e.preventDefault()
         $.ajax({
             url: BaseUrl+'/projects/todos/add',
@@ -122,6 +132,7 @@ $(document).ready(function() {
             }
         })
             .done(function(result) {
+                $('#background').hide()
                 generateTodo()
                 swal('Create Success', 'Successfully Create Todos,Press OK to dismiss', 'success')
                 $('#CreateTodo').hide()
@@ -132,12 +143,15 @@ $(document).ready(function() {
                 $('#Todos').show()
             })
             .fail(function(err) {
-                swal('Create Failed',err, 'error')
+                $('#background').hide()
+                console.log(err)
+                swal('Create Failed', `${err.responseJSON}` , 'error')
             })
     })
 })
 //UPDATE TODO PROCEDURE
 $('#TodoUpdate').on('submit', function(e) {
+    $('#background').show()
     e.preventDefault()
         $.ajax({
             url: BaseUrl+`/projects/todos/${$('#UpdateId').val()}`,
@@ -154,6 +168,7 @@ $('#TodoUpdate').on('submit', function(e) {
             }
         })
             .done(function(result) {
+                $('#background').hide()
                 generateTodo()
                 $('#todoBox').show()
                 $('#Todos').show()
@@ -161,6 +176,7 @@ $('#TodoUpdate').on('submit', function(e) {
                 swal('Update Success', result.msg, 'success')
             })
             .fail(function(err) {
+                $('#background').hide()
                 swal('Update Failed', err, 'error')
             })
 })
