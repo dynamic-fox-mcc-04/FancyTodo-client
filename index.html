@@ -2,28 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <meta name="google-signin-client_id" content="478264750363-9u5b7bd483nggk54ig3uk9us34tfc810.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 
     <title>Todo - List</title>
 </head>
 <body>
-    <!-- home page login/regist -->
+    
     <div class="homePage">
-        <h1>Welcome to Fancy Todo</h1>
-        <button onClick="registerBtn()">Register</button><br>
-        <button onClick="loginBtn()">Login</button><br>
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-        <div class="shalatSchedule">
-            <h3>Shalat Schedule For Jakarta</h3>
+        <div class="jumbotron">
+            <h1 class="display-4">Welcome To Fancy Todo</h1>
+            <p class="lead">Fancy-Todo-Client for weekly challenge Hacktive8 Phase 2</p>
+            <hr class="my-4">
+            <p>The main purpose of a todo is to help organize tasks</p>
+            <button class="btn btn-primary btn-lg" onClick="registerBtn()">Register</button><br><br>
+            <div id="homeLogin">
+                <button id="loginManual" class="btn btn-primary btn-lg" onClick="loginBtn()">Login</button>
+                <div id="loginGoogle" class="g-signin2" data-onsuccess="onSignIn"></div>   
+            </div>
         </div>
-        <div class="weather">
-            <h3>Weater Forecast For Jakarta</h3>
+        <div id="api">
+            <div class="weather" id="weather">
+                <h3>Weater Forecast For Jakarta</h3>
+            </div>
+            <div class="shalatSchedule" id="schedule">
+                <h3>Shalat Schedule For Jakarta</h3>
+            </div>
         </div>
     </div>
-<!-- register page -->
+
     <div class="registerPage">
         <form onsubmit="regist(event)"id="register">
             <h1>Regist New User</h1>
@@ -35,7 +45,7 @@
             <input type="submit" value="Register">
         </form>
     </div>
-<!-- login page -->
+
     <div class="loginPage">
         <form onsubmit="login(event)" id="login">
             <h1>Login User</h1>
@@ -47,7 +57,7 @@
             <input type="submit" value="login">
         </form>
     </div>
-<!-- main page -->
+
     <div class="mainPage">
         <button class="logout">Logout</button>
         <h1>My Todo List</h1>
@@ -86,6 +96,9 @@
         </form>
     </div>
     
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script
         src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="

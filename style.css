@@ -1,0 +1,50 @@
+.jumbotron {
+    background-image: url(img/bg-jumbotron.jpg);
+    background-size: cover;
+}
+
+#api {
+    position: relative;
+    height: 300px;
+}
+#weather
+{
+    position: absolute;
+    margin-right: 25px;
+    left: 5px;
+    top: 5px;
+    bottom: 5px;
+    right: 70%;
+}
+#schedule
+{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    bottom: 5px;
+    left: 30%;
+    margin-left: 25px;
+}
+
+#homeLogin {
+    position: relative;
+    height: 25px;
+}
+#loginManual
+{
+    position: relative;
+    margin-right: 25px;
+    left: 5px;
+    top: 5px;
+    bottom: 5px;
+    right: 70%;
+}
+#loginGoogle
+{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    bottom: 5px;
+    left: 30%;
+    margin-left: 25px;
+}
