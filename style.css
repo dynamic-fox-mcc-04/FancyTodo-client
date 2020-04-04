@@ -12,58 +12,301 @@
     justify-content:center;
     font-size: 48px;
     font-family: 'Bebas Neue', cursive;
+    margin: 5px 0px;
+
 }
+.welcome-sentence{
+    display:flex;
+    justify-content:center;
+    font-family: 'Montserrat', sans-serif;
+    margin: 5px 0px 30px 0px;
+}
+
+.register-signin-box{
+    display:flex;
+    background-color: #f8ffde;
+    padding:20px;
+    justify-content: center;
+}
+
+/* PAGE 1 | MAIN PAGE HERE*/
 .main-page-background-color{
-    background-image: linear-gradient( #5a3092, #212398);
+    background-color: #ffffff;
 }
+
+.all-buttons-box{
+    display: flex;
+    justify-content: center;
+}
+
+#add-to-do-button{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    margin: 0px 5px;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+
+}
+
+#article-page-button{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    margin: 0px 5px;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+
+}
+
+#main-page-button{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    margin: 0px 5px;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+
+}
+.signout{
+    background-color: #e74c3c; /* Green */
+    border: none;
+    color: white;
+    margin: 0px 5px;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+/* TODOLIST BOX AND CARD STYLING STARTS HERE */
+
 .all-todo-list-box{
-    
     background-color: #f8ffde;
     padding:20px;
 }
 .todo-card {
-    background-color: #fe3fa7;
+    background-color: #2ecc71;
     margin: 10px 15% 0px 15%;
     padding: 15px;
     border-radius: 10px 10px 0px 0px;
 }
+.highlight-card-title{
+    background-image: linear-gradient(to right,rgb(39, 174, 96), rgb(46, 204, 113,20));
+    border-radius: 5px;
+}
 .card-title{
     color:white;
-    font-size: 45px;
-    margin:15px 0px 15px 0px;
     font-family: 'Bebas Neue', cursive;
+    font-size: 45px;
+    margin:15px 0px 15px 20px;
 }
 .card-description{
+    color: white;
     font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    margin: 0px 0px 20px 20px
 }
+.card-due_date{
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    margin: 0px 0px 20px 20px
+}
+.card-status{
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    margin: 0px 0px 20px 20px
+}
+
 .task-action-bar{
-    background-image: linear-gradient(#713892, #bb3b9d);;
+    background-image: linear-gradient(#27ae60, #2ecc71);
     display:flex;
     justify-content:space-around;
     padding: 15px 30px;
     margin: 0px 15% 25px;
     border-radius: 0px 0px 10px 10px ;
 }
+
+.complete-task-button{
+    background-color: #f1dd95; /* Green */
+    border: none;
+    color: black;
+    margin: 0px 5px;
+    padding: 5px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.uncomplete-task-button{
+    background-color: #f1dd95; /* Green */
+    border: none;
+    color: black;
+    margin: 0px 5px;
+    padding: 0px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
 .update-todo-button{
-    margin: 10px
+    background-color: #f1dd95; /* Green */
+    border: none;
+    color: black;
+    margin: 0px 5px;
+    padding: 5px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
 }
 .delete-todo-button{
-    margin: 10px
+    background-color: #d63031; /* Green */
+    border: none;
+    color: white;
+    margin: 0px 5px;
+    padding: 5px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
 }
-.add-to-do-button-box{
+
+
+/* PAGE 2 | ADD TODO PAGE */
+#add-form-sentence{
     display:flex;
-    justify-content: flex-end;
+    justify-content: center;
+    font-size: 48px;
+    font-family: 'Bebas Neue', cursive;
+    margin: 5px 0px;
 }
-#add-to-do-button{
+#add-form-sub-sentence{
     display:flex;
-    justify-content: flex-end;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    margin: 5px 0px 30px 0px;
+}
+
+.form-body-background{
+    display:flex;
+    background-color: #f8ffde;
+    padding:20px;
+    justify-content: center;
+}
+
+#add-task-submit-button{
     background-color: #4CAF50; /* Green */
     border: none;
     color: white;
-    margin: 0px 15% 25px;
+    margin: 0px 5px;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     font-size: 16px;
+    border-radius: 5px;
 }
+
+.back-to-main-page-button{
+    background-color: #e74c3c; /* Green */
+    border: none;
+    color: white;
+    margin: 0px 5px;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.add-form-text{
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+
+/* PAGE 3 | UPDATE PAGE */
+
+#update-form-sentence{
+    display:flex;
+    justify-content: center;
+    font-size: 48px;
+    font-family: 'Bebas Neue', cursive;
+    margin: 5px 0px;
+}
+
+#update-form-sub-sentence{
+    display:flex;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    margin: 5px 0px 30px 0px;
+}
+
+.update-form-body-background{
+    display:flex;
+    background-color: #f8ffde;
+    padding:20px;
+    justify-content: center;
+}
+
+.update-form-text{
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+
+#update-task-submit-button{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    margin: 0px 5px;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+}
+/* 
+
+<div class="update-page">
+    <div class="update-form">
+        <div class="update-form-body">
+            <h4 class="update-form-title">Update this todo</h4>
+            <form onsubmit="updateToDo( event )">
+                <label for="update-title">Title:</label><br>
+                <input id="update-title" type="text" placeholder="Your todo title here..."><br><br>
+                <label for="update-description">Description:</label><br>
+                <input id="update-description" type="text" placeholder="Your todo description here..."> <br><br>
+                <label for="update-due_date">Due date:</label><br>
+                <input id="update-due_date" type="date" value="2020-01-01"><br><br>
+                <input type="submit" value="Update">
+                <button class="back-to-main-page-button" onclick="showMainPage( event )">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+*/
+
+
+/* PAGE 4 | PRODUCTIVIY TIPS PAGE */
+
+
+
+
+
 

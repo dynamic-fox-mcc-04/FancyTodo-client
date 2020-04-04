@@ -98,16 +98,18 @@ function getAllTodos(){
             $('.all-todo-list').append(`
                     <div class="todo-card" style = "border: 1px solid #dddddd, padding="2px">
                         <div class="todo-card-body">
-                            <h4 class="card-title">${title}</h4>
+                            <div class="highlight-card-title">
+                                <h4 class="card-title">${title}</h4>
+                            </div>
                             <p class="card-description">${description}</p>
-                            <p class="card-due_date">${due_date}</p>
-                            <p class="status">${status}</p>
+                            <p class="card-due_date">Due date: ${due_date}</p>
+                            <p class="card-status">${status}</p>
                             </div>
                         </div>
                         <div class="task-action-bar">
-                            <button class="uncomplete-task-button" onclick="uncompleteTodo(${id})">Uncomplete Task</button>
-                            <button class="complete-task-button" onclick="completeTodo(${id})">Complete Task</button>
-                            <button class="update-todo-button" onclick="showUpdate(${id})">Update Task</button>
+                        <button class="update-todo-button" onclick="showUpdate(${id})">Update Task</button>
+                        <button class="complete-task-button" onclick="completeTodo(${id})">Complete Task</button>
+                        <button class="uncomplete-task-button" onclick="uncompleteTodo(${id})">Reopen Task</button>
                             <button class="delete-todo-button" onclick="deleteTodo(${id})">Delete Task</button>
                         </div>
                 `)

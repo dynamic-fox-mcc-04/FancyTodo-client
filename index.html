@@ -10,28 +10,30 @@
 </head>
 <body> 
     <div class = "signIn-page">
-        <form onsubmit="signIn(event)" id="formSignIn">
-            <h1>Welcome to to-do-app!</h1>
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
-            <!-- <button class="signout">Sign Out</button> -->
-            <label for="email">Email:</label><br>
-            <input type="email" id="email" name="email" placeholder="Your email here..." required><br><br>
+        <div class="register-signin-box">
+            <form onsubmit="signIn(event)" id="formSignIn">
+                <h1>Welcome to to-do-app!</h1>
+                <!-- <button class="signout">Sign Out</button> -->
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email" placeholder="Your email here..." required><br><br>
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password" placeholder="Your password here..." required><br><br>
+                <input type="submit" value="Sign in">
+                <p>Don't have an account yet? You can register right away using:</p>
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            </form>
+        </div>
         
-            <label for="password">Password:</label><br>
-            <input type="password" id="password" name="password" placeholder="Your password here..." required><br><br>
-            <input type="submit" value="Sign in">
-        </form>
     </div>
 
     <div class="main-page">
         <div class="main-page-background-color">
-            <button class="signout">Sign Out</button>
-            <h1 id="main-title">My to-do-lists</h1>
-            <div class="add-to-do-button-box">
+            <h1 id="main-title">Welcome!</h1>
+            <p class="welcome-sentence">Here's your current list of tasks!</p>
+            <div class = "all-buttons-box">
                 <button id="add-to-do-button" onclick="showAddForm( event )">Add a new todo</button>
-            </div>
-            <div class="article-page-button-box">
                 <button id="article-page-button" onclick="showAllArticles( event )">Productivity Tips</button>
+                <button class="signout">Sign Out</button>
             </div>
             <div class="all-todo-list-box">
                 <div class="all-todo-list"></div>
@@ -42,16 +44,20 @@
     <div class="update-page">
         <div class="update-form">
             <div class="update-form-body">
-                <h4 class="update-form-title">Update this todo</h4>
-                <form onsubmit="updateToDo( event )">
-                    <label for="update-title">Title:</label><br>
-                    <input id="update-title" type="text" placeholder="Your todo title here..."><br><br>
-                    <label for="update-description">Description:</label><br>
-                    <input id="update-description" type="text" placeholder="Your todo description here..."> <br><br>
-                    <label for="update-due_date">Due date:</label><br>
-                    <input id="update-due_date" type="date" value="2020-01-01"><br><br>
-                    <input type="submit" value="Update">
-                </form>
+                <h4 id="update-form-sentence">EDIT CURRENT TASK</h4>
+                <p id="update-form-sub-sentence">Some changes in the details, perhaps?</p>
+                <div class="update-form-body-background">
+                    <form onsubmit="updateToDo( event )">
+                        <label class="update-form-text" for="update-title">Title:</label><br>
+                        <input id="update-title" type="text" placeholder="Your todo title here..."><br><br>
+                        <label class="update-form-text" for="update-description">Description:</label><br>
+                        <input id="update-description" type="text" placeholder="Your todo description here..."> <br><br>
+                        <label class="update-form-text" for="update-due_date">Due date:</label><br>
+                        <input id="update-due_date" type="date" value="2020-01-01"><br><br>
+                        <input id="update-task-submit-button" type="submit" value="Update">
+                        <button class="back-to-main-page-button" onclick="showMainPage( event )">Cancel</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -60,22 +66,25 @@
     <div class="add-todo-page">
         <div class="form">
             <div class="form-body">
-                <h4 class="form-title">Add New Todo</h4>
-                <form onsubmit="addTodos(event)">
-                    <label for="title">Title:</label><br>
-                    <input id="title" type="text" placeholder="Your todo title here..."><br><br>
-                    <label for="description">Description:</label><br>
-                    <input id="description" type="text" placeholder="Your todo description here..."> <br><br>
-                    <label for="due_date">Due date:</label><br>
-                    <input id="due_date" type="date" value="2020-01-01"><br><br>
-                    <input type="submit" value="Submit">
-                </form>
+                <h4 id="add-form-sentence">ADD A NEW TASK</h4>
+                <p id="add-form-sub-sentence">What are you trying to accomplish?</p>
+                <div class="form-body-background">
+                    <form onsubmit="addTodos(event)">
+                        <label class="add-form-text" for="title">Title:</label><br>
+                        <input id="title" type="text" placeholder="Your todo title here..."><br><br>
+                        <label class="add-form-text" for="description">Description:</label><br>
+                        <input id="description" type="text" placeholder="Your todo description here..."> <br><br>
+                        <label class="add-form-text" for="due_date">Due date:</label><br>
+                        <input id="due_date" type="date" value="2020-01-01"><br><br>
+                        <input id="add-task-submit-button" type="submit" value="Add task">
+                        <button class="back-to-main-page-button" onclick="showMainPage( event )">Cancel</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="all-productivity-articles-page">
-        <button class="main-page-button" onclick="showMainPage( event )">All To-do tasks</button>
         <div class="all-productivity-articles"></div>
     </div>
 
