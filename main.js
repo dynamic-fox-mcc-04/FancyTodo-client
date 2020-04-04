@@ -41,12 +41,18 @@ const login = (event) => {
         }
     })
     .done(data => {
+        $('#alert-login').empty()
         localStorage.setItem('access_token', data.accessToken)
         auth()
     })
     .fail(err => {
+        let temp = `<div class="alert alert-danger" role="alert">
+        This is a danger alert—check it out!
+      </div>`
+      $('#alert-login').empty()
         err.responseJSON.errors.forEach(data => {
             console.log(data.message)
+            $('#alert-login').append(`<div class="alert alert-danger" role="alert">${data.message}</div>`)
         })
         auth()
     })
@@ -61,6 +67,11 @@ const logout = (event) => {
       console.log('User signed out.');
     });
     auth()
+    $('#email-login').val('')
+    $('#password-login').val('') 
+    $('#email-register').val('')
+    $('#password-register').val('')
+    $('#alert-login').empty()
 }
 
 const auth = () => {
@@ -68,10 +79,12 @@ const auth = () => {
         mainPageShow()
         $( '.register' ).hide()
         $( '.login' ).hide()
+
     } else {
         $( '.main-page' ).hide()
         $( '.register' ).hide()
         $( '.login' ).show()
+
     }
 }
 
@@ -98,7 +111,6 @@ const addTask = (event) => {
     const title = $( '#title-modal' ).val()
     const description = $( '#description-modal' ).val()
     const due_date = $( '#date-modal' ).val()
-    console.log(title, description, due_date)
     $.ajax({
         method: 'POST',
         headers: {
@@ -113,9 +125,10 @@ const addTask = (event) => {
     })
     .done(data => {
         readTask()
-        console.log(data)
+        resetModal()
     })
     .fail(err => {
+
         err.responseJSON.errors.forEach(data => {
             console.log(data.message)
         })
@@ -142,6 +155,16 @@ const deleteTask = (event, id) => {
         })
     })
 }
+
+
+const resetModal = () => {
+    $('#title-modal').val('')
+    $('#description-modal').val('')
+    $('#date-modal').val('')
+}
+
+
+
 
 const readTask = (event) => {
     $.ajax({
@@ -174,7 +197,7 @@ const readTask = (event) => {
             <div>
                 <button type="button" class="btn btn-primary btn-sm" onclick="readEditTask(${datum.id})"><i class="fas fa-edit"></i></button>
                 <button type="button" class="btn btn-success btn-sm" onclick="updateCompleted(${datum.id}, true)"><i class="fas fa-check"></i></button>
-                <button type="button" class="btn btn-danger btn-sm" onclick="deleteTask(event, ${datum.id})"><i class="fas fa-trash"></i></button>
+                <button type="button" id="dlt-task" class="btn btn-danger btn-sm" data-toggle="modal" data-target='#delete-modal-task' onclick="loadModal(${datum.id})"><i class="fas fa-trash"></i></button>
             </div> 
             <div>
             <p class="card-text" id="card-date-${datum.id}">${newDate}</p>
@@ -191,6 +214,10 @@ const readTask = (event) => {
             console.log(data.message)
         })
     })
+}
+
+const loadModal = (id) => {
+    $("#delete-modal").attr('onclick', `deleteTask(event, ${id})`) 
 }
 
 const readCompleted = () => {
