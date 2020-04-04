@@ -4,15 +4,32 @@ $(document).ready(function () {
     auth()
     $('.logout').click(function () {
         localStorage.clear()
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            console.log('User signed out.');
+        });
         auth()
     })
 })
-// $(document).ajaxError(function () {
-//     $("#errorcontainer").text("Triggered ajaxError handler.");
-// });
-// $( document ).ajaxError(function( event, request, settings ) {
-//     $( "#errorcontainer" ).append( "<li>Error requesting page " + settings.url + "</li>" );
-//   });
+
+
+function onSignIn(googleUser) {
+    let id_token = googleUser.getAuthResponse().id_token;
+    $.ajax({
+        method: 'POST',
+        url: baseUrl + '/googleSign',
+        data: {
+            id_token
+        }
+    }).done(datum => {
+        localStorage.setItem('access_token', datum.access_token)
+        // localStorage.setItem('email', datum.email)
+        auth()
+    }).fail(err => {
+        alertHandler(err)
+    })
+}
+
 
 function auth() {
     if (localStorage.access_token) {
@@ -41,15 +58,11 @@ function login(event) {
             password
         }
     }).done(datum => {
-        // console.log(datum, 'datum')
         localStorage.setItem('access_token', datum.access_token)
         localStorage.setItem('email', datum.email)
         auth()
     }).fail(err => {
-        // console.log(err)
         alertHandler(err.responseJSON.msg)
-
-
     })
 }
 
