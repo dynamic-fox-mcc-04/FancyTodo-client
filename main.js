@@ -263,8 +263,6 @@ function invite(Taskid) {
        
 
 
-
-
         result.users.forEach(el => {
             
 
