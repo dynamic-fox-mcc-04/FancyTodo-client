@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
+    
     <head>
         <title></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="google-signin-client_id" content="629132147598-7cb6mc5nrdboougrld4svgnppcgib7rb.apps.googleusercontent.com">
         <link href="./assets/style/style.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
         <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-        </head>
+    </head>
 
     <body>
         <!-- Login -->
@@ -30,14 +32,26 @@
                     <input type="submit" value="Log In">
                 </form>
                 <div style="display: flex;justify-content: space-between;padding-top: 10px;">
-                    <label>Belum Punya Akun?</label>
-                    <input type="submit" id="tombol-daftar" onclick="modalDaftar()" value="Sign Up">
+                    <div class="columns">
+                        <div class="column is-full">
+                            <label>Belum Punya Akun?</label>
+                            <div class="columns is-mobile">
+                                <div class="column">
+                                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                                </div>
+                                <div class="column">
+                                    <input type="submit" value="logout" onclick="signout()">
+                                    <input type="submit" id="tombol-daftar" onclick="modalDaftar()" value="Sign Up">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section class="login columns is-mobile is-centered">
-            <div id="Form-SignUp" class="card" style="display: none;" >
+            <div id="Form-SignUp" class="card" style="display: none;">
                 <form onsubmit="signup(event)" id="SignUp">
                     <div class="field">
                         <label class="label">Email</label>
@@ -64,7 +78,7 @@
         <div id="Todo-List" class="is-mobile is-centered">
             <h1>Data Corona</h1>
             <div id="dataCorona">
-                
+
             </div>
             <br>
             <div class="action-button">
@@ -90,34 +104,47 @@
                     <h3>Add Item</h3>
                     <button id="tombol-tutup"> Close </button>
                 </div>
-                
+
                 <form onsubmit="createTodo(event)">
                     <div class="field">
                         <label class="label">Title</label>
                         <div class="control">
-                          <input class="input" type="text" name="title" id="title" >
+                            <input class="input" type="text" name="title" id="title">
                         </div>
                     </div>
-                      
-                    <div class="field" >
+
+                    <div class="field">
                         <label class="label">Description</label>
                         <div class="control">
                             <textarea class="textarea" placeholder="Textarea" id="description"></textarea>
                         </div>
                     </div>
-                    
-                    <div class="field" >
+
+                    <div class="field">
                         <label class="label">Due Date</label>
                         <div class="control">
-                          <input class="input" type="Date" id="due-date" >
+                            <input class="input" type="Date" id="due-date">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <label class="radio">
+                                <input type="radio" id="complete" name="status" value="true">
+                                Complete
+                            </label>
+                            <label class="radio">
+                                <input type="radio" id="uncomplete" name="status" value="false">
+                                Uncomplete
+                            </label>
                         </div>
                     </div>
 
                     <div class="field is-grouped">
                         <div class="control">
-                          <button class="button is-link">Submit</button>
+                            <button class="button is-link">Submit</button>
                         </div>
-                      </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -129,40 +156,55 @@
                     <h3>Update Item</h3>
                     <button id="tombol-tutup-update"> Close </button>
                 </div>
-                
+
                 <form onsubmit="updateTodo(event)">
-                    <input class="input" type="hidden" name="id" id="id-update" >
+                    <input class="input" type="hidden" name="id" id="id-update">
                     <div class="field">
                         <label class="label">Title</label>
                         <div class="control">
-                          <input class="input" type="text" name="title" id="title-update" >
+                            <input class="input" type="text" name="title" id="title-update">
                         </div>
                     </div>
-                      
-                    <div class="field" >
+
+                    <div class="field">
                         <label class="label">Description</label>
                         <div class="control">
                             <textarea class="textarea" placeholder="Textarea" id="description-update"></textarea>
                         </div>
                     </div>
-                    
-                    <div class="field" >
+
+                    <div class="field">
                         <label class="label">Due Date</label>
                         <div class="control">
-                          <input class="input" type="Date" id="due-date-update" >
+                            <input class="input" type="Date" id="due-date-update">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <label class="radio">
+                                <input type="radio" name="status-update" id="complete-update" class="status-update"
+                                    value="true">
+                                Complete
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="status-update" id="uncomplete-update" class="status-update"
+                                    value="false">
+                                Uncomplete
+                            </label>
                         </div>
                     </div>
 
                     <div class="field is-grouped">
                         <div class="control">
-                          <button class="button is-link">Submit</button>
+                            <button class="button is-link">Submit</button>
                         </div>
-                      </div>
+                    </div>
                 </form>
             </div>
         </div>
     </body>
-
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
         </script>

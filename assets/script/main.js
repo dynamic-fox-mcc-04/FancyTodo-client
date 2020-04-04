@@ -16,7 +16,17 @@ $(document).ready(() => {
     auth()
 })
 
-function reportCorona(){
+
+// for show and hide element
+// const HideAndSeek = (target, hide, show) =>{
+//     //
+//     $(target).click(function () {
+//         $(hide).fadeOut("slow");
+//         $(show).fadeIn("slow");
+//     });
+// }
+
+function reportCorona() {
     $.ajax({
         method: 'GET',
         url: baseUrl + '/api/getCovidReportAll',
@@ -31,7 +41,7 @@ function reportCorona(){
             const recovered = data.data.recovered
             const death = data.data.deaths
             $('#dataCorona').append(
-               `<div class="column" style="background-color: rgb(223, 100, 0);color: whitesmoke;">
+                `<div class="column" style="background-color: rgb(223, 100, 0);color: whitesmoke;">
                     <p class="bd-notification is-info">Cases</p>
                     <label>${cases}</label>
                     <br>
@@ -59,6 +69,10 @@ function signout() {
     $('#loading').attr('style', 'display:none !important');
     localStorage.clear()
     $('#bg').fadeOut("slow");
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
     auth()
 }
 
@@ -75,12 +89,12 @@ function auth() {
     }
 }
 
-function modalDaftar(){
+function modalDaftar() {
     $('#Form-SignUp').attr('style', 'display:table !important; margin-top: 100px !important;');
     $('#Form-Login').attr('style', 'display:none !important');
 }
 
-function modalMasuk(){
+function modalMasuk() {
     $('#Form-SignUp').attr('style', 'display:none !important; margin-top: 100px !important;');
     $('#Form-Login').attr('style', 'display:table !important; margin-top: 100px !important;');
 }
@@ -92,7 +106,7 @@ function signup(event) {
     const email = $('#email-daftar').val()
     const password = $('#password-daftar').val()
     console.log(email, password);
-    
+
     $.ajax({
         method: 'POST',
         url: baseUrl + '/signup',
@@ -159,12 +173,19 @@ function fetchData() {
                 const date = new Date(data[i].due_date).toDateString()
                 const status = data[i].status
                 const email = data[i].User.email
-
+                let element = ''
+                if (status) {
+                    element = `<div class="" style="background-color: green;color: whitesmoke;padding: 5px; font-size: 10px;"><p>Complete</p></div>`
+                }
+                else {
+                    element = `<div class="" style="background-color: rgba(255, 0, 0, 0.87);color: whitesmoke;padding: 5px; font-size: 10px;"><p>Uncomplete</p></div>`
+                }
                 $('.data-item').append(
                     `
                 <div class="column is-half">
                     <div class="box"  >
-                        <div style="display: flex;justify-content: flex-end;">
+                        <div style="display: flex;justify-content: space-between; margin-bottom: 20px;">
+                            ${element}
                             <a onclick="deleteTodo(${id})" class="delete"></a>
                         </div>
                         <article class="media" style="cursor:pointer;" onclick="findById(${id})">
@@ -199,14 +220,16 @@ function createTodo(event) {
     const title = $('#title').val()
     const description = $('#description').val()
     const due_date = $('#due-date').val()
-
+    const status = $("input[type='radio']:checked").val();
+    console.log(due_date, 'status')
     $.ajax({
         method: 'POST',
         url: baseUrl + '/todo',
         data: {
             title,
             description,
-            due_date
+            due_date,
+            status
         },
         headers: {
             token: localStorage.token
@@ -246,6 +269,13 @@ function findById(id) {
             $('#title-update').val(data.title)
             $('#description-update').val(data.description)
             $('#due-date-update').val(newDate)
+            if (data.status) {
+                console.log(data.status, 'true');
+                $('#complete-update').prop("checked", true);
+            } else {
+                console.log(data.status, 'false');
+                $('#uncomplete-update').prop("checked", true);
+            }
             $('#modal-update , #bg').fadeIn("slow");
         })
         .fail(err => {
@@ -258,6 +288,8 @@ function updateTodo(event) {
     const title = $('#title-update').val()
     const description = $('#description-update').val()
     const due_date = $('#due-date-update').val()
+    const status = $("input[type='radio']:checked").val();
+    console.log(status)
     $.ajax({
         method: 'PUT',
         url: baseUrl + '/todo/' + $('#id-update').val(),
@@ -266,7 +298,8 @@ function updateTodo(event) {
         }, data: {
             title,
             description,
-            due_date
+            due_date,
+            status
         }
     })
         .done(data => {
@@ -290,6 +323,30 @@ function deleteTodo(id) {
             auth()
         })
         .fail(err => {
+            console.log(err)
+        })
+}
+
+function onSignIn(googleUser) {
+    $('#bg').fadeIn("slow");
+    $('#loading').attr('style', 'display:table !important; display: flex !important;justify-content: center !important; align-items: center !important;');
+    let id_token = googleUser.getAuthResponse().id_token;
+    $.ajax({
+        method: 'POST',
+        url: baseUrl + '/googleSign',
+        data: {
+            id_token
+        }
+    })
+        .done(data => {
+            $('#loading').attr('style', 'display:none !important');
+            $('#bg').fadeOut("slow");
+            localStorage.setItem('token', data.token)
+            auth()
+        })
+        .fail(err => {
+            $('#loading').attr('style', 'display:none !important');
+            $('#bg').fadeOut("slow");
             console.log(err)
         })
 }
