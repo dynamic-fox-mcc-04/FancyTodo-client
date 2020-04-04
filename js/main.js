@@ -16,13 +16,16 @@ toastr.options = {
   "showMethod": "fadeIn",
   "hideMethod": "fadeOut"
 }
-$(document).ready(function(event){
+
+$(document).ready(function(event){   
+    console.log("petama");
     
-    $('.createForm').hide()
-    $('.editForm').hide()
-    $('#registerForm').hide()
-    $('#forgotform').hide()
-    authentication()
+    if(localStorage.action){
+        authentication(localStorage.action)        
+    }else {
+        authentication('.limiter')
+    }
+
     $.ajax({
         method:"GET",
         url:urlmaster +'/apiquotes'
@@ -59,11 +62,9 @@ function createUser(event){
             }
         })
         .done(result=>{
-            // $('.createForm').hide()
-            $('#registerForm').hide()
-            $('#registerForm').hide()
-            $('#todocontent').show()
-            viewtodo()
+            // $('.createForm').hide()      
+            localStorage.setItem('action','#todocontent')
+            authentication(localStorage.action)   
             toastr["info"]("WELCOME TO TODO APPS", "SELAMAT")  
         })
         .fail(err=>{                        
@@ -95,8 +96,9 @@ function login(event){
         //masukan token ke dalam localstorage client
         localStorage.setItem('token',data.Data.token)
         localStorage.setItem('email',data.Data.email)
-        authentication()
-        
+        localStorage.setItem('action','#todocontent')
+        authentication(localStorage.action)              
+       
         
 
     })
@@ -109,14 +111,24 @@ function login(event){
 
 
 }
-function authentication(){
-    if(localStorage.token){        
-        $('.limiter').hide()
-        $('#todocontent').show()
-        viewtodo()        
-    } else {
-        $('.limiter').show()
-        $('#todocontent').hide()
+function authentication(active){    
+    $('#registerForm').hide()
+    $('#forgotform').hide()
+    $('.createForm').hide()
+    $('.editForm').hide()
+    $('#todocontent').hide()
+    $('.limiter').hide()  
+    if(localStorage.token){           
+         $(active).show()        
+         if(localStorage.action == '#todocontent'){
+            if(localStorage.view =='done'){
+                viewtodo_done()
+            }else {
+                viewtodo()
+            }            
+        }
+    } else{
+        $('.limiter').show() 
     }
 }
 
@@ -235,11 +247,8 @@ function viewtodo_done(){
            <!-- Card 1 Back -->
            <div class="card back" style="background-color:${color2}">
                 <div class="card-header">
-                  <ul class="nav nav-tabs card-header-tabs">
+                  <ul class="nav nav-tabs card-header-tabs">                   
                     
-                    <li class="nav-item">
-                        <button onclick ="updateForm('${id}','${title}','${description}','${formatDateEdit(due_date)}')" class="nav-link" >Edit</button>
-                    </li>
                     <li class="nav-item">
                     <button onclick ="del(${id})" class="nav-link" >Delete</button>
                     </li>
@@ -286,22 +295,9 @@ function formatDate(date) {
 
     return [day, month,year ].join('-');
 }
-function formatDateEdit(date) {
-    var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
 
-    if (month.length < 2) 
-        month = '0' + month;
-    if (day.length < 2) 
-        day = '0' + day;
-
-    // return [year,month,day].join('-');
-    return year +"-"+month+"-"+day ;
-}
 function createTodo(event){
-    event.preventDefault()
+   
     let title = $('#title').val()
     let description = $('#description').val()
     let due_date = $('#duedate').val()
@@ -320,8 +316,8 @@ function createTodo(event){
         }
     })
     .done(result=>{
-        $('.createForm').hide()
-        authentication()        
+        localStorage.setItem('action','#todocontent')
+        authentication(localStorage.action)  
         toastr["success"]("anda telah berhasil menambahkan todo", "Add todo ")    
     })
     .fail(err=>{
@@ -332,38 +328,40 @@ function createTodo(event){
     })
    
 }
-
+function createTodoCancel(event){
+    localStorage.setItem('action','#todocontent')
+    authentication(localStorage.action)  
+}
 
 
 
 $('.addtodoform').click(function () {
-    $('.createForm').show()
-    $('#todocontent').hide()
-    $('.editForm').hide()
+    localStorage.setItem('action','.createForm')
+    authentication(localStorage.action)
+    document.getElementById("duedate").defaultValue = formatDateEdit(new Date())       
 })
 $('.view_done').click(function () {
-    
-    $('.createForm').hide()
-    $('.editForm').hide()
-    viewtodo_done()    
+    localStorage.setItem('action','#todocontent')
+    localStorage.setItem('view','done')
+    authentication(localStorage.action)  
     toastr["info"]("Todo list Done", "Message")
     
 })
 $('.view_undone').click(function () {
-    $('.createForm').hide()
-    $('.editForm').hide()
-    viewtodo();
+    localStorage.setItem('action','#todocontent')
+    localStorage.setItem('view','undone')
+    authentication(localStorage.action)  
     toastr["info"]("Todo list still on progress", "Message") 
 })
 $('.signout').click(function () {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
-      console.log('User signed out.');
+    console.log('User signed out.');
     });
    localStorage.clear()
    $('#email').val('') 
-    $('#pass').val('') 
-   authentication()
+    $('#pass').val('')     
+    authentication('.limiter')  
 })
 function updateStatus(id){
     $.ajax({
@@ -378,7 +376,8 @@ function updateStatus(id){
     })
     .done(result=>{
         toastr["success"]("Update Todo list success", "Message")
-        authentication()
+        localStorage.setItem('action','#todocontent')
+        authentication(localStorage.action) 
     })
     .fail(err=>{
         let bacaError = err.responseJSON.todos.errors.map(el=>el.message).join(",")   
@@ -395,8 +394,8 @@ function del(id){
         }
     })
     .done(result=>{
-    
-        authentication()
+        localStorage.setItem('action','#todocontent')
+        authentication(localStorage.action)  
     })
     .fail(err=>{
 
@@ -426,33 +425,51 @@ function update(event){
         }
     })
     .done(result=>{
-    
+        localStorage.setItem('action','#todocontent')
+        authentication(localStorage.action)     
     })
     .fail(err=>{
 
     })
     event.preventDefault;
 }
+
+
+function appendLeadingZeroes(n){
+    if(n <= 9){
+      return "0" + n;
+    }
+    return n
+  }      
+function formatDateEdit(date) {
+  let datenow = new Date(date);
+  let startdate =datenow.getFullYear() + "-" + appendLeadingZeroes(datenow.getMonth() + 1) + "-" + appendLeadingZeroes(datenow.getDate()) 
+  return startdate
+  
+  
+}
+
+
 function updateForm(id,title,description,due_date){
-       console.log(id,title,description,due_date)
-       
-        $('.editForm').show()
+       console.log(id,title,description,due_date)     
+       localStorage.setItem('action','.editForm')
+        authentication(localStorage.action)            
         $('#editid').val(id)
         $('#edittitle').val(title)
         $('#editdescription').val(description)
-        $('#editdue_date').val(due_date)
-
-
-
+        $('#editduedate').val(due_date);
+        console.log(due_date);
+       
 }
 function show_signup_form(event){
-    event.preventDefault()
-    $('.limiter').hide()
+    event.preventDefault()    
     $('#registerForm').show()
+    $('.limiter').hide()
 }
 function login_view(event){
-    $('.limiter').show()
-    $('#registerForm').hide()
+    event.preventDefault() 
+    localStorage.setItem('action','.limiter')
+    authentication(localStorage.action)    
 }
 
 function onSignIn(googleUser) {
@@ -465,17 +482,15 @@ function onSignIn(googleUser) {
         }
     })
     .done(result=>{
-        // $('.createForm').hide()
-        // authentication()
         console.log(result);
         
         localStorage.setItem('token',result.Data.token)
         localStorage.setItem('email',result.Data.email)
-        authentication()
-           
+        localStorage.setItem('action','#todocontent')
+        authentication(localStorage.action)      
     })
     .fail(err=>{
-        console.log("errrooo",err)
+       
     })
   }
 
@@ -488,8 +503,8 @@ function onSignIn(googleUser) {
         url:urlmaster + '/user/forgot/' + $('#forgot_email').val()       
     })
     .done(result=>{
-    
-        authentication()
+        localStorage.setItem('action','.limiter')
+        authentication(localStorage.action) 
     })
     .fail(err=>{
 
@@ -498,7 +513,7 @@ function onSignIn(googleUser) {
 }
 function show_forgot_form(event){
     event.preventDefault()
-    $('.limiter').hide()
-    $('#forgotform').show()
-
+    localStorage.setItem('action','#forgotform')
+    authentication(localStorage.action) 
+      
 }
