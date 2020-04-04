@@ -1,4 +1,6 @@
 let baseUrl = 'http://localhost:3000'
+$('.updatePage').show()
+
 $( document ).ready(function() {
     authentication()
     
@@ -142,7 +144,7 @@ function onSignIn(googleUser) {
                                     <td id="descriptionTodoList"><h4>"${description}"</h4></td>
                                     <td id="statusTodoList"><h4>"${status}"</h4></td>
                                     <td id="duedateTodoList"><h4>"${due_date}"</h4></td>
-                                    <td id="actionTodoList"> <button onclick="updateBtn(${id})">Edit</button> <button onclick="deleteBtn(${id})">Delete</button></td>
+                                    <td id="actionTodoList"> <button onclick="updateBtn(${id})">Edit</button> <button onclick="modalDelete(${id})">Delete</button></td>
                                 </tr>
                             </table>
                         <div>
@@ -161,9 +163,10 @@ function onSignIn(googleUser) {
     }
     function createTodo(event) {
         event.preventDefault();
-        let title= $('#title').val()
-        let description= $('#description').val()
-        let due_date= $('#due_date').val()
+        let title= $('#titleAdd').val()
+        let description= $('#descriptionAdd').val()
+        let due_date= $('#due_dateAdd').val()
+        
         $.ajax({
             method:'POST',
             url:baseUrl+'/todos',
@@ -180,10 +183,9 @@ function onSignIn(googleUser) {
                 authentication()
                 $('.modal').hide()
                 $('.mainPage').show()
-                // let title= $('#title').val()
-                // let description= $('#description').val()
-                // let status= $('#status').val()
-                // let due_date= $('#due_date').val()
+                $('#titleAdd').val('')
+                $('#descriptionAdd').val('')
+                $('#due_dateAdd').val('')
             })
             .fail(err => {
                 console.log(err)
@@ -263,6 +265,7 @@ function onSignIn(googleUser) {
             })
     }
     function deleteBtn(id) {
+        console.log('masuk')
         $.ajax({
             method: 'DELETE',
             url: baseUrl+'/todos/'+id,
@@ -272,6 +275,7 @@ function onSignIn(googleUser) {
         })
             .done(() => {
                 authentication()
+                $('.modaldelete').hide()
             })
             .fail(err => {
                 console.log(err)
@@ -369,4 +373,13 @@ function onSignIn(googleUser) {
                 console.log(err)
             })
         }
+    function modalDelete(id){
+        $('.modaldelete').fadeIn()
+        $('.modaldelete').append(`
+        <div class="modaldelete-content">
+            <h3>Are you sure want to delete this data ?</h3>
+            <button onclick="deleteBtn(${id})">Yes</button>
+        </div>
+        `)
+    }
   
