@@ -1,4 +1,5 @@
 let BASEURL = 'http://localhost:3000'
+let isLoading = true
 let project
 let puser //project user
 let todo
@@ -14,8 +15,16 @@ let desc
 let url2send
 let arrParams
 
+// $(window).load(function() {
+    
+// });
+
+// $(".lds-dual-ring").show()
+
 $(document).ready(function () {
+    
     auth()
+    // $(".lds-dual-ring").fadeOut("slow");
     // $('.logout').click(function () {
     //     localStorage.clear()
     //     auth()
@@ -46,6 +55,9 @@ function auth() {
         $('.update-page').hide()
         $('.invitation-page').hide()
         $('.showmembers-page').hide()
+        $('.lds-dual-ring').hide()
+
+        
         fetchProjects()
 
     } else {
@@ -55,12 +67,15 @@ function auth() {
         $('.update-page').hide()
         $('.invitation-page').hide()
         $('.showmembers-page').hide()
+        $('.lds-dual-ring').hide()
     }
 }
 
 
 function loginUser(event) {
+
     event.preventDefault()
+    isLoading = true
     let email = $('#login-email').val()
     let password = $('#login-password').val()
 
@@ -75,6 +90,8 @@ function loginUser(event) {
             }
         })
         .done(data => {
+
+
             console.log("LOGIN SUCCESS");
             localStorage.setItem('access_token', data.access_token)
             auth()
@@ -99,6 +116,8 @@ function loginUser(event) {
             })
 
         })
+
+
 }
 
 
@@ -245,7 +264,8 @@ function inviteForm(projectid) {
             headers: {
                 access_token: localStorage.getItem("access_token")
             }
-        }).done(response => {
+        })
+        .done(response => {
 
             console.log(`edit target found:`);
             console.log(response);
@@ -360,6 +380,7 @@ function showMembers(projectid) {
             }
         })
         .done(response => {
+
             $('#project-members').empty()
             console.log(response);
             title = response.data.title
@@ -414,6 +435,9 @@ function showMembers(projectid) {
 function fetchProjects() {
 
     console.log("FETCH PROJECTS FROM CLIENT");
+
+    isLoading = true
+
     $.ajax({
             method: 'GET',
             url: BASEURL + '/projects',
@@ -421,8 +445,16 @@ function fetchProjects() {
                 access_token: localStorage.access_token
             }
         })
+        .always(response => {
+           showLoaders()
+        })
         .done(response => {
+
+            hideLoaders()
+            showMain()
+
             $('.projectList').empty()
+
             for (let i = 0; i < response.data.length; i++) {
 
                 puser = response.data[i]
@@ -477,6 +509,7 @@ function fetchProjects() {
             })
 
         })
+
 
 }
 
@@ -554,7 +587,8 @@ function updProjectForm(projectid) {
             headers: {
                 access_token: localStorage.getItem("access_token")
             }
-        }).done(response => {
+        })
+        .done(response => {
 
             console.log(`edit target found:`);
             console.log(response);
@@ -1118,3 +1152,30 @@ function dropTodo(todoid, event) {
 
 
 }
+
+
+function showLoaders() {
+    $('.lds-dual-ring').show()
+
+    $('.login-page').hide()
+    $('.main-page').hide()
+    $('.todos-page').hide()
+    $('.invitation-page').hide()
+    $('.showmembers-page').hide()
+    $('.update-page').hide()
+
+}
+
+
+function hideLoaders() {
+
+        $('.lds-dual-ring').hide()
+        $('.login-page').hide()
+        $('.main-page').hide()
+        $('.todos-page').hide()
+        $('.invitation-page').hide()
+        $('.showmembers-page').hide()
+        $('.update-page').hide()
+
+}
+

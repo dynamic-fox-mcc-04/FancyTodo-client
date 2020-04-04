@@ -8,15 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/pg-login.css">
+    <link rel="stylesheet" href="css/loaders.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="shortcut icon" href="https://banner2.cleanpng.com/20180720/vsh/kisspng-computer-icons-editing-icon-design-show-window-5b51a9accc82c9.3788698515320785088377.jpg">
+    <link rel="shortcut icon"
+        href="https://banner2.cleanpng.com/20180720/vsh/kisspng-computer-icons-editing-icon-design-show-window-5b51a9accc82c9.3788698515320785088377.jpg">
     <title>FANCY-TODO R</title>
 </head>
 
 <body>
+
 
     <div class="login-page">
         <h1>FANCY TODO R</h1>
@@ -41,13 +44,12 @@
     <div class="main-page">
         <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" onclick="auth()" class="btn btn-primary">Home</button>
-            <button type="button"
-                class="btn btn-secondary" data-toggle="modal" 
-                data-target="#createProjectModal">Create Project</button>
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#createProjectModal">Create
+                Project</button>
             <!-- MODAL -->
-          
-            <div class="modal fade" id="createProjectModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel"
-                aria-hidden="true">
+
+            <div class="modal fade" id="createProjectModal" tabindex="-1" role="dialog"
+                aria-labelledby="createModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -66,7 +68,8 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" onclick="createProject(event)" form="project-create-form" class="btn btn-primary">Create Project</button>
+                            <button type="button" onclick="createProject(event)" form="project-create-form"
+                                class="btn btn-primary">Create Project</button>
                         </div>
                     </div>
                 </div>
@@ -92,22 +95,24 @@
         <h1>PROJECT'S TODOS</h1>
 
         <div id="project-name">
-            
+
         </div>
 
         <input id="projectid-addform" readonly type='hidden'><br>
-        
-        Project Name: <input type="text" id="projectname-addform"  readonly><br><br>
-        
+
+        Project Name: <input type="text" id="projectname-addform" readonly><br><br>
+
         <!-- <h3 onclick="showAddTodoForm()">ADD TODO</h3> -->
         <div id="pg-form-add-todo">
 
             <form id="form-add-todo" class="form-inline" onsubmit="addTodo(event)">
                 <label class="sr-only" for="add-todo-title">Title</label>
-                <input type="text" required class="form-control mb-2 mr-sm-2" id="add-todo-title" placeholder="Project Title">
-              
+                <input type="text" required class="form-control mb-2 mr-sm-2" id="add-todo-title"
+                    placeholder="Project Title">
+
                 <label class="sr-only" for="add-todo-desc">Description</label>
-                <input type="text" class="form-control mb-2 mr-sm-2" id="add-todo-desc" placeholder="Project Description">
+                <input type="text" class="form-control mb-2 mr-sm-2" id="add-todo-desc"
+                    placeholder="Project Description">
 
                 <label class="sr-only" for="add-todo-due">Due</label>
                 <input type="date" class="form-control mb-2 mr-sm-2" id="add-todo-due" placeholder="Due Date">
@@ -116,10 +121,10 @@
             </form>
 
         </div>
-        
+
 
         <div class="todos-list">
-            
+
         </div>
 
 
@@ -129,8 +134,9 @@
 
             <form id="form-edit-todo" name="form-edit-todo" class="form" onsubmit="editTodo(event)">
                 <label class="sr-only" for="edit-todo-title">Title</label>
-                <input type="text" required class="form-control mb-2 mr-sm-2" id="edit-todo-title" placeholder="Todo Title">
-              
+                <input type="text" required class="form-control mb-2 mr-sm-2" id="edit-todo-title"
+                    placeholder="Todo Title">
+
                 <label class="sr-only" for="edit-todo-desc">Description</label>
                 <input type="text" class="form-control mb-2 mr-sm-2" id="edit-todo-desc" placeholder="Todo Description">
 
@@ -160,7 +166,7 @@
         </div>
         <form id="invitation-page" onsubmit="inviteMember(event)">
             <input type="hidden" id="projectid-invite"><br>
-            Project Name: 
+            Project Name:
             <input type="readonly" id="project-name-invitation" readonly><br>
             Email:<br>
             <input type="email" id="invitiation-email" placeholder="enter invitee email" required><br><br>
@@ -176,7 +182,7 @@
         </div>
 
         <h1>MEMBERS' LIST</h1>
-        <input type="hidden"  id="showmembers-projectid">
+        <input type="hidden" id="showmembers-projectid">
         <div id="showmembers-projectname"></div>
         <div id="project-members"></div>
     </div>
@@ -200,6 +206,9 @@
         </form>
     </div>
 
+    <div class="lds-dual-ring"></div>
+
+
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
@@ -208,6 +217,7 @@
         integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous">
     </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="helpers.js"></script>
     <script src="main.js"></script>
 </body>
 
