@@ -13,6 +13,7 @@ $(document).ready(function () {
 })
 
 
+
 function onSignIn(googleUser) {
     let id_token = googleUser.getAuthResponse().id_token;
     $.ajax({
@@ -23,10 +24,13 @@ function onSignIn(googleUser) {
         }
     }).done(datum => {
         localStorage.setItem('access_token', datum.access_token)
-        // localStorage.setItem('email', datum.email)
+        localStorage.setItem('email', datum.email)
         auth()
+
     }).fail(err => {
-        alertHandler(err)
+        // console.log(err);
+        alertHandler(err.responseJSON.type)
+        // logout()
     })
 }
 
@@ -79,7 +83,6 @@ function fetchData() {
     }).done(data => {
 
         const { todo } = data
-        const { user } = data
         // console.log(data)
         $(".showEmail").empty()
         $(".todo_list tbody").empty()
@@ -89,6 +92,8 @@ function fetchData() {
         }
         showEmail(localStorage.email)
     }).fail(err => {
+        console.log(err);
+        
         alertHandler(err.responseJSON.type)
     })
 }
@@ -138,7 +143,7 @@ function deleteTodo(id) {
         alertHandler(success.message)
 
     }).catch(err => {
-        alertHandler(err)
+        alertHandler(err.responseJSON)
     })
 }
 
