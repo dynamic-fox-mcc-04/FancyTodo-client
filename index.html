@@ -4,40 +4,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <meta name="google-signin-client_id" content="478264750363-9u5b7bd483nggk54ig3uk9us34tfc810.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
     <title>Todo - List</title>
 </head>
 <body>
+    <!-- home page login/regist -->
+    <div class="homePage">
+        <h1>Welcome to Fancy Todo</h1>
+        <button onClick="registerBtn()">Register</button><br>
+        <button onClick="loginBtn()">Login</button><br>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <div class="shalatSchedule">
+            <h3>Shalat Schedule For Jakarta</h3>
+        </div>
+        <div class="weather">
+            <h3>Weater Forecast For Jakarta</h3>
+        </div>
+    </div>
+<!-- register page -->
     <div class="registerPage">
-        <form id="register">
+        <form onsubmit="regist(event)"id="register">
             <h1>Regist New User</h1>
+            <button onClick="home(event)">Home</button><br><br>
             <label>Email</label><br>
-            <input type="email" id="email" placeholder="email@mail.com" required><br>
+            <input type="email" id="emailRegist" placeholder="email@mail.com" required><br>
             <label>Password</label><br>
-            <input type="password" id="password" placeholder="Password" required><br><br>
-            <input type="submit" value="Register Now">
-
+            <input type="password" id="passwordRegist" placeholder="8-16 characters" required><br><br>
+            <input type="submit" value="Register">
         </form>
     </div>
-
+<!-- login page -->
     <div class="loginPage">
-        <form id="login">
+        <form onsubmit="login(event)" id="login">
             <h1>Login User</h1>
+            <button onClick="home(event)">Home</button><br><br>
             <label>Email</label><br>
-            <input type="email" id="email" placeholder="email@mail.com" required><br>
+            <input type="email" id="emailLogin" placeholder="email@mail.com" required><br>
             <label>Password</label><br>
-            <input type="password" id="password" placeholder="Password" required><br><br>
+            <input type="password" id="passwordLogin" placeholder="Password" required><br><br>
             <input type="submit" value="login">
         </form>
     </div>
-
+<!-- main page -->
     <div class="mainPage">
+        <button class="logout">Logout</button>
         <h1>My Todo List</h1>
+        <div>
+            <label for="addTodo">Add New Todo</label>
+                <form onsubmit="createTodo(event)" >
+                    <label>Title: </label><br>
+                    <input type="text" id="title" name="titleCreate" placeholder="Title"><br>
+                    <label>Description: </label><br>
+                    <input type="textarea" id="description" name="descriptionCreate" placeholder="Description"><br>
+                    <label>Due Date: </label><br>
+                    <input type="date" id="due_date" name="dateCreate"><br>
+                    <input type="submit" value="Create">
+                </form>
+        </div>
+        <div class="todoList"></div>
     </div>
 
-    <div class="addTodo">
-        <h1>Add New Todo</h1>
+    <div class="updatePage">
+        <h1>Edit My Todo</h1>
+        <button onClick="backBtn(event)">Back</button>
+        <form onsubmit="updateTodo(event)">
+            <input type="hidden" name="editId" id="editId" >
+            <label>Title: </label><br>
+            <input type="text" id="editTitle" name="editTitle"><br>
+            <label>Description: </label><br>
+            <input type="textarea" id="editDescription" name="editDescription" placeholder="Description"><br>
+            <label>Due Date: </label><br>
+            <input type="date" id="editDue_date" name="editDue_date"><br>
+            <label for="status">Status:</label> <br>
+            <select name="editStatus" id="editStatus">
+                <option id="editStatus" value="false"> Pending </option>
+                <option id="editStatus" value="true"> Complete </option>
+            </select><br>
+            <input type="submit" value="Edit">
+        </form>
     </div>
-
+    
     <script
         src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
