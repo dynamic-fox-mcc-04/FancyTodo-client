@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="google-signin-client_id" content="809842491089-o1njkq7t3f5edl513rp3ni2gjc82nocd.apps.googleusercontent.com">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Bebas+Neue|Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>My todos</title>
 </head>
-<body>
+<body> 
     <div class = "signIn-page">
         <form onsubmit="signIn(event)" id="formSignIn">
             <h1>Welcome to to-do-app!</h1>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <!-- <button class="signout">Sign Out</button> -->
             <label for="email">Email:</label><br>
             <input type="email" id="email" name="email" placeholder="Your email here..." required><br><br>
         
@@ -18,14 +21,22 @@
             <input type="password" id="password" name="password" placeholder="Your password here..." required><br><br>
             <input type="submit" value="Sign in">
         </form>
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
     </div>
 
     <div class="main-page">
-        <button class="signout">Sign Out</button>
-        <h1>My to-do-lists</h1>
-        <button class="add-to-do-button" onclick="showAddForm( event )">Add a new todo</button>
-        <div class="all-todo-list"></div>
+        <div class="main-page-background-color">
+            <button class="signout">Sign Out</button>
+            <h1 id="main-title">My to-do-lists</h1>
+            <div class="add-to-do-button-box">
+                <button id="add-to-do-button" onclick="showAddForm( event )">Add a new todo</button>
+            </div>
+            <div class="article-page-button-box">
+                <button id="article-page-button" onclick="showAllArticles( event )">Productivity Tips</button>
+            </div>
+            <div class="all-todo-list-box">
+                <div class="all-todo-list"></div>
+            </div>
+        </div>
     </div>
 
     <div class="update-page">
@@ -62,6 +73,15 @@
             </div>
         </div>
     </div>
+
+    <div class="all-productivity-articles-page">
+        <button class="main-page-button" onclick="showMainPage( event )">All To-do tasks</button>
+        <div class="all-productivity-articles"></div>
+    </div>
+
+    
+
+
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script

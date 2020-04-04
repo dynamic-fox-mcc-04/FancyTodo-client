@@ -5,10 +5,10 @@ $( document ).ready(function() {
     auth()
     $( ".signout" ).click(function() {
         localStorage.clear()
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function () {
-              console.log('User signed out.');
-            });
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+          console.log('User signed out.');
+        });
         auth()
     })
 });
@@ -19,32 +19,34 @@ function auth() {
         $('.main-page').show()
         $('.update-page').hide()
         $('.add-todo-page').hide()
+        $('.all-productivity-articles-page').hide()
         getAllTodos()
+        // showAllArticles()
     } else {
         $('.signIn-page').show()
         $('.main-page').hide()
         $('.update-page').hide()
         $('.add-todo-page').hide()
+        $('all-productivity-articles-page').hide()
     }
 }
 
 function onSignIn(googleUser) {
-    var id_token = googleUser.getAuthResponse().id_token;
-    $.ajax ({
+    let id_token = googleUser.getAuthResponse().id_token; //id token ini nanti akan kita kirimkan ke server
+    $.ajax({
         method: 'POST',
-        url: baseUrl + "/googleSign",
+        url: baseUrl + '/googleSign',
         data: {
             id_token
         }
-    }) 
-        .done(data => {
-            // console.log(data, "ini data yang akan dikirim")
-            localStorage.setItem("token", data.access_token)
-            auth()
-        })
-        .fail(error => {
-            console.log(error, "process gagal")
-        })
+    })
+    .done(data =>{
+        console.log(data, "ini data onsignin main.js")
+    })
+    .fail(error => {
+        console.log(error, "error di main.js onSignIn")
+    })
+
 }
 
 function signIn( event ){
@@ -80,12 +82,16 @@ function getAllTodos(){
         }
     })
     .done(data => {
-        $('.all-todo-list').empty()
+        $('.all-todo-list').empty() // supaya isi todo-list kembali bersih dan tidak numpuk
         for (let i = 0; i < data.allTodos.length; i++) {
             let id = data.allTodos[i].id
             let title = data.allTodos[i].title
             let description = data.allTodos[i].description
-            let status = data.allTodos[i].status
+            if(data.allTodos[i].status == true){
+                status = "TASK : Completed!"
+            } else {
+                status = "TASK : In-progress"
+            }
             let StringDate = new Date(data.allTodos[i].due_date)
             let displayDate = StringDate.toISOString().substring(0, 10)
             let due_date = displayDate
@@ -96,16 +102,93 @@ function getAllTodos(){
                             <p class="card-description">${description}</p>
                             <p class="card-due_date">${due_date}</p>
                             <p class="status">${status}</p>
-                            <button class="update-todo" onclick="showUpdate(${id})">Update Task</button>
-                            <button class="delete-todo" onclick="deleteTodo(${id})">Delete Task</button>
+                            </div>
                         </div>
-                    </div>
+                        <div class="task-action-bar">
+                            <button class="uncomplete-task-button" onclick="uncompleteTodo(${id})">Uncomplete Task</button>
+                            <button class="complete-task-button" onclick="completeTodo(${id})">Complete Task</button>
+                            <button class="update-todo-button" onclick="showUpdate(${id})">Update Task</button>
+                            <button class="delete-todo-button" onclick="deleteTodo(${id})">Delete Task</button>
+                        </div>
                 `)
         
         }
     })
     .fail(error =>{
         console.log(error, "error di getAllTodos")
+    })
+}
+
+function completeTodo( id ) {
+    $.ajax({
+        method:'PATCH',
+        url: baseUrl + `/todos/` + id + `/complete`,
+        headers: {
+            access_token: localStorage.token
+        },
+    })
+        .done(result => {
+            auth()
+        })
+        .catch(error => {
+            console.log(error)
+        })
+}
+
+function uncompleteTodo( id ){
+    $.ajax({
+        method:'PATCH',
+        url: baseUrl + `/todos/` + id + `/uncomplete`,
+        headers: {
+            access_token: localStorage.token
+        },
+    })
+        .done(result => {
+            auth()
+        })
+        .catch(error => {
+            console.log(error)
+        })
+}
+
+function showMainPage( event ){
+    auth()
+}
+
+function showAllArticles( event ){
+    $.ajax({
+        method: 'GET',
+        url: baseUrl + '/api/productivitytips'
+    })
+    .done(data => {
+        $('.main-page').hide()
+        $('.update-page').hide()
+        $('.add-todo-page').hide()
+        $('.all-productivity-articles-page').show()
+
+        $('.all-productivity-articles').empty() // supaya isi todo-list kembali bersih dan tidak numpuk
+        for (let i = 0; i < data.selectedArticles.length; i++) {
+            let article_link = data.selectedArticles[i].url
+            let article_title = data.selectedArticles[i].title
+            let article_description = data.selectedArticles[i].description
+            let article_publishedAt = (new Date(data.selectedArticles[i].publishedAt)).toDateString()
+            
+            $('.all-productivity-articles').append(`
+                <div class="article-card">
+                    <div class="article-card-body">
+                        <p>----------------------------------------------------------</p>
+                        <a class="article-card-link-to-article" href="${article_link}">
+                            <h4 class="article-card-title">${article_title}</h4>
+                            <p class="article-card-description">${article_description}</p>
+                            <p class="article-card-publish-date">${article_publishedAt}</p>
+                        </a>
+                    </div>
+                </div>
+            `)
+        }
+    })
+    .catch(error =>{
+        console.log(error)
     })
 }
 
