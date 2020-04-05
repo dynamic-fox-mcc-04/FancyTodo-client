@@ -73,6 +73,13 @@ body {
     right: 0;
 }
 
+#success-box {
+    position: fixed;
+    z-index: 20;
+    bottom: 0;
+    right: 0;
+}
+
 .card {
     margin: 20px;
 }
@@ -91,6 +98,19 @@ body {
     bottom: 0;
     
 }
+
+#edit-task {
+    position: fixed;
+    z-index: 15;
+    padding-left: 0px;
+    padding-bottom: 30px;
+    padding-right: 30px;
+    width: 15vw;
+    /* height: 95vh; */
+    bottom: 0;
+    right: 0;
+}
+
 #navbar {
     position: fixed;
     padding-right: 1vw;
@@ -105,4 +125,8 @@ body {
     height: 100vh;
     z-index: 10;
     background-color: white;
+}
+
+.task-item {
+    /* height: 300px; */
 }

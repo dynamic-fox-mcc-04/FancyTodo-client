@@ -41,6 +41,11 @@ function addTask(event) {
         $('#title-add').val('')
         $('#description-add').val('')
         $('#date-add').val('')
+        $('#success-message').append(`${response.title} added.`)
+        $('#success-box').fadeTo(2000, 500).slideUp(500, function() {
+            $("#success-box").slideUp(500);
+            $('#success-message').empty()
+        })
         getTasks()
     }).fail(err => {
         console.log(err, "adding task error")
@@ -54,14 +59,46 @@ function addTask(event) {
     })
 }
 
-function complete(event, arr) {
+function complete(event, id, title, description, due_date) {
     event.preventDefault()
-    console.log(arr)
+    console.log(id, title, description, due_date)
+    console.log('bisa diedit')
+}
+
+function deleteTask(event, id) {
+    event.preventDefault()
+    console.log(id, 'bisa didelete')
+    $.ajax({
+        method: 'DELETE',
+        url: `${localhost}/todos/${id}`,
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    }).done(response => {
+        console.log(response)
+        $('#success-message').append(`${response.message}`)
+        $('#success-box').fadeTo(2000, 500).slideUp(500, function() {
+            $("#success-box").slideUp(500);
+            $('#success-message').empty()
+        })
+        getTasks()
+    }).fail(err =>{
+        console.log(err)
+    })
+}
+
+function showEdit() {
+    $('#edit-task').fadeTo(2000, 500)
+}
+
+function closeEdit(event) {
+    $('#edit-task').slideUp(500)
 }
 
 function getTasks() {
     console.log('dapat task')
     $('#tasks-list').empty()
+    $('#tasks-list-done').empty()
     $('#loading').show()
     $.ajax({
         method: 'GET',
@@ -72,11 +109,18 @@ function getTasks() {
     }).done(response => {
         console.log(response, 'ini todo nya')
         response.forEach(el => {
+            let send = {
+                id: el.id,
+                title: el.title,
+                description: el.description,
+                due_date: el.due_date,
+                status: el.status
+            }
             let completed = ''
             let created = new Date(el.createdAt)
             let due = new Date(el.due_date)
             let toAppend = `
-            <div class="card">
+            <div class="card task-item">
   <header class="card-header">
     <p class="card-header-title">
       ${el.title}  ${completed}
@@ -92,9 +136,9 @@ function getTasks() {
     </div>
   </div>
   <footer class="card-footer">
-    <button onclick="complete(event, [${el.id}, ${el.title}, ${el.description}, ${el.due_date}])" class="button card-footer-item">Complete</button>
-    <button class="button card-footer-item">Edit</button>
-    <button class="button card-footer-item">Delete</button>
+    <button onclick="complete(event, ${send.id}, ${send.title}, ${send.description}, ${send.due_date})" class="button card-footer-item">Complete</button>
+    <button onclick="showEdit()" class="button card-footer-item">Edit</button>
+    <button onclick="deleteTask(event, ${send.id})" class="button card-footer-item">Delete</button>
   </footer>
 </div>
             `
@@ -197,7 +241,9 @@ function logout(event) {
 $(document).ready(function() {
     showLandingPage()
     $('#alert').hide()
+    $('#success-box').hide()
     $('#loading').hide()
+    $('#edit-task').hide()
     let token = localStorage.getItem('token')
     if(!token) {
         showLandingPage()

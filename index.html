@@ -21,6 +21,10 @@
           
         </div>
     </article>
+    <div id="success-box" class="notification is-primary">
+        <button class="delete"></button>
+        <div id="success-message"></div>
+      </div>
     <div class="box is-vcentered is-centered is-half log-form" id="landing-page">
         <h3 class="title">ToDo by Rerun</h3>
         <div class="field">
@@ -125,6 +129,43 @@
             <button onclick="addTask(event)" class="button is-primary is-rounded">Add Task</button>
         </aside>
         <!-- End of menu -->
+
+        <!-- Menu Edit Task -->
+        <aside class="menu is-quarter" id="edit-task">
+            <p class="menu-label">
+            Edit Task
+            </p>
+            <div class="field">
+                <label class="label">Title</label>
+                <div class="control">
+                <input class="input" type="text" placeholder="e.g. alexsmith@gmail.com" id="title-edit">
+                </div>
+            </div>
+            <div class="field">
+            <label class="label">Description:</label>
+            <div class="control">
+            <textarea class="input" id="description-edit" type="text" rows="5" placeholder="Description here..."></textarea>
+            </div>
+        </div>
+            <div class="field">
+                <label class="label">Due Date:</label>
+                <div class="control">
+                <input class="input" id="date-edit" type="date" placeholder="512412415">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Done?</label>
+                <div class="select">
+                    <select id="status-edit">
+                      <option value="true">True</option>
+                      <option value="false">False</option>
+                    </select>
+                  </div>
+            </div>
+            <button onclick="editTask(event)" class="button is-primary is-rounded">Edit Task</button>
+            <button onclick="closeEdit(event)" class="button is-danger is-rounded">Close</button>
+        </aside>
+        <!-- End of Menu -->
 
         <div id="task-table">
             
