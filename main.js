@@ -75,6 +75,10 @@ $('#btn-back').on('click', () => {
 $('#btn-back-2').on('click', () => {
     auth()
 })
+
+$('#btn-back-3').on('click', () => {
+    auth()
+})
 // <!-- AJAX ======================================================================== -->
 
 function login(event) {
@@ -185,7 +189,7 @@ function showTodos() {
                 $(".main").append(`
                     <div id="no-todo">
                         <h2>You have no todo</h2>
-                        <button onclick="showAddForm()" id="create-from-scratch">Create One</button>
+                        <i class="fa fa-hand-o-up"></i>
                     </div>`
                 )
             }
@@ -401,25 +405,6 @@ function deleteTodo(id) {
         })
 }
 
-function getMovie() {
-    $.ajax({
-    method: 'GET',
-    url: baseUrl + '/api/movieA',
-    headers: {
-        token: localStorage.get('token')
-    }
-})
-    .done(result => {
-        result.data.map(el => {
-            console.table(el)
-            showMovie(el)
-        })
-    })
-    .fail(err => {
-        console.log(err)
-    })
-}
-
 function monthConverter(month) {
     switch (month) {
         case '01': 
@@ -568,7 +553,7 @@ function loading() {
 }
 
 
-function showMovie(el) {
+function showCorona(el) {
     $.ajax({
         method: 'GET',
         url: baseUrl + '/api/corona',
@@ -591,7 +576,7 @@ function showMovie(el) {
         })
 }
 
-$('#btn-movie').on('click', () => {
+$('#btn-corona').on('click', () => {
     $('#dashboard-page').show();
     $('#login-page').hide();
     $('#register-page').hide();
@@ -600,7 +585,7 @@ $('#btn-movie').on('click', () => {
     $('#update-todo-page').hide();
     $('#title-page').hide();
     $('#table-movie').show();
-    showMovie()
+    showCorona()
 })
 
 jQuery(function ($) {
