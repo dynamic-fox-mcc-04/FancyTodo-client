@@ -184,7 +184,7 @@ function showTodos() {
             if(todos.length == 0) {
                 $(".main").append(`
                     <div id="no-todo">
-                        <h2>You have no todo click add icon above</h2>
+                        <h2>You have no todo click add icons above</h2>
                     </div>`
                 )
             }
