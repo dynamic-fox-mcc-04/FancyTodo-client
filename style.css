@@ -23,7 +23,7 @@ body {
     /* color: black; */
     /* padding: 20px; */
     border: none;
-    border-radius: 3px;
+    border-radius: 4px;
     /* position: relative; */
     height: auto;
 }
@@ -62,7 +62,7 @@ body {
     /* color: black; */
     /* padding: 20px; */
     border: none;
-    border-radius: 3px;
+    border-radius: 4px;
     /* position: relative; */
     height: auto;
 }
@@ -83,6 +83,7 @@ body {
 
 #add-task {
     position: fixed;
+    z-index: 15;
     padding-left: 30px;
     padding-bottom: 30px;
     width: 15vw;
@@ -92,6 +93,16 @@ body {
 }
 #navbar {
     position: fixed;
-    width: 98vw;
+    padding-right: 1vw;
+    width: 100vw;
     top: 0;
+}
+.loading {
+    position: fixed;
+    top: 0;
+    padding: 25vh 25vw;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+    background-color: white;
 }
