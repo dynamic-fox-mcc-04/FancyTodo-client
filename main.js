@@ -1,4 +1,4 @@
-const baseUrl = 'https://fancytodo-1585764424586.web.app';
+const baseUrl = 'https://fancytodohacktiv8.herokuapp.com';
 
 $(document).ready(() => {
     auth()
