@@ -34,7 +34,39 @@ function getTasks() {
             token: localStorage.getItem('token')
         }
     }).done(response => {
-        $('#tasks-list').append(response)
+        console.log(response, 'ini todo nya')
+        response.forEach(el => {
+            let created = new Date(el.createdAt)
+            let due = new Date(el.due_date)
+            $('#tasks-list').append(`
+            <div class="card">
+  <header class="card-header">
+    <p class="card-header-title">
+      ${el.title}
+    </p>
+    <a href="#" class="card-header-icon" aria-label="more options">
+      <span class="icon">
+        <i class="fas fa-angle-down" aria-hidden="false"></i>
+      </span>
+    </a>
+  </header>
+  <div class="card-content">
+    <div class="content">
+      ${el.description}<br><br>
+      <b>Added on:</b><br>
+      <time datetime="${el.createdAt}">${created.toDateString()}</time><br>
+      <b>Due on:</b><br>
+      ${due.toDateString()}<br>
+    </div>
+  </div>
+  <footer class="card-footer">
+    <a href="#" class="card-footer-item">Save</a>
+    <a href="#" class="card-footer-item">Edit</a>
+    <a href="#" class="card-footer-item">Delete</a>
+  </footer>
+</div>
+            `)
+        })
     })
     .fail(err => {
             console.log(err)
