@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3000';
+const baseUrl = 'https://fancytodo-1585764424586.web.app';
 
 $(document).ready(() => {
     auth()
