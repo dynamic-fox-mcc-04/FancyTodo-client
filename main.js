@@ -50,12 +50,10 @@ function addTask(event) {
         getTasks()
     }).fail(err => {
         console.log(err, "adding task error")
-        err.responseJSON.forEach(el => {
-            $('#error-message').append(`${el}<br>`)
-            $('#alert').fadeTo(2000, 500).slideUp(500, function() {
-                $("#alert").slideUp(500);
-                $('#error-message').empty()
-            })
+        $('#error-message').append(`${err.responseJSON}`)
+        $('#alert').fadeTo(2000, 500).slideUp(500, function() {
+            $("#alert").slideUp(500);
+            $('#error-message').empty()
         })
     })
 }
@@ -178,16 +176,52 @@ function login(event) {
         showDashboard()
     })
     .fail(err => {
+        $('#email-login').val('')
+        $('#password-login').val('')
         console.log(err, "login error")
-        err.responseJSON.forEach(el => {
-            $('#error-message').append(`${el}<br>`)
-            $('#alert').fadeTo(2000, 500).slideUp(500, function() {
-                $("#alert").slideUp(500);
-                $('#error-message').empty()
-            })
+        $('#error-message').append(`${err.responseJSON.msg}`)
+        $('#alert').fadeTo(2000, 500).slideUp(500, function() {
+            $("#alert").slideUp(500);
+            $('#error-message').empty()
         })
     })
 }
+
+function register(event) {
+    event.preventDefault()
+    $.ajax({
+        method: 'POST',
+        url: `${localhost}/register`,
+        data: {
+            email: $('#email-register').val(),
+            password: $('#password-register').val()
+        }
+    }).done(response => {
+        $('#email-register').val('')
+        $('#password-register').val('')
+        console.log(response)
+        localStorage.setItem("avatar", response.avatar)
+        localStorage.setItem("email", response.email)
+        localStorage.setItem("token", response.token)
+        $('#success-message').append(`${response.email} registered!`)
+        $('#success-box').fadeTo(2000, 500).slideUp(500, function() {
+            $("#success-box").slideUp(500);
+            $('#success-message').empty()
+        })
+        showDashboard()
+    })
+    .fail(err => {
+        $('#email-register').val('')
+        $('#password-register').val('')
+        console.log(err, "register error")
+        $('#error-message').append(`${err.responseJSON.msg}`)
+        $('#alert').fadeTo(2000, 500).slideUp(500, function() {
+            $("#alert").slideUp(500);
+            $('#error-message').empty()
+        })
+    })
+}
+
 function onSignIn(googleUser) {
     // Useful data for your client-side scripts:
     var profile = googleUser.getBasicProfile();
@@ -219,12 +253,10 @@ function onSignIn(googleUser) {
         })
         .fail(function(err) {
             console.log(err, "<= It's an error on google signin")
-            err.responseJSON.forEach(el => {
-                $('#error-message').append(`${el}<br>`)
-                $('#alert').fadeTo(2000, 500).slideUp(500, function() {
-                    $("#alert").slideUp(500);
-                    $('#error-message').empty()
-                })
+            $('#error-message').append(`${err.responseJSON}`)
+            $('#alert').fadeTo(2000, 500).slideUp(500, function() {
+                $("#alert").slideUp(500);
+                $('#error-message').empty()
             })
         })
 }
@@ -254,6 +286,11 @@ function logout(event) {
         console.log('User signed out.');
     });
     showLandingPage()
+    $('#success-message').append(`Logged out`)
+    $('#success-box').fadeTo(1000, 500).slideUp(500, function() {
+        $("#success-box").slideUp(500);
+        $('#success-message').empty()
+    })
 }
 
 $(document).ready(function() {
