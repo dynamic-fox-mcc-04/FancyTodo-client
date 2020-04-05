@@ -44,9 +44,12 @@ function onSignIn(googleUser) {
             .done(data => {
                 localStorage.setItem('access_token',data.access_token)
                 authentication()
+                toastr.success('Welcome to Fancy Todo', 'Hello')
             })
             .fail(err => {
-                console.log(err.responseJSON)
+                console.log(err.responseJSON.errors.map(el => el.message))
+                let error= err.responseJSON.errors.map(el => el.message)
+                toastr.error(error, 'Warning!')
             })
       };
       
@@ -72,7 +75,9 @@ function onSignIn(googleUser) {
             .done(data => {
                 console.log(data)
                 localStorage.setItem('access_token',data.access_token)
-                // authentication()
+                authentication()
+                toastr.success('Welcome to Fancy Todo', 'Register Success')
+
             })
             .fail(err => {
                 console.log(err.responseJSON)
@@ -186,9 +191,12 @@ function onSignIn(googleUser) {
                 $('#titleAdd').val('')
                 $('#descriptionAdd').val('')
                 $('#due_dateAdd').val('')
+                toastr.success('Data Successfully Added','Yeay!')
             })
             .fail(err => {
-                console.log(err)
+                console.log(err.responseJSON.errors.map(el=>el.message))
+                let error= err.responseJSON.errors.map(el=>el.message)
+                toastr.error(error, 'Warning!')
             })
     }
 
@@ -379,7 +387,11 @@ function onSignIn(googleUser) {
         <div class="modaldelete-content">
             <h3>Are you sure want to delete this data ?</h3>
             <button onclick="deleteBtn(${id})">Yes</button>
+            <button onclick="modalDeleteOff()">No</button>
         </div>
         `)
+    }
+    function modalDeleteOff(){
+        $('.modaldelete').fadeOut()
     }
   
