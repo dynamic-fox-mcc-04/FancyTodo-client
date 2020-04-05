@@ -11,6 +11,15 @@
     <title>FancyToDo By Rerun</title>
 </head>
 <body>
+    <article class="message is-danger is-full" id="alert">
+        <div class="message-header">
+          <p id="error-header">Error!</p>
+          <button class="delete" aria-label="delete"></button>
+        </div>
+        <div class="message-body" id="error-message">
+          
+        </div>
+    </article>
     <div class="box is-vcentered is-centered is-half log-form" id="landing-page">
         <h3 class="title">ToDo by Rerun</h3>
         <div class="field">
@@ -52,10 +61,11 @@
         <button class="button is-danger is-outlined is-rounded back" onclick="showLandingPage()">Back to login page</button>
     </div>
     <div id="dashboard">
-        <!-- Navbar here -->
-        <nav class="navbar atas" role="navigation" aria-label="main navigation">
+        <!-- navtest -->
+        <nav class="navbar" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
-              <a class="navbar-item" >
+              <a class="navbar-item" href="https://bulma.io">
+                <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
                 Fancy Todo!
               </a>
           
@@ -67,36 +77,59 @@
             </div>
           
             <div id="navbarBasicExample" class="navbar-menu">
-              <div class="navbar-start">
-                <div class="navbar-item">Welcome back, 
-                    <a class="navbar-item" id="username">
-                    </a>
-                    <a class="navbar-item" id="pic">
+                <div class="navbar-start">
+                    <div class="navbar-item">Welcome back, 
+                        <a class="navbar-item" id="username">
+                        </a>
+                        <a class="navbar-item" id="pic">
 
-                    </a>
+                        </a>
+                    </div>
                 </div>
-              </div>
           
-              <div class="navbar-end">
-                <div class="navbar-item">
-                  <div class="buttons">
-                    <a class="button is-primary">
-                      <strong>Sign up</strong>
-                    </a>
-                    <a onclick="logout(event)" href="" class="button is-light">
-                      Logout
-                    </a>
-                  </div>
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                    <div class="buttons">
+                        <a onclick="logout(event)" href="" class="button is-danger is-rounded">
+                        Logout
+                        </a>
+                    </div>
                 </div>
-              </div>
+                </div>
             </div>
           </nav>
-        <!-- End of Navbar -->
-        <div id="create-form">
-
-        </div>
+        <!-- end of navtest -->
         <div id="task-table">
-            
+            <div class="box is-vcentered is-centered is-half log-form"  id="create-form">
+                <h3 class="title">Add New Task</h3>
+                <div class="field">
+                    <label class="label">Title</label>
+                    <div class="control">
+                    <input class="input" type="text" placeholder="e.g. alexsmith@gmail.com"">
+                    </div>
+                </div>
+                <div class="field">
+                  <label class="label">Description:</label>
+                  <div class="control">
+                  <textarea class="input" type="text" rows="5" placeholder="Description here..."></textarea>
+                  </div>
+              </div>
+                <div class="field">
+                    <label class="label">Due Date:</label>
+                    <div class="control">
+                    <input class="input" type="date" placeholder="512412415">
+                    </div>
+                </div>
+                <button class="button is-primary is-rounded">Add Task</button>
+            </div>
+            <div class="columns box is-centered is-half log-form">
+                <div class="column task has-text-grey has-background-grey-lighter">
+                  Tasks:
+                  <div id="tasks-list">
+
+                  </div>
+                </div>
+            </div>
         </div>
     </div>
     <div id="edit-page">

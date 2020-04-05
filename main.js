@@ -13,6 +13,7 @@ function showRegister(event) {
     $('#dashboard').hide()
 }
 function showDashboard() {
+    console.log('masuk dashboard')
     $('#username').empty()
     $('#pic').empty()
     $('#username').append(`${localStorage.getItem('email')}`)
@@ -20,7 +21,26 @@ function showDashboard() {
     $('#dashboard').show()
     $('#register-page').hide()
     $('#landing-page').hide()
+    getTasks()
 }
+
+function getTasks() {
+    console.log('dapat task')
+    $('#tasks-list').empty()
+    $.ajax({
+        method: 'GET',
+        url: `${localhost}/todos`,
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    }).done(response => {
+        $('#tasks-list').append(response)
+    })
+    .fail(err => {
+            console.log(err)
+    })
+}
+
 function login(event) {
     event.preventDefault()
     $.ajax({
@@ -38,6 +58,16 @@ function login(event) {
         localStorage.setItem("email", response.email)
         localStorage.setItem("token", response.token)
         showDashboard()
+    })
+    .fail(err => {
+        console.log(err, "login error")
+        err.responseJSON.forEach(el => {
+            $('#error-message').append(`${el}<br>`)
+            $('#alert').fadeTo(2000, 500).slideUp(500, function() {
+                $("#alert").slideUp(500);
+                $('#error-message').empty()
+            })
+        })
     })
 }
 function onSignIn(googleUser) {
@@ -72,10 +102,10 @@ function onSignIn(googleUser) {
         .fail(function(err) {
             console.log(err, "<= It's an error on google signin")
             err.responseJSON.forEach(el => {
-                $('#alert').append(`${el}<br>`)
+                $('#error-message').append(`${el}<br>`)
                 $('#alert').fadeTo(2000, 500).slideUp(500, function() {
                     $("#alert").slideUp(500);
-                    $('#alert').empty()
+                    $('#error-message').empty()
                 })
             })
         })
@@ -93,6 +123,7 @@ function logout(event) {
 
 $(document).ready(function() {
     showLandingPage()
+    $('#alert').hide()
     let token = localStorage.getItem('token')
     if(!token) {
         showLandingPage()

@@ -4,7 +4,7 @@
 } */
 body {
     /* background-color: black; */
-    padding: 10vw;
+    /* padding: 10vw; */
 }
 .log-form {
     display: flex;
@@ -17,7 +17,7 @@ body {
     z-index: 3;
     padding: 50px;
     margin: auto;
-    /* margin-top: 10vw; */
+    margin-top: 5vw;
     /* margin-bottom: 5vw; */
     background-color: white;
     /* color: black; */
@@ -36,4 +36,39 @@ body {
 .atas {
     position: fixed;
     top: 0;
+}
+.task {
+    /* background-color: #f1f2f6;
+    color: #444d55; */
+    margin: 12px;
+    border-radius: 6px;
+    width: 22vw;
+}
+
+#task-table {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 40vw;
+    /* height: 95vw; */
+    z-index: 3;
+    padding: 50px;
+    margin: auto;
+    margin-top: 5vw;
+    /* margin-bottom: 5vw; */
+    background-color: white;
+    /* color: black; */
+    /* padding: 20px; */
+    border: none;
+    border-radius: 3px;
+    /* position: relative; */
+    height: auto;
+}
+#alert {
+    position: fixed;
+    z-index: 20;
+    bottom: 0;
+    right: 0;
 }
