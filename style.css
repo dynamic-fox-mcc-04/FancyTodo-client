@@ -127,6 +127,7 @@ body {
     background-color: white;
 }
 
-.task-item {
+.tasks-box {
+    margin: 40px;
     /* height: 300px; */
 }

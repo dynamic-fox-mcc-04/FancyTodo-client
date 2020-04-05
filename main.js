@@ -18,6 +18,7 @@ function showDashboard() {
     $('#username').append(`${localStorage.getItem('email')}`)
     $('#pic').append(`<img width="25" height="25" src="${localStorage.getItem('avatar')}">`)
     $('#dashboard').show()
+    getJokes()
     $('#register-page').hide()
     $('#landing-page').hide()
     getTasks()
@@ -226,6 +227,23 @@ function onSignIn(googleUser) {
                 })
             })
         })
+}
+
+function getJokes() {
+    $('#joke-setup').empty()
+    $('#joke-punchline').empty()
+    $.ajax({
+        method: 'GET',
+        url: `${localhost}/jokes`,
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    }).done(response => {
+        $('#joke-setup').append(response.setup)
+        $('#joke-punchline').append(response.punchline)
+    }).fail(err => {
+        console.log(err, 'joke error lmao')
+    })
 }
 
 function logout(event) {
