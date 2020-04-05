@@ -76,3 +76,22 @@ body {
 .card {
     margin: 20px;
 }
+
+.status {
+    margin-left: 30px;
+}
+
+#add-task {
+    position: fixed;
+    padding-left: 30px;
+    padding-bottom: 30px;
+    width: 15vw;
+    /* height: 95vh; */
+    bottom: 0;
+    
+}
+#navbar {
+    position: fixed;
+    width: 98vw;
+    top: 0;
+}

@@ -36,13 +36,19 @@ function getTasks() {
     }).done(response => {
         console.log(response, 'ini todo nya')
         response.forEach(el => {
+            let completed = ''
+            if(el.status === false) {
+                completed = `<span class="tag is-pulled-right is-danger">Not Done</span>`
+            } else {
+                completed = `<span class="tag is-pulled-right is-success">Done</span>`
+            }
             let created = new Date(el.createdAt)
             let due = new Date(el.due_date)
             $('#tasks-list').append(`
             <div class="card">
   <header class="card-header">
     <p class="card-header-title">
-      ${el.title}
+      ${el.title}  ${completed}
     </p>
     <a href="#" class="card-header-icon" aria-label="more options">
       <span class="icon">
@@ -60,9 +66,9 @@ function getTasks() {
     </div>
   </div>
   <footer class="card-footer">
-    <a href="#" class="card-footer-item">Save</a>
-    <a href="#" class="card-footer-item">Edit</a>
-    <a href="#" class="card-footer-item">Delete</a>
+  <a href="" onclick="complete(event)" class="card-footer-item">Complete</a>
+    <a href="" onclick="showUpdate(event)" class="card-footer-item">Edit</a>
+    <a href="" onclick="delete(event)" class="card-footer-item">Delete</a>
   </footer>
 </div>
             `)

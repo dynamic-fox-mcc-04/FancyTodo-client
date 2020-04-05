@@ -62,7 +62,7 @@
     </div>
     <div id="dashboard">
         <!-- navtest -->
-        <nav class="navbar" role="navigation" aria-label="main navigation">
+        <nav class="navbar" id="navbar" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
               <a class="navbar-item" href="https://bulma.io">
                 <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
@@ -99,30 +99,37 @@
             </div>
           </nav>
         <!-- end of navtest -->
-        <div id="task-table">
-            <div class="box is-vcentered is-centered is-half log-form"  id="create-form">
-                <h3 class="title">Add New Task</h3>
-                <div class="field">
-                    <label class="label">Title</label>
-                    <div class="control">
-                    <input class="input" type="text" placeholder="e.g. alexsmith@gmail.com"">
-                    </div>
+        <!-- Menu add task -->
+        <aside class="menu is-quarter" id="add-task">
+            <p class="menu-label">
+            Add Task
+            </p>
+            <div class="field">
+                <label class="label">Title</label>
+                <div class="control">
+                <input class="input" type="text" placeholder="e.g. alexsmith@gmail.com">
                 </div>
-                <div class="field">
-                  <label class="label">Description:</label>
-                  <div class="control">
-                  <textarea class="input" type="text" rows="5" placeholder="Description here..."></textarea>
-                  </div>
-              </div>
-                <div class="field">
-                    <label class="label">Due Date:</label>
-                    <div class="control">
-                    <input class="input" type="date" placeholder="512412415">
-                    </div>
-                </div>
-                <button class="button is-primary is-rounded">Add Task</button>
             </div>
-            <div class="columns box tasks-box is-centered is-half log-form">
+            <div class="field">
+            <label class="label">Description:</label>
+            <div class="control">
+            <textarea class="input" type="text" rows="5" placeholder="Description here..."></textarea>
+            </div>
+        </div>
+            <div class="field">
+                <label class="label">Due Date:</label>
+                <div class="control">
+                <input class="input" type="date" placeholder="512412415">
+                </div>
+            </div>
+            <button class="button is-primary is-rounded">Add Task</button>
+        </aside>
+        <!-- End of menu -->
+
+        <div id="task-table">
+            
+
+            <div class="columns box tasks-box is-vcentered is-centered is-half">
                 <div id="tasks-list"></div>
             </div>
         </div>
