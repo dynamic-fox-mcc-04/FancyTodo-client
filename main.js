@@ -1,4 +1,4 @@
-const baseUrl = 'https://localhost:3000';
+const baseUrl = 'http://localhost:3000';
 
 $(document).ready(() => {
     auth()
@@ -13,7 +13,7 @@ function auth() {
         $('#create-todo-page').hide();
         $('#update-todo-page').hide();
         $('#title-page').hide();
-        $('#table-movie').hide();
+        $('#table-corona').hide();
         showTodos()
     } else {
         $('#dashboard-page').hide();
@@ -23,7 +23,7 @@ function auth() {
         $('#create-todo-page').hide();
         $('#update-todo-page').hide();
         $('#title-page').show();
-        $('#table-movie').hide();
+        $('#table-corona').hide();
     }
 }
 
@@ -37,7 +37,7 @@ $('#btn-register').on('click', () => {
     $('#create-todo-page').hide();
     $('#update-todo-page').hide();
     $('#title-page').hide();
-    $('#table-movie').hide();
+    $('#table-corona').hide();
 })
     
 $('#btn-login').on('click', () => {
@@ -48,7 +48,7 @@ $('#btn-login').on('click', () => {
     $('#create-todo-page').hide();
     $('#update-todo-page').hide();
     $('#title-page').hide();
-    $('#table-movie').hide();
+    $('#table-corona').hide();
 })
     
 $('#btn-logout').on('click', () => {
@@ -65,7 +65,7 @@ $('#create_button').on('click', () => {
     $('#create-todo-page').show();
     $('#update-todo-page').hide();
     $('#title-page').hide();
-    $('#table-movie').hide();
+    $('#table-corona').hide();
 })
 
 $('#btn-back').on('click', () => {
@@ -73,10 +73,6 @@ $('#btn-back').on('click', () => {
 })
 
 $('#btn-back-2').on('click', () => {
-    auth()
-})
-
-$('#btn-back-3').on('click', () => {
     auth()
 })
 // <!-- AJAX ======================================================================== -->
@@ -189,7 +185,7 @@ function showTodos() {
                 $(".main").append(`
                     <div id="no-todo">
                         <h2>You have no todo</h2>
-                        <i class="fa fa-hand-o-up"></i>
+                        <button onclick="showAddForm()" id="create-from-scratch">Create One</button>
                     </div>`
                 )
             }
@@ -455,7 +451,7 @@ function editTodo(id) {
     $('#create-todo-page').hide();
     $('#update-todo-page').show();
     $('#title-page').hide();
-    $('#table-movie').hide();
+    $('#table-corona').hide();
     $.ajax({
         method: 'GET',
         url: baseUrl + `/todos/${id}`,
@@ -491,7 +487,7 @@ function showLogin() {
     $('#create-todo-page').hide();
     $('#update-todo-page').hide();
     $('#title-page').show();
-    $('#table-movie').hide();
+    $('#table-corona').hide();
 }
 
 function showRegister() {
@@ -502,7 +498,7 @@ function showRegister() {
     $('#create-todo-page').hide();
     $('#update-todo-page').hide();
     $('#title-page').show();
-    $('#table-movie').hide();
+    $('#table-corona').hide();
 }
 
 function showEdit() {
@@ -513,7 +509,7 @@ function showEdit() {
     $('#create-todo-page').hide();
     $('#update-todo-page').show();
     $('#title-page').show();
-    $('#table-movie').hide();
+    $('#table-corona').hide();
 }
 
 function postUpdateTodo(event) {
@@ -584,7 +580,7 @@ $('#btn-corona').on('click', () => {
     $('#create-todo-page').hide();
     $('#update-todo-page').hide();
     $('#title-page').hide();
-    $('#table-movie').show();
+    $('#table-corona').show();
     showCorona()
 })
 

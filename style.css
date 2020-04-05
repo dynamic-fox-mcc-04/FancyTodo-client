@@ -625,7 +625,7 @@ body {
 .box2 .title{font-size:16px}
 }
 
-#table-movie {
+#table-corona {
   width: 80%;
   margin: 0;
 }
@@ -748,6 +748,6 @@ body {
   cursor: pointer;
 }
 
-#table-movie .table {
+#table-corona .table {
   background-color: #fff;
 }

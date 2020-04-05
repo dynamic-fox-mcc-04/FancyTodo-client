@@ -13,7 +13,7 @@ function auth() {
         $('#create-todo-page').hide();
         $('#update-todo-page').hide();
         $('#title-page').hide();
-        $('#table-movie').hide();
+        $('#table-corona').hide();
         showTodos()
     } else {
         $('#dashboard-page').hide();
@@ -23,7 +23,7 @@ function auth() {
         $('#create-todo-page').hide();
         $('#update-todo-page').hide();
         $('#title-page').show();
-        $('#table-movie').hide();
+        $('#table-corona').hide();
     }
 }
 
@@ -37,7 +37,7 @@ $('#btn-register').on('click', () => {
     $('#create-todo-page').hide();
     $('#update-todo-page').hide();
     $('#title-page').hide();
-    $('#table-movie').hide();
+    $('#table-corona').hide();
 })
     
 $('#btn-login').on('click', () => {
@@ -48,7 +48,7 @@ $('#btn-login').on('click', () => {
     $('#create-todo-page').hide();
     $('#update-todo-page').hide();
     $('#title-page').hide();
-    $('#table-movie').hide();
+    $('#table-corona').hide();
 })
     
 $('#btn-logout').on('click', () => {
@@ -65,7 +65,7 @@ $('#create_button').on('click', () => {
     $('#create-todo-page').show();
     $('#update-todo-page').hide();
     $('#title-page').hide();
-    $('#table-movie').hide();
+    $('#table-corona').hide();
 })
 
 $('#btn-back').on('click', () => {
@@ -184,8 +184,7 @@ function showTodos() {
             if(todos.length == 0) {
                 $(".main").append(`
                     <div id="no-todo">
-                        <h2>You have no todo</h2>
-                        <button onclick="showAddForm()" id="create-from-scratch">Create One</button>
+                        <h2>You have no todo click add icon above</h2>
                     </div>`
                 )
             }
@@ -401,25 +400,6 @@ function deleteTodo(id) {
         })
 }
 
-function getMovie() {
-    $.ajax({
-    method: 'GET',
-    url: baseUrl + '/api/movieA',
-    headers: {
-        token: localStorage.get('token')
-    }
-})
-    .done(result => {
-        result.data.map(el => {
-            console.table(el)
-            showMovie(el)
-        })
-    })
-    .fail(err => {
-        console.log(err)
-    })
-}
-
 function monthConverter(month) {
     switch (month) {
         case '01': 
@@ -470,7 +450,7 @@ function editTodo(id) {
     $('#create-todo-page').hide();
     $('#update-todo-page').show();
     $('#title-page').hide();
-    $('#table-movie').hide();
+    $('#table-corona').hide();
     $.ajax({
         method: 'GET',
         url: baseUrl + `/todos/${id}`,
@@ -506,7 +486,7 @@ function showLogin() {
     $('#create-todo-page').hide();
     $('#update-todo-page').hide();
     $('#title-page').show();
-    $('#table-movie').hide();
+    $('#table-corona').hide();
 }
 
 function showRegister() {
@@ -517,7 +497,7 @@ function showRegister() {
     $('#create-todo-page').hide();
     $('#update-todo-page').hide();
     $('#title-page').show();
-    $('#table-movie').hide();
+    $('#table-corona').hide();
 }
 
 function showEdit() {
@@ -528,7 +508,7 @@ function showEdit() {
     $('#create-todo-page').hide();
     $('#update-todo-page').show();
     $('#title-page').show();
-    $('#table-movie').hide();
+    $('#table-corona').hide();
 }
 
 function postUpdateTodo(event) {
@@ -568,7 +548,7 @@ function loading() {
 }
 
 
-function showMovie(el) {
+function showCorona(el) {
     $.ajax({
         method: 'GET',
         url: baseUrl + '/api/corona',
@@ -591,7 +571,7 @@ function showMovie(el) {
         })
 }
 
-$('#btn-movie').on('click', () => {
+$('#btn-corona').on('click', () => {
     $('#dashboard-page').show();
     $('#login-page').hide();
     $('#register-page').hide();
@@ -599,8 +579,8 @@ $('#btn-movie').on('click', () => {
     $('#create-todo-page').hide();
     $('#update-todo-page').hide();
     $('#title-page').hide();
-    $('#table-movie').show();
-    showMovie()
+    $('#table-corona').show();
+    showCorona()
 })
 
 jQuery(function ($) {
