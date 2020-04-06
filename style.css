@@ -1,0 +1,399 @@
+/* Fonts-for-use-here */
+
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Montserrat Light'), local('Montserrat-Light'), url(https://fonts.gstatic.com/s/montserrat/v14/JTURjIg1_i6t8kCHKm45_cJD3gnD_g.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* PAGE 0 | SIGN-IN-REGISTER-PAGE */
+
+.signin-page-sentence{
+    font-size: 48px;
+    font-family: 'Bebas Neue', cursive;
+    margin: 5px 0px;
+}
+
+.signin-page-texts{
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+
+
+#main-title {
+    display:flex;
+    justify-content:center;
+    font-size: 48px;
+    font-family: 'Bebas Neue', cursive;
+    margin: 5px 0px;
+
+}
+.welcome-sentence{
+    display:flex;
+    justify-content:center;
+    font-family: 'Montserrat', sans-serif;
+    margin: 5px 0px 30px 0px;
+}
+
+.register-signin-box{
+    display:flex;
+    background-color: #f8ffde;
+    padding:20px;
+    justify-content: center;
+}
+
+/* PAGE 1 | MAIN PAGE HERE*/
+.main-page-background-color{
+    background-color: #ffffff;
+}
+
+.all-buttons-box{
+    display: flex;
+    justify-content: center;
+}
+
+#add-to-do-button{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    margin: 0px 5px;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+
+}
+
+#article-page-button{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    margin: 0px 5px;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+
+}
+
+#main-page-button{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    margin: 0px 5px;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+
+}
+.signout{
+    background-color: #e74c3c; /* Green */
+    border: none;
+    color: white;
+    margin: 0px 5px;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+/* TODOLIST BOX AND CARD STYLING STARTS HERE */
+
+.all-todo-list-box{
+    background-color: #f8ffde;
+    padding:20px;
+}
+.todo-card {
+    background-color: #2ecc71;
+    margin: 10px 15% 0px 15%;
+    padding: 15px;
+    border-radius: 10px 10px 0px 0px;
+}
+.highlight-card-title{
+    background-image: linear-gradient(to right,rgb(39, 174, 96), rgb(46, 204, 113,20));
+    border-radius: 5px;
+}
+.card-title{
+    color:white;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 45px;
+    margin:15px 0px 15px 20px;
+}
+.card-description{
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    margin: 0px 0px 20px 20px
+}
+.card-due_date{
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    margin: 0px 0px 20px 20px
+}
+.card-status{
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    margin: 0px 0px 20px 20px
+}
+
+.task-action-bar{
+    background-image: linear-gradient(#27ae60, #2ecc71);
+    display:flex;
+    justify-content:space-around;
+    padding: 15px 30px;
+    margin: 0px 15% 25px;
+    border-radius: 0px 0px 10px 10px ;
+}
+
+.complete-task-button{
+    background-color: #f1dd95; /* Green */
+    border: none;
+    color: black;
+    margin: 0px 5px;
+    padding: 5px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.uncomplete-task-button{
+    background-color: #f1dd95; /* Green */
+    border: none;
+    color: black;
+    margin: 0px 5px;
+    padding: 0px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.update-todo-button{
+    background-color: #f1dd95; /* Green */
+    border: none;
+    color: black;
+    margin: 0px 5px;
+    padding: 5px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+}
+.delete-todo-button{
+    background-color: #d63031; /* Green */
+    border: none;
+    color: white;
+    margin: 0px 5px;
+    padding: 5px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+
+/* PAGE 2 | ADD TODO PAGE */
+#add-form-sentence{
+    display:flex;
+    justify-content: center;
+    font-size: 48px;
+    font-family: 'Bebas Neue', cursive;
+    margin: 5px 0px;
+}
+#add-form-sub-sentence{
+    display:flex;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    margin: 5px 0px 30px 0px;
+}
+
+.form-body-background{
+    display:flex;
+    background-color: #f8ffde;
+    padding:20px;
+    justify-content: center;
+}
+
+#add-task-submit-button{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    margin: 0px 5px;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.back-to-main-page-button{
+    background-color: #e74c3c; /* Green */
+    border: none;
+    color: white;
+    margin: 0px 5px;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.add-form-text{
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+
+/* PAGE 3 | UPDATE PAGE */
+
+#update-form-sentence{
+    display:flex;
+    justify-content: center;
+    font-size: 48px;
+    font-family: 'Bebas Neue', cursive;
+    margin: 5px 0px;
+}
+
+#update-form-sub-sentence{
+    display:flex;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    margin: 5px 0px 30px 0px;
+}
+
+.update-form-body-background{
+    display:flex;
+    background-color: #f8ffde;
+    padding:20px;
+    justify-content: center;
+}
+
+.update-form-text{
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+
+#update-task-submit-button{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    margin: 0px 5px;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+/* PAGE 4 | PRODUCTIVIY TIPS PAGE */
+
+#article-page-sentence{
+    display:flex;
+    justify-content: center;
+    font-size: 48px;
+    font-family: 'Bebas Neue', cursive;
+    margin: 5px 0px;
+}
+
+#article-page-sub-sentence{
+    display:flex;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    margin: 5px 0px 30px 0px;
+}
+
+.article-page-body-background{
+    display:flex;
+    background-color: #f8ffde;
+    padding:20px;
+    justify-content: center;
+}
+
+.all-productivity-box{
+    background-color: #f8ffde;
+    padding:20px;
+}
+
+.article-card-body{
+    background-color: #2ecc71;
+    margin: 10px 15% 0px 15%;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.article-card-link-to-article{
+    text-decoration: none;
+}
+
+.article-card-title{
+    color:white;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 45px;
+    margin:15px 0px 15px 20px;
+}
+
+.article-card-description{
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    margin: 0px 0px 20px 20px
+}
+
+.article-card-publish-date{
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    margin: 0px 0px 20px 20px
+}
+
+
+/*
+<a class="article-card-link-to-article" href="${article_link}">
+<h4 class="article-card-title">${article_title}</h4>
+<p class="article-card-description">${article_description}</p>
+<p class="article-card-publish-date">${article_publishedAt}</p>
+
+.card-title{
+    color:white;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 45px;
+    margin:15px 0px 15px 20px;
+}
+.card-description{
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    margin: 0px 0px 20px 20px
+}
+.card-due_date{
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    margin: 0px 0px 20px 20px
+}
+.card-status{
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    margin: 0px 0px 20px 20px
+}
+
+
+
+
+*/
+
+
+

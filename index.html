@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="google-signin-client_id" content="809842491089-o1njkq7t3f5edl513rp3ni2gjc82nocd.apps.googleusercontent.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Bebas+Neue|Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>My todos</title>
+</head>
+<body> 
+    <div class = "signIn-page">
+        <div class="register-signin-box">
+            <form onsubmit="signIn(event)" id="formSignIn">
+                <h1 class="signin-page-sentence">Welcome to to-do-app!</h1>
+                <!-- <button class="signout">Sign Out</button> -->
+                <label class="signin-page-texts" for="email">Email:</label><br>
+                <input type="email" id="email" name="email" placeholder="Your email here..." required><br><br>
+                <label class="signin-page-texts" for="password">Password:</label><br>
+                <input type="password" id="password" name="password" placeholder="Your password here..." required><br><br>
+                <input type="submit" value="Sign in">
+                <p class="signin-page-texts">Don't have an account yet? You can register right away using:</p>
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            </form>
+        </div>
+        
+    </div>
+
+    <div class="main-page">
+        <div class="main-page-background-color">
+            <h1 id="main-title">Welcome!</h1>
+            <p class="welcome-sentence">Here's your current list of tasks!</p>
+            <div class = "all-buttons-box">
+                <button id="add-to-do-button" onclick="showAddForm( event )">Add a new todo</button>
+                <button id="article-page-button" onclick="showAllArticles( event )">Productivity articles</button>
+                <button class="signout">Sign Out</button>
+            </div>
+            <div class="all-todo-list-box">
+                <div class="all-todo-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="update-page">
+        <div class="update-form">
+            <div class="update-form-body">
+                <h4 id="update-form-sentence">EDIT CURRENT TASK</h4>
+                <p id="update-form-sub-sentence">Some changes in the details, perhaps?</p>
+                <div class="update-form-body-background">
+                    <form onsubmit="updateToDo( event )">
+                        <label class="update-form-text" for="update-title">Title:</label><br>
+                        <input id="update-title" type="text" placeholder="Your todo title here..."><br><br>
+                        <label class="update-form-text" for="update-description">Description:</label><br>
+                        <input id="update-description" type="text" placeholder="Your todo description here..."> <br><br>
+                        <label class="update-form-text" for="update-due_date">Due date:</label><br>
+                        <input id="update-due_date" type="date" value="2020-01-01"><br><br>
+                        <input id="update-task-submit-button" type="submit" value="Update">
+                        <button class="back-to-main-page-button" onclick="showMainPage( event )">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="add-todo-page">
+        <div class="form">
+            <div class="form-body">
+                <h4 id="add-form-sentence">ADD A NEW TASK</h4>
+                <p id="add-form-sub-sentence">What are you trying to accomplish?</p>
+                <div class="form-body-background">
+                    <form onsubmit="addTodos(event)">
+                        <label class="add-form-text" for="title">Title:</label><br>
+                        <input id="title" type="text" placeholder="Your todo title here..."><br><br>
+                        <label class="add-form-text" for="description">Description:</label><br>
+                        <input id="description" type="text" placeholder="Your todo description here..."> <br><br>
+                        <label class="add-form-text" for="due_date">Due date:</label><br>
+                        <input id="due_date" type="date" value="2020-01-01"><br><br>
+                        <input id="add-task-submit-button" type="submit" value="Add task">
+                        <button class="back-to-main-page-button" onclick="showMainPage( event )">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="all-productivity-articles-page">
+        <div class="articles-page-header">
+            <h1 id= "article-page-sentence">PRODUCTIVITY ARTICLES</h1>
+            <p id="update-form-sub-sentence">Curated from the best of publishers for you</p>
+        </div>
+        <div class = "all-buttons-box">
+            <button id="article-page-button" onclick="showMainPage( event )">All tasks</button>
+            <button class="signout">Sign Out</button>
+        </div>
+        <div class="all-productivity-box">
+            <div class="all-productivity-articles"></div>
+        </div>
+    </div>
+
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous">
+    </script>
+    <script src="main.js"></script>
+    
+</body>
+</html>
