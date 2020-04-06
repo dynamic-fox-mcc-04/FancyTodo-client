@@ -11,9 +11,9 @@
     <title>Todo - List</title>
 </head>
 <body>
+    <div class="showMessage alert alert-success"></div><br>
     
     <div class="homePage jumbotron">
-
         <h1 class="display-4">Welcome To Fancy Todo</h1>
         <p class="lead">Fancy-Todo-Client for weekly challenge Hacktiv8 Phase 2</p>
         <hr class="my-4">
@@ -67,7 +67,7 @@
             <label for="addTodo">Add New Todo</label>
                 <form onsubmit="createTodo(event)" >
                     <label>Title: </label><br>
-                    <input type="text" id="title" name="titleCreate" placeholder="Title"><br>
+                    <input type="text" id="title" name="titleCreate" placeholder="Title" required><br>
                     <label>Description: </label><br>
                     <input type="textarea" id="description" name="descriptionCreate" placeholder="Description"><br>
                     <label>Due Date: </label><br>

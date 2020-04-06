@@ -5,13 +5,29 @@ $( document ).ready(function() {
     $('.logout').click(function(){
         var auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function() {
-            console.log('User signed out.');
+            showMessage('User signed out.');
         });
         localStorage.clear()
         $('.divTable').empty()
         auth()
     })
 })
+
+function showMessage(arr){
+    $('.showMessage').empty() ;
+
+    if (typeof arr == 'string'){
+        arr = [arr] ;
+        arr.forEach(element => {
+            $('.showMessage').append(`-${element}-`)
+        });
+    } 
+    else {
+        arr.forEach(element => {
+            $('.showMessage').append(`-${element}-`)
+        });
+    }
+}
 
 function home (event) {
     event.preventDefault();
@@ -40,15 +56,20 @@ function regist (event) {
             localStorage.setItem('token', data.access_token)
             $('#emailRegist').val('')
             $('#passwordRegist').val('')
-            console.log('Successfully registered')
+            showMessage('Successfully registered')
             auth()
             
         })
         .fail(err => {
             $('#emailRegist').val('')
             $('#passwordRegist').val('')
-            console.log(err.responseJSON.errors[1].message);
-            
+
+            if(err.responseJSON.error == undefined){
+                showMessage(err.responseJSON.errors[0].message)
+            }
+            else{
+                showMessage(err.responseJSON.error.errors[0].message)
+            }
         })
 }
 
@@ -63,11 +84,11 @@ function onSignIn(googleUser) {
     })
         .done(data => {
             localStorage.setItem('token', data.token)
-            
+            showMessage("Success login");
             auth()
         })
         .fail(err => {
-            console.log(err.responseJSON, 'error')
+            showMessage(err.responseJSON, 'error')
         })
 }
 
@@ -92,12 +113,12 @@ function login (event) {
             localStorage.setItem('token', data.access_token)
             $('#emailLogin').val('')
             $('#passwordLogin').val('')
-            console.log("Success login");
+            showMessage("Success login");
             auth()
             
         })
         .fail(err => {
-            console.log(err.responseJSON.msg);
+            showMessage(err.responseJSON.msg);
         })
 }
 
@@ -317,7 +338,7 @@ function createTodo(event) {
         }
     })
         .done(data => {
-            console.log("Successfully created new todo");
+            showMessage("Successfully created new todo");
             
             auth()
             $('.createTodo').hide()
@@ -327,7 +348,12 @@ function createTodo(event) {
 
         })
         .fail(err => {
-            console.log(err, "error");
+            if(err.responseJSON.error == undefined){
+                showMessage(err.responseJSON.errors[0].message)
+            }
+            else{
+                showMessage(err.responseJSON.error.errors[0].message)
+            }
         })
 }
 
@@ -374,7 +400,7 @@ function updateBtn(id, event) {
                 day = `0${day}`
             }
             let formatDate = year + "-" + month + "-" + day
-            console.log(data)
+            
             $('#editId').val(data.todo.id)
             $('#editTitle').val(data.todo.title)
             $('#editDescription').val(data.todo.description)
@@ -409,7 +435,7 @@ function updateTodo(event){
         }
     })
         .done(data=> {
-            console.log("Successfully edited todo");
+            showMessage("Successfully edited todo");
             $('.updatePage').hide()
             $('.mainPage').show()
             readTodos()
@@ -429,7 +455,7 @@ function deleteBtn(id) {
         }
     })
     .done((response)=> {
-        console.log("Successfully deleted todo");
+        showMessage("Successfully deleted todo");
         readTodos()
     })
     .fail(err => {
