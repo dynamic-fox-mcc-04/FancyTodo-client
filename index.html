@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./assets/style.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type='text/javascript' src="http://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.1/jquery.xdomainrequest.min.js"></script>
+    <title>My To Do List</title>
+</head>
+
+<body>
+    <div id="login-page">
+        <div id="login-content">
+            <h1>Login page</h1>
+            <form id="login" onsubmit="login(event)">
+                <label for="email-login">email</label><br>
+                <input type="email" id="email-login"><br>
+                <label for="password-login">password</label><br>
+                <input type="password" id="password-login"><br><br>
+                <input type="submit" value="Login"><br><br>
+                <a href="#" onclick="registerPage()" style="font-weight: 700;">Dont have an Account?</a>
+            </form>
+        </div>
+    </div>
+    <div id="register-page">
+        <div id="register-content">
+            <h1>Register page</h1>
+            <form id="register" onsubmit="register(event)">
+                <label for="email-register">email</label><br>
+                <input type="email" id="email-register"><br>
+                <label for="password-register">password</label><br>
+                <input type="password" id="password-register"><br><br>
+                <input type="submit" value="Register">
+                <br><br>
+                <a href="#" onclick="loginPage()" style="font-weight: 700;">Have an Account?</a>
+            </form>
+        </div>
+    </div>
+    <div class="header">
+        <div id="navbar">
+            <div id="menu">
+                <a href="#" onclick="">LIST</a>
+                <a href="#" onclick="TodoAddPage()">ADD NEW</a>
+            </div>
+            <div id="logout-bar">
+                <a href="#" id="logout" onclick="logout(event)">LOG OUT</a>
+            </div>
+        </div>
+    </div>
+    <div id="container">
+        <div id="sidebar">
+            <div id="praybar">
+                <h2>Prayer Schedule</h2>
+                <h5 id="location"></h5>
+                <h5 id="date"></h5>
+                <h5 id="fajr"></h5>
+                <h5 id="dhuhr"></h5>
+                <h5 id="asr"></h5>
+                <h5 id="maghrib"></h5>
+                <h5 id="isha"></h5>
+            </div>
+
+        </div>
+        <div id="content">
+            <div id="todo-content">
+                <div id="title">
+                    <h1>My Todo List</h1>
+                </div>
+                <p id="todomessage"></p>
+                <table border>
+                    <thead>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Due Date</th>
+                        <th>Action</th>
+                    </thead>
+                    <tbody class="todolist">
+                    </tbody>
+                </table>
+            </div>
+            <div id="todo-add">
+                <h1>Add Todo List</h1><br>
+                <form id="add-section" onsubmit="createTodo(event)">
+                    <label for="titleAdd">Title</label><br>
+                    <input type="text" id="titleAdd"><br>
+                    <label for="descriptionAdd">Description</label><br>
+                    <input type="text" id="descriptionAdd"><br>
+                    <label for="due_dateAdd">Due Date</label><br>
+                    <input type="date" id="due_dateAdd"><br>
+                    <input type="submit" value="Submit"><br>
+                    <button onclick="homepage()">Cancel</button>
+                </form>
+            </div>
+            <div id="todo-edit">
+                <h1>Edit Todo List</h1><br>
+                <form id="add-section" onsubmit="createTodo(event)">
+                    <label for="idUpdate">ID Number</label><br>
+                    <input type="number" id="idUpdate" readonly><br>
+                    <label for="titleUpdate">Title</label><br>
+                    <input type="text" id="titleUpdate"><br>
+                    <label for="descriptionUpdate">Description</label><br>
+                    <input type="text" id="descriptionUpdate"><br>
+                    <label for="due_dateUpdate">Due Date</label><br>
+                    <input type="date" id="due_dateUpdate"><br>
+                    <input type="submit" value="Submit"><br>
+                    <button onclick="homepage()">Cancel</button>
+                </form>
+            </div>
+        </div>
+        <div id="rightbar"></div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh" crossorigin="anonymous"></script>
+    <script src="./main.js"></script>
+</body>
+
+</html>
