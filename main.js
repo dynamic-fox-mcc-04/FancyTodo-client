@@ -60,7 +60,7 @@ function login(event)
     $.ajax(
     {
         type: "POST",
-        url: baseUrl + "user/login",
+        url: baseUrl + "login",
         data: {email, password}
     })
     .done(data => 
@@ -80,7 +80,7 @@ function register(event)
     $.ajax(
     {
         type: "POST",
-        url: baseUrl + "user/register",
+        url: baseUrl + "register",
         data: {email, password}
     })
     .done(() =>
@@ -112,6 +112,7 @@ function createTodo(event)
         $("#due_date-create").val("");
 
         console.log("Success create a Todo", data);
+        authentication();
     })
     .fail(err => 
     {
@@ -170,7 +171,7 @@ function deleteTodo(id)
     .done(() => 
     {
         $(`#todo-${id}`).remove();
-        showTodo();
+        authentication();
     })
     .fail(err => console.log(err));
 }
@@ -223,7 +224,7 @@ function updateTodo(event)
     })
     .done(() => 
     {
-        showTodo();
+        authentication();
     })
     .fail(err => console.log(err));
 }
