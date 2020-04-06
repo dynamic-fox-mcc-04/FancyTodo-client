@@ -1,50 +1,53 @@
 .jumbotron {
     background-image: url(img/bg-jumbotron.jpg);
     background-size: cover;
+    text-align: center;
+    align-content: center;
+
+    height: 800px;
 }
 
-#api {
-    position: relative;
-    height: 300px;
-}
-#weather
-{
-    position: absolute;
-    margin-right: 25px;
-    left: 5px;
-    top: 5px;
-    bottom: 5px;
-    right: 70%;
-}
-#schedule
-{
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    bottom: 5px;
-    left: 30%;
-    margin-left: 25px;
+.jumbotron hr {
+    width: 100px;
 }
 
-#homeLogin {
-    position: relative;
-    height: 25px;
+.formPage{
+    text-align: center;
+    width: 50%;
+    margin:auto;
+    margin-top: 10%;
+    background-image: url(img/bg-main.jpg);
 }
-#loginManual
-{
-    position: relative;
-    margin-right: 25px;
-    left: 5px;
-    top: 5px;
-    bottom: 5px;
-    right: 70%;
+
+.col-md-6 > h3{
+    margin-top: 0px;
 }
-#loginGoogle
-{
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    bottom: 5px;
-    left: 30%;
-    margin-left: 25px;
+
+.g-signin2 > div {
+    margin : 0 auto;
 }
+
+.divTable{
+    margin: 20px 0;
+}
+
+.col-md-6{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.mainPage {
+    background-image: url(img/bg-jumbotron.jpg);
+    background-size: cover;
+    text-align: center;
+}
+
+.backBtn {
+    text-align: left;
+}
+

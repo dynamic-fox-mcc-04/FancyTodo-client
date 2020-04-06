@@ -8,10 +8,10 @@ $( document ).ready(function() {
             console.log('User signed out.');
         });
         localStorage.clear()
+        $('.divTable').empty()
         auth()
     })
 })
-
 
 function home (event) {
     event.preventDefault();
@@ -47,7 +47,7 @@ function regist (event) {
         .fail(err => {
             $('#emailRegist').val('')
             $('#passwordRegist').val('')
-            console.log(err.responseJSON);
+            console.log(err.responseJSON.errors[1].message);
             
         })
 }
@@ -90,6 +90,8 @@ function login (event) {
     })
         .done(data => {
             localStorage.setItem('token', data.access_token)
+            $('#emailLogin').val('')
+            $('#passwordLogin').val('')
             console.log("Success login");
             auth()
             
@@ -231,7 +233,7 @@ function apiShalat(){
     .fail(err => {
         console.log(err, "error");
     })
-}
+} 
 
 function readTodos () {
     $.ajax({
@@ -274,7 +276,7 @@ function readTodos () {
                             <p>Description: ${description}<p>
                             <p>Due date: ${formatDate}<p>
                             <p>Status: ${status}<p>
-                            <button onClick="updateBtn(${id}, event)" >Edit</button> <button onClick="deleteBtn(${id})">Delete</button>
+                            <button onClick="updateBtn(${id}, event)" class="btn btn-success" >Edit</button> <button onClick="deleteBtn(${id})" class="btn btn-warning">Delete</button>
                         </div>
                     `)
                 }
@@ -285,7 +287,7 @@ function readTodos () {
                             <p>Description: ${description}<p>
                             <p>Due date: ${formatDate}<p>
                             <p>Status: ${status}<p>
-                            <button onClick="updateBtn(${id}, event)">Edit</button> <button onClick="deleteBtn(${id})">Delete</button>
+                            <button onClick="updateBtn(${id}, event) " class="btn btn-success">Edit</button> <button onClick="deleteBtn(${id})" class="btn btn-warning">Delete</button>
                         </div>
                     `)
                 }
@@ -302,7 +304,7 @@ function createTodo(event) {
     let description = $('#description').val()
     let due_date =$('#due_date').val()
 
-    $.ajax({
+    $.ajax({  
         method: 'POST',
         url: baseUrl + '/todos',
         headers: {
@@ -361,7 +363,6 @@ function updateBtn(id, event) {
         }
     })
         .done(data=> {
-            
             let due_date = new Date (data.todo.due_date)
             let year = due_date.getFullYear()
             let month = due_date.getMonth() + 1 
