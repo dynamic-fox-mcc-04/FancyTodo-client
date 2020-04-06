@@ -6,7 +6,7 @@ function showLandingPage() {
     $('#register-page').hide()
     $('#dashboard').hide()
 }
-function showRegister(event) {
+function showRegister(event, id) {
     event.preventDefault()
     $('#register-page').show()
     $('#landing-page').hide()
@@ -18,7 +18,6 @@ function showDashboard() {
     $('#username').append(`${localStorage.getItem('email')}`)
     $('#pic').append(`<img width="25" height="25" src="${localStorage.getItem('avatar')}">`)
     $('#dashboard').show()
-    getJokes()
     $('#register-page').hide()
     $('#landing-page').hide()
     getTasks()
@@ -43,7 +42,7 @@ function addTask(event) {
         $('#description-add').val('')
         $('#date-add').val('')
         $('#success-message').append(`${response.title} added.`)
-        $('#success-box').fadeTo(2000, 500).slideUp(500, function() {
+        $('#success-box').fadeTo(4000, 500).slideUp(500, function() {
             $("#success-box").slideUp(500);
             $('#success-message').empty()
         })
@@ -51,16 +50,44 @@ function addTask(event) {
     }).fail(err => {
         console.log(err, "adding task error")
         $('#error-message').append(`${err.responseJSON}`)
-        $('#alert').fadeTo(2000, 500).slideUp(500, function() {
+        $('#alert').fadeTo(4000, 500).slideUp(500, function() {
             $("#alert").slideUp(500);
             $('#error-message').empty()
         })
     })
 }
 
-function complete(event, id, title, description, due_date) {
-    event.preventDefault()
-    console.log(id, title, description, due_date)
+function complete(id) {
+    $.ajax({
+        method: 'GET',
+        url: `${localhost}/todos/${id}`,
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    }).done(response => {
+        $.ajax({
+            method: 'PUT',
+            url: `${localhost}/todos/${response.id}`,
+            headers: {
+                token: localStorage.getItem('token')
+            },
+            data: {
+                title: response.title,
+                description: response.description,
+                due_date: response.due_date,
+                status: true
+            }
+        })
+    }).done(response => {
+        $('#success-message').append(`Item moved to finished!`)
+        $('#success-box').fadeTo(4000, 500).slideUp(500, function() {
+            $("#success-box").slideUp(500);
+            $('#success-message').empty()
+        })
+        getTasks()
+    }).fail(err => {
+        console.log(err)
+    })
     console.log('bisa diedit')
 }
 
@@ -75,8 +102,8 @@ function deleteTask(event, id) {
         }
     }).done(response => {
         console.log(response)
-        $('#success-message').append(`${response.message}`)
-        $('#success-box').fadeTo(2000, 500).slideUp(500, function() {
+        $('#success-message').append(`Item successfully deleted!`)
+        $('#success-box').fadeTo(4000, 500).slideUp(500, function() {
             $("#success-box").slideUp(500);
             $('#success-message').empty()
         })
@@ -86,8 +113,53 @@ function deleteTask(event, id) {
     })
 }
 
-function showEdit() {
+function showEdit(id) {
+    $.ajax({
+        method: 'GET',
+        url: `${localhost}/todos/${id}`,
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    }).done(response => {
+        $('#title-edit').val(response.title)
+        $('#description-edit').val(response.description)
+        $('#date-edit').val(response.due_date)
+        localStorage.setItem('id-edit', response.id)
+    }).fail(err => {
+        console.log(err)
+    })
     $('#edit-task').fadeTo(2000, 500)
+}
+
+function editTask() {
+    $.ajax({
+        method: 'PUT',
+        url: `${localhost}/todos/${localStorage.getItem('id-edit')}`,
+        headers: {
+            token: localStorage.getItem('token')
+        },
+        data: {
+            title: $('#title-edit').val(),
+            description: $('#description-edit').val(),
+            due_date: $('#date-edit').val(),
+            status: $('#status-edit').val()
+        }
+    }).done(response => {
+        $('#title-edit').val(''),
+        $('#description-edit').val(''),
+        $('#date-edit').val(''),
+        $('#status-edit').val('')
+        localStorage.removeItem('id-edit')
+        $('#success-message').append(`Item successfully edited!`)
+        $('#success-box').fadeTo(4000, 500).slideUp(500, function() {
+            $("#success-box").slideUp(500);
+            $('#success-message').empty()
+        })
+        $('#edit-task').slideUp(500)
+        getTasks()
+    }).fail(err => {
+        console.log(err)
+    })
 }
 
 function closeEdit(event) {
@@ -135,8 +207,8 @@ function getTasks() {
     </div>
   </div>
   <footer class="card-footer">
-    <button onclick="complete(event, ${send.id}, ${send.title}, ${send.description}, ${send.due_date})" class="button card-footer-item">Complete</button>
-    <button onclick="showEdit()" class="button card-footer-item">Edit</button>
+    <button onclick="complete(${send.id})" class="button card-footer-item">Complete</button>
+    <button onclick="showEdit(${send.id})" class="button card-footer-item">Edit</button>
     <button onclick="deleteTask(event, ${send.id})" class="button card-footer-item">Delete</button>
   </footer>
 </div>
@@ -150,7 +222,7 @@ function getTasks() {
             }
             
         })
-        $('#loading').hide(4000)
+        getJokes()
     })
     .fail(err => {
             console.log(err)
@@ -180,7 +252,7 @@ function login(event) {
         $('#password-login').val('')
         console.log(err, "login error")
         $('#error-message').append(`${err.responseJSON.msg}`)
-        $('#alert').fadeTo(2000, 500).slideUp(500, function() {
+        $('#alert').fadeTo(4000, 500).slideUp(500, function() {
             $("#alert").slideUp(500);
             $('#error-message').empty()
         })
@@ -204,7 +276,7 @@ function register(event) {
         localStorage.setItem("email", response.email)
         localStorage.setItem("token", response.token)
         $('#success-message').append(`${response.email} registered!`)
-        $('#success-box').fadeTo(2000, 500).slideUp(500, function() {
+        $('#success-box').fadeTo(4000, 500).slideUp(500, function() {
             $("#success-box").slideUp(500);
             $('#success-message').empty()
         })
@@ -215,7 +287,7 @@ function register(event) {
         $('#password-register').val('')
         console.log(err, "register error")
         $('#error-message').append(`${err.responseJSON.msg}`)
-        $('#alert').fadeTo(2000, 500).slideUp(500, function() {
+        $('#alert').fadeTo(4000, 500).slideUp(500, function() {
             $("#alert").slideUp(500);
             $('#error-message').empty()
         })
@@ -248,13 +320,14 @@ function onSignIn(googleUser) {
                 msg: "Sent google token to server. Received server token."
             })
             localStorage.setItem("avatar", response.avatar)
+            localStorage.setItem("email", response.email)
             localStorage.setItem("token", response.token)
             showDashboard()
         })
         .fail(function(err) {
             console.log(err, "<= It's an error on google signin")
             $('#error-message').append(`${err.responseJSON}`)
-            $('#alert').fadeTo(2000, 500).slideUp(500, function() {
+            $('#alert').fadeTo(4000, 500).slideUp(500, function() {
                 $("#alert").slideUp(500);
                 $('#error-message').empty()
             })
@@ -273,6 +346,7 @@ function getJokes() {
     }).done(response => {
         $('#joke-setup').append(response.setup)
         $('#joke-punchline').append(response.punchline)
+        $('#loading').hide()
     }).fail(err => {
         console.log(err, 'joke error lmao')
     })
@@ -287,7 +361,7 @@ function logout(event) {
     });
     showLandingPage()
     $('#success-message').append(`Logged out`)
-    $('#success-box').fadeTo(1000, 500).slideUp(500, function() {
+    $('#success-box').fadeTo(4000, 500).slideUp(500, function() {
         $("#success-box").slideUp(500);
         $('#success-message').empty()
     })
