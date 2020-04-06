@@ -178,8 +178,12 @@ body {
 }
 
 .signout-btn {
+    border: 1px solid yellow;
+    background-color: yellow;
+    padding: 4px;
     color: rgb(30, 30, 177);
     cursor: pointer;
+    border-radius: 10px;
 }
 
 .signout-btn:hover {

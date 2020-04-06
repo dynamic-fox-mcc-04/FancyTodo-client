@@ -45,11 +45,27 @@ function auth() {
     }
 }
 
-
-$('.authModal').click(function() {
-    $('#signup-form-container').fadeToggle()
-
+$('#registerFront').click(function() {
+    if ($('#login-form-container').show()) {
+        $('#login-form-container').hide()
+    }
+    $('#signup-form-container').show()
+    $('.auth-notifications').empty()
 })
+
+$('#loginFront').click(function() {
+    if ($('#signup-form-container').show()) {
+        $('#signup-form-container').hide()
+    }
+    $('#login-form-container').show()
+    $('.auth-notifications').empty()
+})
+
+$('.close').click(function() {
+    $('.auth-container').hide()
+    $('.auth-notifications').empty()
+})
+
 
 
 

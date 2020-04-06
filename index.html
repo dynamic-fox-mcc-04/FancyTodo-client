@@ -25,10 +25,13 @@
 
             <div id="mid-container" class="d-flex justify-content-center">
             </div>
-
-            <button class="authModal">GET IN</button>
+            <button class="authModal" id="loginFront">LOGIN</button>
+            <button class="authModal" id="registerFront">REGISTER</button>
         </nav>
         <div id="login-form-container" class="auth-container">
+            <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
             <form action="" id="login-form" class="auth-form">
                 <img src="./assets/logo.jpg" alt="landingpage-avatar" style="height: 30vh;">
                 <h3>Welcome to MovieTodos!</h3>
@@ -45,7 +48,7 @@
                     <button class="ui primary button" id="signin-btn" type="submit">
                         sign in
                     </button>
-                    <div class="g-signin2" data-onsuccess="onSignIn">sign in with google</div>
+                    <div class="g-signin2" data-onsuccess="onSignIn">Sign In</div>
 
                 </div>
 
@@ -59,6 +62,9 @@
 
 
         <div id="signup-form-container" class="auth-container">
+            <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
             <form action="" id="signup-form" class="auth-form">
                 <img src="./assets/logo.jpg" alt="landingpage-avatar" style="height: 30vh">
                 <h3>Welcome to MovieTodos!</h3>
