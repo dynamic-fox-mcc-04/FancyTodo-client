@@ -90,7 +90,7 @@ function login(event) {
         }
     })
         .done(data => {
-            showLoading()
+            // showLoading()
             localStorage.setItem('token', data.token)
             showTodos()
             auth()
@@ -118,7 +118,7 @@ function register(event) {
         }
     }) 
         .done(data => {
-            showLoading()
+            // showLoading()
             localStorage.setItem('token', data.token);
             auth();
         })
@@ -144,7 +144,7 @@ function onSignIn(googleUser) {
         }
     })
         .done(token => {
-            showLoading()
+            // showLoading()
             localStorage.setItem('token', token);
             console.log('sign in success', token);
             auth()
@@ -475,12 +475,12 @@ function editTodo(id) {
 
 
 // <!-- SHOW-PAGE ======================================================================== -->
-function showLoading() {
-    $("#loading-page").empty()
-    $("#loading-page").fadeTo(2000, 500).slideUp(500, function(){
-        $("#loading-page").slideUp(500);
-    });
-}
+// function showLoading() {
+//     $("#loading-page").empty()
+//     $("#loading-page").fadeTo(2000, 500).slideUp(500, function(){
+//         $("#loading-page").slideUp(500);
+//     });
+// }
 
 function showDashboard() {
     showTodos();
@@ -550,11 +550,11 @@ function postUpdateTodo(event) {
         })
 }
 
-function loading() {
-    $('body').append(`
-        <img src="https://media1.tenor.com/images/db85ba00c6073b451a8f05156a66524e/tenor.gif?itemid=9856796></img>
-    `)
-}
+// function loading() {
+//     $('body').append(`
+//         <img src="https://media1.tenor.com/images/db85ba00c6073b451a8f05156a66524e/tenor.gif?itemid=9856796></img>
+//     `)
+// }
 
 
 function showCorona(el) {
