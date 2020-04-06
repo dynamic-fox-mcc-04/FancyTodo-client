@@ -36,7 +36,7 @@ $('#btn-register').on('click', () => {
     $('#show-todo-page').hide();
     $('#create-todo-page').hide();
     $('#update-todo-page').hide();
-    $('#title-page').hide();
+    $('#title-page').show();
     $('#table-corona').hide();
 })
     
@@ -47,7 +47,7 @@ $('#btn-login').on('click', () => {
     $('#show-todo-page').hide();
     $('#create-todo-page').hide();
     $('#update-todo-page').hide();
-    $('#title-page').hide();
+    $('#title-page').show();
     $('#table-corona').hide();
 })
     
@@ -541,11 +541,11 @@ function postUpdateTodo(event) {
         })
 }
 
-function loading() {
-    $('body').append(`
-        <img src="https://media1.tenor.com/images/db85ba00c6073b451a8f05156a66524e/tenor.gif?itemid=9856796></img>
-    `)
-}
+// function loading() {
+//     $('body').append(`
+//         <img src="https://media1.tenor.com/images/db85ba00c6073b451a8f05156a66524e/tenor.gif?itemid=9856796></img>
+//     `)
+// }
 
 
 function showCorona(el) {

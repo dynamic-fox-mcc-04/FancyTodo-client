@@ -36,7 +36,7 @@ $('#btn-register').on('click', () => {
     $('#show-todo-page').hide();
     $('#create-todo-page').hide();
     $('#update-todo-page').hide();
-    $('#title-page').hide();
+    $('#title-page').show();
     $('#table-corona').hide();
 })
     
@@ -47,7 +47,7 @@ $('#btn-login').on('click', () => {
     $('#show-todo-page').hide();
     $('#create-todo-page').hide();
     $('#update-todo-page').hide();
-    $('#title-page').hide();
+    $('#title-page').show();
     $('#table-corona').hide();
 })
     
@@ -90,6 +90,7 @@ function login(event) {
         }
     })
         .done(data => {
+            showLoading()
             localStorage.setItem('token', data.token)
             showTodos()
             auth()
@@ -117,6 +118,7 @@ function register(event) {
         }
     }) 
         .done(data => {
+            showLoading()
             localStorage.setItem('token', data.token);
             auth();
         })
@@ -142,6 +144,7 @@ function onSignIn(googleUser) {
         }
     })
         .done(token => {
+            showLoading()
             localStorage.setItem('token', token);
             console.log('sign in success', token);
             auth()
@@ -472,6 +475,12 @@ function editTodo(id) {
 
 
 // <!-- SHOW-PAGE ======================================================================== -->
+function showLoading() {
+    $("#loading-page").empty()
+    $("#loading-page").fadeTo(2000, 500).slideUp(500, function(){
+        $("#loading-page").slideUp(500);
+    });
+}
 
 function showDashboard() {
     showTodos();
