@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="715818867507-9b350no5a7vq8f7vc54390tgqfcv74a9.apps.googleusercontent.com">
+    <title>Fancy Todo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+  <!-- ERROR PAGE ======================================================================== -->
+
+  <div id="error_page">
+    <div id="errorMsg"></div>
+  </div>
+
+<!-- HEADER PAGE ======================================================================== -->
+
+    <section id="title-page" class="mr-5">
+        <h2>Fancy<span>Todo</span></h2>
+    </section>
+
+<!-- LOGIN PAGE ======================================================================== -->
+
+    <section id="login-page" class="align-self-center">
+        <form id="login" onsubmit="login(event)">
+            <h2>Login</h2>
+            <input type="email" id="email-login-value" name="email" placeholder="email" autocomplete="false" required>
+            <input type="password" id="password-login-value" name="sifre" placeholder="password" required>
+            <input type="submit" value="login">
+        </form>
+        <div class="form-group d-flex justify-content-center mt-1">
+            <span>Do you haven't account yet? </span><a href="#" class="ml-2" id="btn-register">register now</a>
+        </div>
+        <div class="form-group d-flex justify-content-center">
+            <span class="mt-1">or login with :</span>
+            <div class="g-signin2 ml-2" data-onsuccess="onSignIn"></div>
+        </div>
+    </section>
+
+    <!-- REGISTER PAGE ======================================================================== -->
+
+    <section id="register-page">
+        <form id="register" onsubmit="register(event)">
+            <h2>Register</h2>
+            <input type="email" id="email-register-value" name="email" placeholder="email" autocomplete="false" required>
+            <input type="password" id="password-register-value" name="password" placeholder="password" required>
+            <input type="submit" value="register">
+        </form><br>
+        <div class="form-group d-flex justify-content-center mt-1">
+            <span>Already have account ? </span><a href="#" id="btn-login"class="ml-2"> login now</a>
+        </div>
+    </section>
+
+<!-- DASHBOARD PAGE ======================================================================== -->
+
+    <section id="dashboard-page">
+        <div class="page-wrapper chiller-theme toggled">
+            <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+              <i class="fas fa-bars"></i>
+            </a>
+            <nav id="sidebar" class="sidebar-wrapper">
+              <div class="sidebar-content">
+                <div class="sidebar-brand">
+                  <a href="#" onclick="showDashboard()">Fancy<span>Todo</span></a>
+                  <div id="close-sidebar">
+                    <i class="fas fa-times"></i>
+                  </div>
+                </div>
+                <div class="sidebar-header">
+                  <div class="user-pic">
+                    <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                    alt="User picture">
+                  </div>
+                  <div class="user-info">
+                    <span class="user-name">
+                        Hi User
+                    </span>
+                    <span class="user-role"></span>
+                    <span class="user-status">
+                      <i class="fa fa-circle"></i>
+                      <span>Online</span>
+                    </span>
+                  </div>
+                </div>
+                <!-- sidebar-header  -->
+                <div class="sidebar-search">
+                  <div>
+                    <div class="input-group">
+                      <input type="text" class="form-control search-menu" placeholder="Search...">
+                      <div class="input-group-append">
+                        <span class="input-group-text">
+                          <i class="fa fa-search" aria-hidden="true"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- sidebar-search  -->
+                <div class="sidebar-menu">
+                  <ul>
+                    <li class="header-menu">
+                      <span>General</span>
+                    </li>
+                    <li class="sidebar-dropdown" id="btn-corona">
+                      <a href="#">
+                        <i class="fa fa-tachometer-alt"></i>
+                        <span>Data Corona</span>
+                      </a>
+                    </li>
+                    
+                <!-- sidebar-menu  -->
+              </div>
+              <!-- sidebar-content  -->
+              <div class="sidebar-footer">
+                <a href="#" id="btn-logout">
+                  <i class="fa fa-power-off"> LOGOUT</i>
+                </a>
+              </div>
+            </nav>
+            <!-- sidebar-wrapper  -->
+            <main class="page-content">
+              <div class="container-fluid">
+                
+              </div>
+            </main>
+            <!-- page-content" -->
+          </div>
+    </section>
+
+  <!-- MOVIE PAGE ======================================================================== -->
+
+    <section id="table-corona">
+        <table class="table table-bordered table-hover">
+          <h3>Data Corona</h3>
+            <thead class="thead-dark">
+                  <tr>
+                    <th>Cases</th>
+                    <th>Death</th>
+                    <th>Recovered</th>
+                    <th>Updated</th>
+                    <th>Active</th>
+                    <th>Affected Countries</th>
+                  </tr>
+              </thead>
+              <tbody id="corona"></tbody>
+          </table>
+          <button id="btn-back-2" class="btn btn-outline-danger">back</button>
+    </section>
+
+  <!-- CREATE-TODO PAGE ======================================================================== -->
+
+  <section id="create-todo-page">
+    <form id="create_form" onsubmit="createTodos(event)">
+        <h1 id="sign_in_header">CREATE TODO</h1>
+        <label for="create_title">Title:</label>
+        <input id="title" type="text" name="title" required>
+        <label for="create_description">Description:</label>
+        <input id="description" type="text" name="description" required>
+        <label for="create_due_date">Due Date:</label>
+        <input id="due_date" type="date" name="due_date" required>
+        <input type="submit" value="add">
+        <button id="btn-back" class="btn btn-outline-danger">back</button>
+    </form>
+  </section>
+
+    <!-- UPDATE-TODO PAGE ======================================================================== -->
+
+    <section id="update-todo-page">
+        <form id="update_todo-post" onsubmit="postUpdateTodo(event)">
+            <h1 id="sign_in_header">UPDATE TODO</h1>
+            <label for="update_title">Title:</label>
+            <input id="title-update" type="text" name="title-update" value="" required>
+            <label for="update_description">Description:</label>
+            <input id="description-update" type="text" name="description-update" value="" required>
+            <label for="update_due_date">Due Date:</label>
+            <input id="due_date-update" type="date" name="due_date-update" value="" required>
+            <input type="submit" value="update">
+            <button id="btn-back-2" class="btn btn-outline-danger">back</button>
+        </form>
+    </section>
+
+    <!-- UPDATE-TODO PAGE ======================================================================== -->
+
+    <section id="show-todo-page">
+        <div id="home_page_header">
+          <h1 >TODO LIST</h1>
+          <a href="#" id="create_button" value="Create Todo">+</a>
+        </div>
+        <div class="main">
+            
+        </div>
+    </section>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
