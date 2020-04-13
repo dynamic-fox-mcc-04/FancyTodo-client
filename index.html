@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
+    <meta name="google-signin-client_id" content="593003226355-fi0u05m2vrhk62fl0me8414ua8gj0fbj.apps.googleusercontent.com">
+</head>
+<body id="app">
+    <nav class="navbar navbar-expand-lg navbar-light bg-info">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item" id="Home">
+                <a class="nav-link">Home</a>
+            </li>
+            <li class="nav-item" id="Login">
+              <a class="nav-link">Login</a>
+            </li>
+            <li class="nav-item" id="Register">
+                <a class="nav-link">Register</a>
+            </li>
+            <li class="nav-item" id="Logout">
+                <a class="nav-link">Logout</a>
+            </li>
+        </div>
+      </nav>
+
+      <div id="LandingPage">
+          <h1>Welcome To Fancy todo....</h1>
+          <p>you can basically make a project then add your friends in it to make the todo together...</p>
+          <ul>
+              <li>login/register first(login after register, can also use google login</li>
+              <li>select the project you want(or create></li>
+              <li>after that you can add or delete the friends...</li>
+              <li>and also you can create/update/delete the todos you / your friend make...</li>
+          </ul>
+      </div>
+
+      <div id="background">
+          <div class="loader"></div>
+      </div>
+
+      <div id="LoginForm">
+            <form id="FormLogin"><br>
+                <h2>Login</h2>
+                Id:<br>
+                <input type="email" id="EmailLogin" required placeholder=""><br>
+                Password:<br>
+                <input type="password" id="PasswordLogin" required placeholder=""><br><br>
+                <input type="submit"><br>or<br> 
+            </form>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <br><br>
+      </div>
+
+      <div id="RegisterForm">
+          <form id="FormRegister"><br>
+            <h2>Register</h2>
+          Id:<br>
+          <input type="email" id="EmailRegister" required placeholder=""><br>
+          Password:<br>
+          <input type="password" id="PasswordRegister" required placeholder=""><br>
+          <input type="submit"><br><br> 
+        </form>
+      </div>
+
+        <div id="ProjectBody">
+            <div id="ProjectsBar">
+                <h3>Current Project:</h3><br>
+                <form id="SelectProject">
+                    <select id="Project">
+                        </select>
+                        <input type="submit"><br><br>
+                </form>
+                <form id="AddProject">
+                    <input type="text" id="ProjectName" minlength="3" required>
+                    <input type="submit" value="Create Project">
+                    <br>
+                    <br>
+                </form>
+            </div>
+            
+        </div>
+  
+        <div id="MainBody">
+                <div id="MemberList">
+                    <table id="MembersList">
+                        <thead>
+                            <th>Friends</th>
+                        </thead>
+                        <Tbody id="Members">
+
+                        </Tbody>
+                    </table>
+            </div>
+                <form id="addf">
+                    Type Here:<br>
+                    <input type="email" id="MemberEmail" placeholder="Add/Delete Email"><br><br>
+                    <button type="button" id="AddFriend">Add Friend</button>
+                    <button type="button" id="DeleteFriend" >Delete Friend</button>
+                </form>
+            
+            </div>
+            <div id="Todos">
+                <h2>Todo Table</h2>
+                <button id="CreateTodoButton">Create Todo</button><br><br>
+            </div>
+            <div id="todoBox">
+                <table id="TodoTable">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Content</th>
+                            <th>DueDate</th>
+                            <th>Status</th>
+                            <th colspan="2">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody id="TodoBody">
+                        <tr>
+                            <td>test</td>
+                            <td>test</td>
+                            <td>test</td>
+                            <td>test</td>
+                            <td>test</td>
+                            <td>test</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        
+
+            <div id="CreateTodo">
+                <h2>Create Todo</h2>
+                <form id="TodoCreate">
+                    Title:<br>
+                    <input type="text" id="CreateTitle" required><br>
+                    Content:<br>
+                    <input type="text" id="CreateContent" required><br>
+                    Due Date:<br>
+                    <input type="date" id="CreateDate" required><br>
+                    Status:<br>
+                    <select id="CreateStatus">
+                        <option value="false">On Progress</option>
+                        <option value="true">Done</option>
+                    </select><br><br>
+                    <input type="submit" value="Create">
+                    <button id="CreateCancel">Cancel</button>
+                </form>
+            </div>
+            
+            <div id="UpdateTodo">
+              <h2>Update Todo</h2>
+              <form id="TodoUpdate">
+                  <input type="text" id="UpdateId" hidden>
+                  Title:<br>
+                  <input type="text" id="UpdateTitle" required><br>
+                  Content:<br>
+                  <input type="text" id="UpdateContent" required><br>
+                  Due Date:<br>
+                  <input type="date" id="UpdateDate" required><br>
+                  Status:<br>
+                  <select id="UpdateStatus">
+                      <option value="false">On Progress</option>
+                      <option value="true">Done</option>
+                  </select><br><br>
+                  <input type="submit" value="Update">
+                  <button id="UpdateCancel">Cancel</button>
+              </form>
+          </div>
+        
+        
+
+
+      
+    
+
+
+    <script  src="https://code.jquery.com/jquery-3.4.1.min.js"  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="  crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="index.js"></script>
+    <script src="nav.js"></script>
+</body>
+</html>
