@@ -1,0 +1,277 @@
+/* 
+    background: #005bea;
+    background: -webkit-linear-gradient(bottom, #005bea, #00c6fb);
+    background: -o-linear-gradient(bottom, #005bea, #00c6fb);
+    background: -moz-linear-gradient(bottom, #005bea, #00c6fb);
+    background: linear-gradient(bottom, #005bea, #00c6fb);
+    opacity: 0.9; */
+
+.container-fluid {
+    height: 100%;
+    background-image: url('./assets/back.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+html,
+body {
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.navbar {
+    background-color: rgba(0, 0, 0, 0);
+    height: 60px;
+    margin: 0;
+}
+
+.authModal {
+    margin: 8px;
+    border-radius: 8px;
+    width: 80px;
+    height: 40px;
+    background-color: gold;
+    font-weight: bold;
+    margin-top: 40px;
+}
+
+.authModal:hover {
+    margin-top: 40px;
+    border-radius: 8px;
+    width: 80px;
+    height: 40px;
+    background-color: gold;
+    font-weight: bold;
+    opacity: 0.6;
+    transition: 0.1s;
+}
+
+.modal-content {
+    width: 350px;
+    align-items: center;
+}
+
+.auth-form input {
+    width: 250px;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.auth-container {
+    padding: 2vh;
+    margin: 2vh;
+    width: 350px;
+    margin: 5px auto;
+    height: min-content;
+    overflow: hidden;
+    border-radius: 40px;
+    box-shadow: 5px 5px 10px 0 grey;
+    background-color: white;
+}
+
+.buttongroup-horizontal {
+    display: flex;
+    flex-direction: row;
+}
+
+#wrap-main {
+    padding: 4vh !important;
+    background-color: whitesmoke;
+    box-shadow: 10px 10px 20px 5px grey;
+}
+
+.error-notif {
+    padding: 0;
+}
+
+.auth-notifications {
+    margin: .5vh;
+}
+
+.todo-link {
+    font-size: 12px;
+    margin-top: 1vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 40.5vw;
+}
+
+.todo-link a {
+    margin: 2px;
+}
+
+.a-todo {
+    opacity: .7;
+    border: 1px solid gold;
+    background-color: gold;
+    border-radius: 10%;
+    padding: 2px 4px;
+    color: black;
+    cursor: pointer;
+}
+
+.a-todo:hover {
+    color: #B03060 !important;
+    opacity: 1;
+}
+
+.head-todo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 40.5vw;
+}
+
+.head-todo .date {
+    font-size: 10px;
+}
+
+.todo-link .detail-todo {
+    /* position: relative;
+    bottom: 20px;
+    left: 255px; */
+    border: 1px solid gold;
+    background-color: gold;
+    border-radius: 10%;
+    padding: 2px 4px;
+    color: black;
+}
+
+#weather-content p {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+}
+
+#weather-content h4 {
+    margin: 0;
+    padding: 0;
+    color: black;
+    font-weight: bold;
+}
+
+#weather {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#user-profile {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-wrap: nowrap;
+}
+
+#profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.signout-btn {
+    border: 1px solid yellow;
+    background-color: yellow;
+    padding: 4px;
+    color: rgb(30, 30, 177);
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.signout-btn:hover {
+    color: #B03060;
+    font-size: 13px;
+}
+
+.card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.card {
+    background-color: lightblue;
+}
+
+#card-todo {
+    box-shadow: 4px 4px 4px 0px grey;
+}
+
+#btn-container {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    margin: 5px;
+}
+
+#signin-btn,
+#signup-btn {
+    margin-bottom: 5px;
+}
+
+.confirmation {
+    font-size: 16px;
+}
+
+#form-right {
+    position: fixed;
+    width: 25vw;
+    height: min-content;
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 3px;
+}
+
+#title,
+#description,
+#due_date,
+#addToList-btn {
+    width: 205px;
+}
+
+.btn-add {
+    color: white;
+    font-weight: bold;
+    margin: auto;
+    border-radius: 8px;
+    width: 110px;
+    height: 40px;
+    background-color: red;
+    font-size: 12px;
+}
+
+.btn-add:hover {
+    color: white;
+    margin: auto;
+    border-radius: 8px;
+    width: 110px;
+    height: 40px;
+    background-color: red;
+    opacity: 0.6;
+    font-size: 12px;
+    margin: auto;
+    cursor: pointer;
+}
+
+.add-and-notif {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#form-notifications {
+    font-size: 10px;
+    background-color: red !important;
+}
