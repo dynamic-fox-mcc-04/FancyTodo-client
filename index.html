@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta name="google-signin-client_id" content="478264750363-9u5b7bd483nggk54ig3uk9us34tfc810.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <title>Todo - List</title>
+</head>
+<body>
+    <div class="showMessage alert alert-success"></div><br>
+    
+    <div class="homePage jumbotron">
+        <h1 class="display-4">Welcome To Fancy Todo</h1>
+        <p class="lead">Fancy-Todo-Client for weekly challenge Hacktiv8 Phase 2</p>
+        <hr class="my-4">
+        <p>The main purpose of a todo is to help organize tasks</p>
+        <button class="btn btn-primary btn-lg" onClick="registerBtn()">Register</button><br><br>
+        <button class="btn btn-primary btn-lg" onClick="loginBtn()">Login</button><br><br>
+        <div class="g-signin2" data-onsuccess="onSignIn"> Login </div>  
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Weather Forecast For Jakarta</h3>
+                <div class="weather divTable"></div>
+                <p>www.openweathermap.com</p>
+            </div>
+            <div class="col-md-6">
+                <h3>Shalat Schedule For Jakarta</h3>
+                <div class="shalatSchedule divTable"></div>
+                <p>www.muslimsalat.com</p>
+            </div>
+    </div>
+
+    </div>
+
+    <div class="registerPage formPage">
+        <button class="btn btn-danger" onClick="home(event)">Home</button><br><br>
+        <h1 class="alert alert-primary text-center mt-3">Regist New User</h1>
+        <form onsubmit="regist(event)"id="register">
+                <label>Email</label><br>
+                <input type="email" id="emailRegist" placeholder="email@mail.com" required><br>
+                <label>Password</label><br>
+                <input type="password" id="passwordRegist" placeholder="8-16 characters" required><br><br>
+                <input class="btn btn-primary btn-lg" type="submit" value="Register">
+        </form>
+    </div>
+
+    <div class="loginPage formPage">
+        <form onsubmit="login(event)" id="login">
+            <button class="btn btn-danger" onClick="home(event)">Home</button><br><br>
+            <h1 class="alert alert-primary text-center mt-3">Login User</h1>
+            <label>Email</label><br>
+            <input type="email" id="emailLogin" placeholder="email@mail.com" required><br>
+            <label>Password</label><br>
+            <input type="password" id="passwordLogin" placeholder="Password" required><br><br>
+            <input class="btn btn-primary btn-lg" type="submit" value="login">
+        </form>
+    </div>
+
+    <div class="mainPage">
+        <button class="logout btn btn-danger">Logout</button>
+        <h1>My Todo List</h1>
+        <div>
+            <label for="addTodo">Add New Todo</label>
+                <form onsubmit="createTodo(event)" >
+                    <label>Title: </label><br>
+                    <input type="text" id="title" name="titleCreate" placeholder="Title" required><br>
+                    <label>Description: </label><br>
+                    <input type="textarea" id="description" name="descriptionCreate" placeholder="Description"><br>
+                    <label>Due Date: </label><br>
+                    <input type="date" id="due_date" name="dateCreate"><br><br>
+                    <input class="btn btn-primary btn-lg" type="submit" value="Create">
+                </form>
+        </div>
+        <div class="todoList"></div>
+    </div>
+
+    <div class="updatePage formPage">
+        <button class="btn btn-secondary backBtn" onClick="backBtn(event)">Back</button>
+        <h1 class="alert alert-primary text-center mt-3">Edit My Todo</h1>
+        <form onsubmit="updateTodo(event)">
+            <div class="form-group">
+                <input type="hidden" name="editId" id="editId" >
+                <label>Title: </label><br>
+                <input type="text" id="editTitle" class="form-control" name="editTitle"><br>
+                <label>Description: </label><br>
+                <input type="textarea" id="editDescription" class="form-control" name="editDescription" placeholder="Description"><br>
+                <label>Due Date: </label><br>
+                <input type="date" id="editDue_date" class="form-control" name="editDue_date"><br>
+                <label for="status">Status:</label> <br>
+                <select name="editStatus" class="form-control" id="editStatus">
+                    <option id="editStatus" value="false"> Pending </option>
+                    <option id="editStatus" value="true"> Complete </option>
+                </select><br>
+                <input class="btn btn-primary btn-lg" type="submit" value="Edit">
+            </div>
+        </form>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"> 
+    </script>
+    <script src="main.js"></script>
+     
+</body>
+</html>
