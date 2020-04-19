@@ -74,8 +74,8 @@ function login(event)
 function register(event)
 {
     event.preventDefault();
-    let email = $(".email").val();
-    let password = $(".password").val();
+    let email = $("#email-register").val();
+    let password = $("#password-register").val();
 
     $.ajax(
     {

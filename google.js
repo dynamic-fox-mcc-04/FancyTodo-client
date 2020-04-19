@@ -4,7 +4,7 @@ function onSignIn(googleUser)
     console.log(id_token)
     $.ajax({
         method : 'POST',
-        url : baseUrl + 'user/googleSign',
+        url : baseUrl + 'googleSign',
         data : {
             id_token
         }
