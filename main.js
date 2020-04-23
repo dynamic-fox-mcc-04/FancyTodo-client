@@ -49,7 +49,7 @@ function addTask(event) {
         getTasks()
     }).fail(err => {
         console.log(err, "adding task error")
-        $('#error-message').append(`${err.responseJSON}`)
+        $('#error-message').append(`${err.responseJSON.messages.join(', ')}`)
         $('#alert').fadeTo(4000, 500).slideUp(500, function() {
             $("#alert").slideUp(500);
             $('#error-message').empty()
@@ -159,7 +159,11 @@ function editTask() {
         $('#edit-task').slideUp(500)
         getTasks()
     }).fail(err => {
-        console.log(err)
+        $('#error-message').append(`${err.responseJSON.messages.join(', ')}`)
+        $('#alert').fadeTo(4000, 500).slideUp(500, function() {
+            $("#alert").slideUp(500);
+            $('#error-message').empty()
+        })
     })
 }
 
@@ -287,7 +291,7 @@ function register(event) {
         $('#email-register').val('')
         $('#password-register').val('')
         console.log(err, "register error")
-        $('#error-message').append(`${err.responseJSON.msg}`)
+        $('#error-message').append(`${err.responseJSON.messages.join(', ')}`)
         $('#alert').fadeTo(4000, 500).slideUp(500, function() {
             $("#alert").slideUp(500);
             $('#error-message').empty()
