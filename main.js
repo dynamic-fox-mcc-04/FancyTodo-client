@@ -123,7 +123,8 @@ function showEdit(id) {
     }).done(response => {
         $('#title-edit').val(response.title)
         $('#description-edit').val(response.description)
-        $('#date-edit').val(response.due_date)
+        console.log(response.due_date)
+        $('#date-edit').val(response.due_date.split('T')[0])
         localStorage.setItem('id-edit', response.id)
     }).fail(err => {
         console.log(err)
