@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <link rel="stylesheet" href="style.css">
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="810529219616-q2qogn1dnfgm21h3ljv8he6a6nr3ukih.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <title>FancyToDo By Rerun</title>
+</head>
+<body>
+    <div class="loading" id="loading"><progress class="progress is-large is-info" max="100">60%</progress></div>
+    <article class="message is-danger is-full" id="alert">
+        <div class="message-header">
+          <p id="error-header">Error!</p>
+          <button class="delete" aria-label="delete"></button>
+        </div>
+        <div class="message-body" id="error-message">
+          
+        </div>
+    </article>
+    <div id="success-box" class="notification is-primary">
+        <button class="delete"></button>
+        <div id="success-message"></div>
+      </div>
+    <div class="box is-vcentered is-centered is-half log-form" id="landing-page">
+        <h3 class="title">ToDo by Rerun</h3>
+        <div class="field">
+            <label class="label">Email</label>
+            <div class="control">
+              <input class="input" type="email" placeholder="e.g. alexsmith@gmail.com" id="email-login">
+            </div>
+        </div>
+          
+        <div class="field">
+            <label class="label">Password</label>
+            <div class="control">
+              <input class="input" type="password" placeholder="512412415" id="password-login">
+            </div>
+        </div>
+        <button onclick="login(event)" class="button is-primary is-rounded">Login</button>
+        <p>Don't have an account? Click <a onclick="showRegister(event)" href="">here</a> to register.</p>
+        <p>Or sign in through Google:</p>
+        <br>
+        <div class="g-signin2" data-theme="dark" data-onsuccess="onSignIn"></div>
+    </div>
+    <div class="box is-vcentered is-centered is-half log-form"  id="register-page">
+        <h3 class="title">ToDo by Rerun</h3>
+        <div class="field">
+            <label class="label">Email</label>
+            <div class="control">
+              <input class="input" type="email" id="email-register" placeholder="e.g. alexsmith@gmail.com"">
+            </div>
+        </div>
+          
+        <div class="field">
+            <label class="label">Password</label>
+            <div class="control">
+              <input class="input" type="password" id="password-register" placeholder="512412415">
+            </div>
+        </div>
+        <button class="button is-primary is-rounded" onclick="register(event)">Register Now!</button>
+        <br><br>
+        <button class="button is-danger is-outlined is-rounded back" onclick="showLandingPage()">Back to login page</button>
+    </div>
+    <div id="dashboard">
+        <!-- navtest -->
+        <nav class="navbar" id="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+              <a class="navbar-item" href="https://bulma.io">
+                <div class="title"><b>Fancy Todo!</b></div>
+              </a>
+          
+              <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </a>
+            </div>
+          
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <div class="navbar-item">Welcome back, 
+                        <a class="navbar-item" id="username">
+                        </a>
+                        <a class="navbar-item" id="pic">
+
+                        </a>
+                    </div>
+                </div>
+          
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                    <div class="buttons">
+                        <a onclick="logout(event)" href="" class="button is-danger is-rounded">
+                        Logout
+                        </a>
+                    </div>
+                </div>
+                </div>
+            </div>
+          </nav>
+        <!-- end of navtest -->
+        <!-- Menu add task -->
+        <aside class="menu is-quarter" id="add-task">
+            <p class="menu-label">
+            Add Task
+            </p>
+            <div class="field">
+                <label class="label">Title</label>
+                <div class="control">
+                <input class="input" type="text" placeholder="e.g. alexsmith@gmail.com" id="title-add">
+                </div>
+            </div>
+            <div class="field">
+            <label class="label">Description:</label>
+            <div class="control">
+            <textarea class="input" id="description-add" type="text" rows="5" placeholder="Description here..."></textarea>
+            </div>
+        </div>
+            <div class="field">
+                <label class="label">Due Date:</label>
+                <div class="control">
+                <input class="input" id="date-add" type="date" placeholder="512412415">
+                </div>
+            </div>
+            <button onclick="addTask(event)" class="button is-primary is-rounded">Add Task</button>
+        </aside>
+        <!-- End of menu -->
+
+        <!-- Menu Edit Task -->
+        <aside class="menu is-quarter" id="edit-task">
+            <p class="menu-label">
+            Edit Task
+            </p>
+            <div class="field">
+                <label class="label">Title</label>
+                <div class="control">
+                <input class="input" type="text" placeholder="e.g. alexsmith@gmail.com" id="title-edit">
+                </div>
+            </div>
+            <div class="field">
+            <label class="label">Description:</label>
+            <div class="control">
+            <textarea class="input" id="description-edit" type="text" rows="5" placeholder="Description here..."></textarea>
+            </div>
+        </div>
+            <div class="field">
+                <label class="label">Due Date:</label>
+                <div class="control">
+                <input class="input" id="date-edit" type="date" placeholder="512412415">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Done?</label>
+                <div class="select">
+                    <select id="status-edit">
+                      <option value="true">True</option>
+                      <option value="false">False</option>
+                    </select>
+                  </div>
+            </div>
+            <button onclick="editTask(event)" class="button is-primary is-rounded">Edit Task</button>
+            <button onclick="closeEdit(event)" class="button is-danger is-rounded">Close</button>
+        </aside>
+        <!-- End of Menu -->
+
+        <div id="task-table">
+            
+            
+            <br>
+            <p></p>
+            <p class="title has-text-weight-bold">Your Tasks</p>
+            <p class="is-size-5 has-text-grey has-text-weight-bold is-italic" id="joke-setup">A</p>
+            <p class="is-size-6 has-text-grey-light is-italic" id="joke-punchline">B</p>
+            <!-- <div class="columns box tasks-box is-vcentered is-centered is-half"> -->
+            <div class="columns tasks-box">
+                <div class="column">
+                    <p class="is-size-5 has-text-centered has-text-danger is-italic is-family-secondary">Unfinished</p>
+                    <div id="tasks-list"></div>
+                </div>
+                <div class="column">
+                    <p class="is-size-5 has-text-centered has-text-primary is-italic is-family-secondary">Finished</p>
+                    <div id="tasks-list-done"></div>
+                </div>
+            </div>
+            <!-- </div> -->
+        </div>
+    </div>
+    <div id="edit-page">
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
+    </script>
+    <script src="main.js"></script>
+</body>

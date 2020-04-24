@@ -1,0 +1,133 @@
+/* #landing-page {
+    display: flex;
+    flex-direction: ;
+} */
+body {
+    /* background-color: black; */
+    /* padding: 10vw; */
+}
+.log-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 40vw;
+    /* height: 95vw; */
+    z-index: 3;
+    padding: 50px;
+    margin: auto;
+    margin-top: 5vw;
+    /* margin-bottom: 5vw; */
+    background-color: white;
+    /* color: black; */
+    /* padding: 20px; */
+    border: none;
+    border-radius: 4px;
+    /* position: relative; */
+    height: auto;
+}
+.back {
+    margin: 10px;
+}
+.g-signin2 {
+    margin: 10px;
+}
+.atas {
+    position: fixed;
+    top: 0;
+}
+.task {
+    /* background-color: #f1f2f6;
+    color: #444d55; */
+    margin: 12px;
+    border-radius: 6px;
+    width: 22vw;
+}
+
+#task-table {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 40vw;
+    /* height: 95vw; */
+    z-index: 3;
+    padding: 50px;
+    margin: auto;
+    margin-top: 5vw;
+    /* margin-bottom: 5vw; */
+    background-color: white;
+    /* color: black; */
+    /* padding: 20px; */
+    border: none;
+    border-radius: 4px;
+    /* position: relative; */
+    height: auto;
+}
+#alert {
+    position: fixed;
+    z-index: 20;
+    bottom: 0;
+    right: 0;
+}
+
+#success-box {
+    position: fixed;
+    z-index: 20;
+    bottom: 0;
+    right: 0;
+}
+
+.card {
+    margin: 20px;
+}
+
+.status {
+    margin-left: 30px;
+}
+
+#add-task {
+    position: fixed;
+    z-index: 15;
+    padding-left: 30px;
+    padding-bottom: 30px;
+    width: 15vw;
+    /* height: 95vh; */
+    bottom: 0;
+    
+}
+
+#edit-task {
+    position: fixed;
+    z-index: 15;
+    padding-left: 0px;
+    padding-bottom: 30px;
+    padding-right: 30px;
+    width: 15vw;
+    /* height: 95vh; */
+    bottom: 0;
+    right: 0;
+}
+
+#navbar {
+    position: fixed;
+    padding-right: 1vw;
+    width: 100vw;
+    top: 0;
+}
+.loading {
+    position: fixed;
+    top: 0;
+    padding: 25vh 25vw;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+    background-color: white;
+}
+
+.tasks-box {
+    margin: 40px;
+    /* height: 300px; */
+}
