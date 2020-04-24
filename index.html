@@ -20,11 +20,30 @@
                 <input type="password" id="password" name="password" placeholder="Your password here..." required><br><br>
                 <input type="submit" value="Sign in">
                 <p class="signin-page-texts">Don't have an account yet? You can register right away using:</p>
+                <button onclick="showRegisterPage( event )">Register with email</button><br><br>
                 <div class="g-signin2" data-onsuccess="onSignIn"></div>
             </form>
         </div>
-        
     </div>
+
+    <div class = "register-page">
+        <div class="register-signin-box">
+            <form onsubmit="register(event)" id="formRegister">
+                <h1 class="signin-page-sentence">Welcome to to-do-app!</h1>
+                <h3>Please register here first</h3>
+                <!-- <button class="signout">Sign Out</button> -->
+                <label class="signin-page-texts" for="email-register">Email:</label><br>
+                <input type="email" id="email-register" name="email-register-x" placeholder="Your email here..." required><br><br>
+                <label class="signin-page-texts" for="password-register">Password:</label><br>
+                <input type="password" id="password-register" name="password-register-x" placeholder="Your password here..." required><br><br>
+                <input type="submit" value="Register">
+            </form>
+        </div>   
+    </div>
+
+
+
+
 
     <div class="main-page">
         <div class="main-page-background-color">

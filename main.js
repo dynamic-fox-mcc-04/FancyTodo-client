@@ -20,6 +20,7 @@ function auth() {
         $('.update-page').hide()
         $('.add-todo-page').hide()
         $('.all-productivity-articles-page').hide()
+        $('.register-page').hide()
         getAllTodos()
         // showAllArticles()
     } else {
@@ -28,6 +29,7 @@ function auth() {
         $('.update-page').hide()
         $('.add-todo-page').hide()
         $('.all-productivity-articles-page').hide()
+        $('.register-page').hide()
     }
 }
 
@@ -76,6 +78,36 @@ function signIn( event ){
         .fail(error => {
             console.log(error, "process gagal")
         })
+}
+
+function showRegisterPage( event ){
+    // event.preventDefault()
+    $('.signIn-page').hide()
+    $('.main-page').hide()
+    $('.update-page').hide()
+    $('.add-todo-page').hide()
+    $('.register-page').show()
+}
+
+function register( event ){
+    event.preventDefault()
+    let email = $('#email-register').val() //ambil value dari #email
+    let password = $('#password-register').val() //ambil value dari #password
+    console.log(email, password)
+    $.ajax({
+        method: 'POST',
+        url: baseUrl + "/signup",
+        data: {
+            email,
+            password
+        }
+    })
+      .done(data => {
+        auth()
+      })
+      .fail(error => {
+        console.log({msg: 'Internal Server Error', error:error})
+      })
 }
 
 function getAllTodos(){
@@ -202,11 +234,11 @@ function showAllArticles( event ){
 }
 
 function showAddForm( event ){
+    event.preventDefault()
     $('.main-page').hide()
     $('.update-page').hide()
     $('.add-todo-page').show()
     // add-todo-page
-    idTemp = id
     $.ajax({
         method:'GET',
         url: baseUrl + '/todos/' + id,
