@@ -41,7 +41,12 @@ function onSignIn(googleUser) {
         }
     })
     .done(data =>{
-        console.log(data, "ini data onsignin main.js")
+        // isi data adalah....
+        // access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiYW5kcmUuZ3JhcGhpY2FAZ21haWwuY29tIiwiaWF0IjoxNTg3NzAzMTcwfQ.8nhaDNL19DJNc5iuE-D5bco4Q1zIeReINfadX7DcaZw"
+        // email: "andre.graphica@gmail.com"
+        // id: 10
+        localStorage.setItem("token", data.access_token)
+        auth()
     })
     .fail(error => {
         console.log(error, "error di main.js onSignIn")
@@ -65,7 +70,7 @@ function signIn( event ){
     }) 
         .done(data => {
             // console.log(data, "ini data yang akan dikirim")
-            localStorage.setItem("token", data.access_token)
+            localStorage.setItem("token", data.access_token) // set token at data.access_token
             auth()
         })
         .fail(error => {
@@ -107,12 +112,13 @@ function getAllTodos(){
                             </div>
                         </div>
                         <div class="task-action-bar">
-                        <button class="update-todo-button" onclick="showUpdate(${id})">Update Task</button>
-                        <button class="complete-task-button" onclick="completeTodo(${id})">Complete Task</button>
-                        <button class="uncomplete-task-button" onclick="uncompleteTodo(${id})">Reopen Task</button>
+                            <button class="update-todo-button" onclick="showUpdate(${id})">Update Task</button>
+                            <button class="complete-task-button"  onclick="completeTodo(${id})">Complete Task</button>
+                            <button class="uncomplete-task-button" onclick="uncompleteTodo(${id})">Reopen Task</button>
                             <button class="delete-todo-button" onclick="deleteTodo(${id})">Delete Task</button>
                         </div>
                 `)
+                // Ubah jadi ada satu tombol, buat div kosong 
         
         }
     })
