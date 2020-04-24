@@ -1,5 +1,5 @@
 let baseUrl = 'http://localhost:3000'
-$('.updatePage').show()
+// $('.updatePage').show()
 
 $( document ).ready(function() {
     authentication()
@@ -92,6 +92,7 @@ function onSignIn(googleUser) {
             $('.modal').hide()
             $('.updatePage').hide()
             $('.registerPage').hide()
+            $('.newsPage').hide()
 
         } else {
             $('.loginPage').show()
@@ -301,7 +302,7 @@ function onSignIn(googleUser) {
     }
 
     function cuaca() {
-        $('.cuaca').empty()
+
         let city= 'depok'
         $.ajax({
             method: 'GET',
@@ -311,6 +312,7 @@ function onSignIn(googleUser) {
             }
         })
             .done(data=>{
+                $('.cuaca').empty()
                 console.log(data);
                 $('.cuaca').append(`
                     <div class="mb-3">
@@ -335,7 +337,7 @@ function onSignIn(googleUser) {
         }
     
     function News() {
-        $('.news-content').empty()
+        
         $('.newsPage').show()
         $('.mainPage').hide()
         $('.modal').hide()
@@ -350,7 +352,8 @@ function onSignIn(googleUser) {
                 access_token: localStorage.access_token
             }
         })
-            .done(data=>{
+        .done(data=>{
+                $('.news-content').empty()
                 console.log(data);
                 for(let i in data.data.articles){
                     let title = data.data.articles[i].title
@@ -382,6 +385,7 @@ function onSignIn(googleUser) {
             })
         }
     function modalDelete(id){
+        $('.modaldelete').empty()
         $('.modaldelete').fadeIn()
         $('.modaldelete').append(`
         <div class="modaldelete-content">
