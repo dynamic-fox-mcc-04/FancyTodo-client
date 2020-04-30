@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id"
+        content="518369484055-kp8ij5v8t8b5btndoelr5fnp4bsd1cls.apps.googleusercontent.com">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Fancy Todo</title>
+</head>
+
+<body>
+    <div id="loginTodo">
+        <form onsubmit="login(event)" id="login">
+            <h2>Fancy Todo</h2>
+            <!-- <button class="logout">Logout</button> -->
+
+            <input type="email" id="email" placeholder="email">
+            <input type="password" id="password" placeholder="password">
+            <input type="submit" value="login"><br><br>
+            <p>if you don't have an account, <br>
+                just singin with your google</p>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        </form>
+
+    </div>
+
+
+    <div id="main_page">
+        <button class="logout">Logout</button>
+        <h1>My List Todos</h1>
+        <!-- MODAL -->
+        <div class="showEmail">
+
+        </div>
+        <div class="row flex-spaces child-borders">
+            <label class="paper-btn margin" for="modal-1">Add Todo</label>
+        </div>
+        <input class="modal-state" id="modal-1" type="checkbox">
+        <div class="modal">
+            <div class="modal-body">
+                <label class="btn-close" for="modal-1">X</label>
+                <h4 class="modal-title">Add Todo</h4>
+                <form onsubmit="addTodo(event)">
+                    <input id="title" type="text" placeholder="title">
+                    <input id="description" type="text" placeholder="description">
+                    <input type="text" id="status" placeholder="true/false">
+                    <input type="date" id="due_date">
+                    <input type="submit" value="Add">
+                </form>
+            </div>
+        </div>
+        <!-- END MODAL -->
+
+        <div class="todo_list">
+            <table class="table-hover">
+                <thead>
+                    <th>Action</th>
+                    <th>id</th>
+                    <th>title</th>
+                    <th>description</th>
+                    <th>status</th>
+                    <th>Due Date</th>
+
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="alert hide">
+        <div class="message">
+        </div>
+    </div>
+
+    <div class="updatePage">
+        <p id="todoid"></p>
+        <form onsubmit="update(event)">
+            <h1>Update Data</h1>
+            <input id="newtitle" type="text" placeholder="title">
+            <input id="newdesc" type="text" placeholder="description">
+            <input id="newstatus" type="text" placeholder="">
+            <input id="newdate" type="date" placeholder="">
+            <input type="submit" value="submit">
+        </form>
+    </div>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+    <script src="main.js"></script>
+</body>
+
+</html>
