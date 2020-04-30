@@ -114,6 +114,7 @@ function productsAdd(todoEl) {
     );
 }
 
+
 function showEmail(email) {
     $(".showEmail").append(
         `<p>User: ${email}</p>`
@@ -127,7 +128,7 @@ function alertHandler(msg) {
             $(".alert").fadeOut("slow");
         }, 2500);
     });
-}
+}a
 
 function deleteTodo(id) {
     event.preventDefault()
@@ -142,10 +143,10 @@ function deleteTodo(id) {
         auth()
         alertHandler(success.message)
 
-    }).catch(err => {
+    }).fail(err => {
         alertHandler(err.responseJSON)
     })
-}
+}a
 
 function addTodo(event) {
     event.preventDefault()
@@ -164,9 +165,10 @@ function addTodo(event) {
             title, description, status, due_date
         }
     }).done(_ => {
+        // $(".modal").toogle()
         auth()
+        // $(".modal").show()
         alertHandler('success add: ' + title)
-        $(".modal").hide()
         $('#title').val("")
         $('#description').val("")
         $('#status').val("")

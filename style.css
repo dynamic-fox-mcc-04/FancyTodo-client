@@ -106,6 +106,6 @@ h1 {
 border-style: dashed;
 color: teal;
 margin: auto;
-width: auto;
-padding: 30px;
+/* width: auto; */
+/* padding: 30px; */
  }
