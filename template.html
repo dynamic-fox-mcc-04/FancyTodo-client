@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous">
+    </script>
+    <script src="main.js"></script>
+    <title>Home</title>
+</head>
+<body>
+    <div class="login">
+        <div class="container">
+            <div class="container-header">
+                <h3>Fancy Todo</h3>
+            </div>
+            <div class="container-body">
+                <form id="target">
+                    <div class="input-group">
+                        <input class="input" type="email" id="email" placeholder="Email" required>
+                        <span class="focus-input"></span>
+                        <span class="label-input"></span>
+                    </div>
+                    <div class="input-group">
+                        <input class="input" type="password" id="password" placeholder="Password" required>
+                        <span class="focus-input"></span>
+                        <span class="label-input"></span>
+                    </div>
+                    <!-- <div class="remember">
+                        <input type="checkbox">
+                        Remember Me
+                    </div> -->
+                    <div class="submit">
+                        <input type="submit" value="Login" class="btn float-right login_btn">
+                    </div>
+                </form>
+            </div>
+            <div class="container-footer">
+                <div class="footer">
+                    Don't have an account?
+                    <form id="toRegister">
+                        <button>Register</button>
+                    </form>
+                </div>
+                <div class="another-account">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="register">
+        <form id="register">
+            <h3>Register</h2><br><br>
+            E-mail <br>
+            <input type="email" id="email" placeholder="Email" required><br>
+            Password<br>
+            <input type="password" id="password" placeholder="Password" required><br>
+            <input type="submit" value="Register"><br>
+        </form>
+    </div>
+    <div class="create-todo">
+        <form id="create-todo">
+            <h3>Create Todo</h2><br><br>
+            Title <br>
+            <input type="text" id="title" placeholder="Title" required><br>
+            Description<br>
+            <input type="text" id="description" placeholder="Description"><br>
+            Due Date<br>
+            <input type="text" id="due_date" placeholder="Due Date"><br>
+            <input type="submit" value="Create"><br>
+        </form>
+    </div>
+</body>
+</html>
